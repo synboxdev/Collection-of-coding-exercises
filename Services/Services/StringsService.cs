@@ -1,4 +1,5 @@
 ﻿using Services.Interfaces;
+using System.Text;
 
 namespace Services;
 
@@ -83,5 +84,62 @@ public class StringsService : IStringsService
             Console.WriteLine($"{inputString} is NOT a palindrome");
 
         return inputString;
+    }
+
+    public string ReverseOrderOfWordsInSentence(string? inputString)
+    {
+        // If provided input string is null or empty, we pick 'Collection of coding exercises' as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "  Collection  of coding exercises" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        // Define a starting point of iteration - which is the very end of input string, a placeholder iteration variable, and define a new instance of StringBuilder which we will be using to append and form a new, output string.
+        int Start = inputString.Length - 1;
+        int End = inputString.Length - 1;
+        int i;
+        StringBuilder reversedSentence = new StringBuilder();
+
+        // Loop until 'Start' variable reaches the start of the string.
+        while (Start > 0)
+        {
+            if (inputString[Start] == ' ')                      // With each iteration, we check if a given character is a space, if so - we must reverse it.
+            {
+                i = Start + 1;                                  // Starting point is the character BEFORE the space.             
+                while (i <= End)                                // Iterate from the starting point (mentioned above), all the way to the end. For the first word (last in the sentence) End point be end of the entire string, for second word, end will be last letter of the second word itself.
+                {
+                    reversedSentence.Append(inputString[i]);    // Form our reversed sentence by appending each character from Start to End.
+                    i++;                                        // Iterate until we reach End.
+                }
+                reversedSentence.Append(' ');                   // After we've appended the word, add a space afterwards, since we jumped over it with our indexes. 
+                End = Start - 1;                                // Define our new End point - which is the last character of the next word.
+            }
+            Start--;                                            // Loop backwards until a if condition is met.
+        }
+
+        for (i = 0; i <= End; i++)                              // When we reach the beginning of the initial input string - we must add the last word (1st word of the input string).
+        {
+            reversedSentence.Append(inputString[i]);
+        }
+        Console.WriteLine($"Reversed string : {reversedSentence}");
+
+        return reversedSentence.ToString();
+    }
+
+    public string ReverseOrderOfWordsInSentenceUsingSplitAndStringBuilder(string? inputString)
+    {
+        // If provided input string is null or empty, we pick 'Collection of coding exercises' as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "  Collection    of coding exercises" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        StringBuilder reversedSentence = new StringBuilder();                        // Instantiate StringBuilder which we will be using to form a new, reversed sentence.
+        var splitStringList = inputString.Split(" ").ToList();                       // Split input string by spaces.
+                                                                                     
+        for (int i = splitStringList.Count - 1; i >= 0; i--)                         // Loop over the list of strings, backwards.
+        {                                                                            
+            reversedSentence.Append(splitStringList[i] +                             // Form our new, reversed sentence by adding each element of split list, starting from the end of it.
+                (i - 1 >= 0 && splitStringList[i - 1] != " " ? " " : string.Empty)); // If next element in line (going backwards, so if current is 7th, we check 6th) is NOT a space (variable over which we split the entire sentence), we add an extra space.
+        }                                                                                   // Reason for this is - If two words have a singular space between then, after Split, we "lose" that space, same goes for multiple space - we result in having n-1 amount of spaces.
+
+        Console.WriteLine($"Reversed string : {reversedSentence}");
+        return reversedSentence.ToString();
     }
 }
