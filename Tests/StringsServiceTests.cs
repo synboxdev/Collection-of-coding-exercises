@@ -42,8 +42,26 @@ public class StringsServiceTests
     }
 
     [Fact]
-    public void ReverseAStringUsingLINQ_ReverseAStringUsingLINQWithNullParameter_ReturnsDefaultReversedString()
+    public void ReverseOrderOfWordsInSentence_ReverseOrderOfWordsInSentenceWithNullParameter_ReturnsDefaultReversedString()
     {
-        Assert.Equal("!dlrow olleH", stringsService.ReverseAStringUsingLINQ(null));
+        Assert.Equal("exercises coding of  Collection  ", stringsService.ReverseOrderOfWordsInSentence(null));
+    }
+
+    [Fact]
+    public void ReverseOrderOfWordsInSentence_ReverseOrderOfWordsInSentenceWithValidParameter_ReturnsReversedString()
+    {
+        Assert.Equal("great!  is Pizza", stringsService.ReverseOrderOfWordsInSentence("Pizza is  great!"));
+    }
+
+    [Fact]
+    public void ReverseOrderOfWordsInSentenceUsingSplitAndStringBuilder_ReverseOrderOfWordsInSentenceWithNullParameter_ReturnsDefaultReversedString()
+    {
+        Assert.Equal("exercises coding of    Collection  ", stringsService.ReverseOrderOfWordsInSentenceUsingSplitAndStringBuilder("  Collection    of coding exercises"));
+    }
+
+    [Fact]
+    public void ReverseOrderOfWordsInSentenceUsingSplitAndStringBuilder_ReverseOrderOfWordsInSentenceWithValidParameter_ReturnsDefaultReversedString()
+    {
+        Assert.Equal("great!  is Pizza", stringsService.ReverseOrderOfWordsInSentenceUsingSplitAndStringBuilder("Pizza is  great!"));
     }
 }

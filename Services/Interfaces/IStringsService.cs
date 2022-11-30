@@ -7,4 +7,6 @@ public interface IStringsService
     public string ReverseAStringUsingLINQ(string? inputString);
     public string StringIsPalindrome(string? inputString);
     public string StringIsPalindromeUsingLINQ(string? inputString);
+    public string ReverseOrderOfWordsInSentence(string? inputString);
+    public string ReverseOrderOfWordsInSentenceUsingSplitAndStringBuilder(string? inputString);
 }
