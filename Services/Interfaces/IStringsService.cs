@@ -5,4 +5,6 @@ public interface IStringsService
     public string ReverseAString(string? inputString);
     public string ReverseAStringUsingArrayReverse(string? inputString);
     public string ReverseAStringUsingLINQ(string? inputString);
+    public string StringIsPalindrome(string? inputString);
+    public string StringIsPalindromeUsingLINQ(string? inputString);
 }
