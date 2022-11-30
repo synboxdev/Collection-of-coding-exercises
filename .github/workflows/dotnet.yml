@@ -10,14 +10,11 @@ on:
     branches: [ "master" ]
 
 jobs:
-  build:
-
+  Core:
     runs-on: ubuntu-latest
-
     defaults:
       run:
         working-directory: ./Core
-
     steps:
     - uses: actions/checkout@v3
     - name: Setup .NET
@@ -27,6 +24,54 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore Core.csproj
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build --no-restore Core.csproj
+      
+  Data:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Data
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore dependencies
+      run: dotnet restore Data.csproj
+    - name: Build
+      run: dotnet build --no-restore Data.csproj
+      
+  Services:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Services
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore dependencies
+      run: dotnet restore Services.csproj
+    - name: Build
+      run: dotnet build --no-restore Services.csproj
+
+  Tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./Tests
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: 7.0.x
+    - name: Restore dependencies
+      run: dotnet restore Tests.csproj
+    - name: Build
+      run: dotnet build --no-restore Tests.csproj
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test --no-build --verbosity normal Tests.csproj
