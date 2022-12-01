@@ -1,4 +1,5 @@
 ﻿using Services.Interfaces;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 namespace Services;
@@ -132,14 +133,69 @@ public class StringsService : IStringsService
 
         StringBuilder reversedSentence = new StringBuilder();                        // Instantiate StringBuilder which we will be using to form a new, reversed sentence.
         var splitStringList = inputString.Split(" ").ToList();                       // Split input string by spaces.
-                                                                                     
+
         for (int i = splitStringList.Count - 1; i >= 0; i--)                         // Loop over the list of strings, backwards.
-        {                                                                            
+        {
             reversedSentence.Append(splitStringList[i] +                             // Form our new, reversed sentence by adding each element of split list, starting from the end of it.
                 (i - 1 >= 0 && splitStringList[i - 1] != " " ? " " : string.Empty)); // If next element in line (going backwards, so if current is 7th, we check 6th) is NOT a space (variable over which we split the entire sentence), we add an extra space.
-        }                                                                                   // Reason for this is - If two words have a singular space between then, after Split, we "lose" that space, same goes for multiple space - we result in having n-1 amount of spaces.
+        }                                                                                   // Reason for this is - If two words have a singular space between then, after Split, we "lose" that space, same goes for multiple space - we result in having n+1 amount of spaces.
 
         Console.WriteLine($"Reversed string : {reversedSentence}");
         return reversedSentence.ToString();
+    }
+
+    /// <summary>
+    /// We need to reverse each word individually without changing its position in the sentence.
+    /// </summary>
+    public string ReverseEachWordInAString(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice (Preferably with some extra spaces, to test thouroughly) as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "Collection of   coding exercises" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        StringBuilder reversedString = new StringBuilder();                          // Instantiate StringBuilder which we will be using to form a new, reversed sentence.
+        List<char> charlist = new List<char>();                                      // Char type list will be used to 'save' words that we'll be reversing.
+
+        for (int i = 0; i < inputString.Length; i++)                                 // Simply iterate over the entire input string.
+        {
+            if (inputString[i] == ' ' || i == inputString.Length - 1)                // Conditional statement is triggered if we encounter a space OR the very end of the string.
+            {
+                if (i == inputString.Length - 1)                                     // If we're at the very last character of the string - simply add it to char list (which we will reverse)
+                    charlist.Add(inputString[i]);
+                for (int j = charlist.Count - 1; j >= 0; j--)                        // Iterate backwards over the char list, and append all values to newly formed reversed string.
+                    reversedString.Append(charlist[j]);
+
+                if (i != inputString.Length - 1) reversedString.Append(' ');         // If we're NOT at the very last character of the string - add a space to reverse string, because we've entered conditional if block through it.
+                charlist = new List<char>();                                         // Once a given word was reversed, and extra space was added - reset char list by reinstantiating a new instance of same type list.
+            }
+            else
+                charlist.Add(inputString[i]);                                        // If we encounter NOT a space and NOT end of the input string, and whatever character we've encountered to char list (which we will reverse)
+        }
+
+        Console.WriteLine($"Reversed string : {reversedString}");
+        return reversedString.ToString();
+    }
+
+    public string ReverseEachWordInAStringUsingSplitAndStringBuilder(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice (Preferably with some extra spaces, to test thouroughly) as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? " Collection   of   exercises  " : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        StringBuilder reversedString = new StringBuilder();                          // Instantiate StringBuilder which we will be using to form a new, reversed sentence.
+        var splitStringList = inputString.Split(" ").ToList();                       // Split input string by spaces.
+
+        for (int i = 0; i < splitStringList.Count - 1; i++)                          // Loop over the list of strings, backwards.
+        {
+            char[] charArray = splitStringList[i].ToCharArray();                     // Convert our word to char array, and call Array Reverse function, later - add it to newly being formed reverse string.
+            Array.Reverse(charArray);
+
+            reversedString.Append(new string(charArray) +                            // Form our new, reversed sentence by adding newly reversed word.
+                (i + 1 <= splitStringList.Count - 1 &&                               // If next element in line is NOT a space (variable over which we split the entire sentence), we add an extra space.
+                splitStringList[i + 1] != " " ? " " : string.Empty));                // Reason for this is - If two words have a singular space between then, after Split, we "lose" that space, same goes for multiple space - we result in having n+1 amount of spaces.
+        }                                                                                   
+
+        Console.WriteLine($"Reversed string : {reversedString}");
+        return reversedString.ToString();
     }
 }

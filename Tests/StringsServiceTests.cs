@@ -64,4 +64,28 @@ public class StringsServiceTests
     {
         Assert.Equal("great!  is Pizza", stringsService.ReverseOrderOfWordsInSentenceUsingSplitAndStringBuilder("Pizza is  great!"));
     }
+
+    [Fact]
+    public void ReverseEachWordInAString_ReverseEachWordInAStringWithNullParameter_ReturnsDefaultReversedString()
+    {
+        Assert.Equal("noitcelloC fo   gnidoc sesicrexe", stringsService.ReverseEachWordInAString(null));
+    }
+
+    [Fact]
+    public void ReverseEachWordInAString_ReverseEachWordInAStringWithValidParameter_ReturnsReversedString()
+    {
+        Assert.Equal("sihT   ecnetnes si rof    tinu tset  ", stringsService.ReverseEachWordInAString("This   sentence is for    unit test  "));
+    }
+
+    [Fact]
+    public void ReverseEachWordInAStringUsingSplitAndStringBuilder_ReverseEachWordInAStringWithNullParameter_ReturnsDefaultReversedString()
+    {
+        Assert.Equal(" noitcelloC   fo   sesicrexe  ", stringsService.ReverseEachWordInAStringUsingSplitAndStringBuilder(null));
+    }
+
+    [Fact]
+    public void ReverseEachWordInAStringUsingSplitAndStringBuilder_ReverseEachWordInAStringWithValidParameter_ReturnsReversedString()
+    {
+        Assert.Equal("sihT   ecnetnes si rof    tinu tset  ", stringsService.ReverseEachWordInAStringUsingSplitAndStringBuilder("This   sentence is for    unit test  "));
+    }
 }
