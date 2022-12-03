@@ -33,12 +33,12 @@ public class CommandService : ICommandService
     /// </summary>
     public void Run()
     {
-        _logger.LogInformation($"Application has started at [{DateTime.Now}]");
+        StartAndExit(true);
         while (true)
         {
             if (!TryParsingUserInput())
             {
-                _logger.LogInformation($"Exiting the application at [{DateTime.Now}]");
+                StartAndExit(false);
                 break;
             }
         }
@@ -224,10 +224,24 @@ public class CommandService : ICommandService
         switch (category.Name)
         {
             case CategoryName.Strings:
-                    return _stringsService;
+                return _stringsService;
             case CategoryName.Numbers:
-                    return _numbersService;
+                return _numbersService;
             default: return null;
         }
+    }
+
+    private void StartAndExit(bool IsStarting)
+    {
+        Console.WriteLine($"Application is {(IsStarting ? "starting" : "exiting")} at {DateTime.Now}");
+
+        if (IsStarting)
+        {
+            Console.WriteLine("As you may already tell, this is a command-line based project, which a collection of solutions, " +
+                "to a variety of different exercises in different subjects/areas that one might encounter during an " +
+                "exam, technical interview or perhaps in pursuit of some extra programming practice.");
+        }
+        else
+            Console.WriteLine("Thank you for using the project. Farewell!");
     }
 }
