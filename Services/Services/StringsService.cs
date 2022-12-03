@@ -1,5 +1,4 @@
 ﻿using Services.Interfaces;
-using System.Reflection.Metadata.Ecma335;
 using System.Text;
 
 namespace Services;
@@ -193,9 +192,80 @@ public class StringsService : IStringsService
             reversedString.Append(new string(charArray) +                            // Form our new, reversed sentence by adding newly reversed word.
                 (i + 1 <= splitStringList.Count - 1 &&                               // If next element in line is NOT a space (variable over which we split the entire sentence), we add an extra space.
                 splitStringList[i + 1] != " " ? " " : string.Empty));                // Reason for this is - If two words have a singular space between then, after Split, we "lose" that space, same goes for multiple space - we result in having n+1 amount of spaces.
-        }                                                                                   
+        }
 
         Console.WriteLine($"Reversed string : {reversedString}");
         return reversedString.ToString();
+    }
+
+    public string CharacterOccurrencesInString(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? " Lets count the occurences !" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        Dictionary<char, int> characterCount = new Dictionary<char, int>();          // We will be using Dictionary to save characters and number of occurences in the input string.
+                                                                                     // Key will be of type char, which will represent individual character, and value will be of type int, which will be total sum of occurences of that character.
+        foreach (var character in inputString)                                       // Iterate over every single character, including spaces, in our input string.
+        {
+            if (!characterCount.ContainsKey(character))                              // If our Dictionary doesn't contain a Key (character) equal to currently 'selected' ...
+                characterCount.Add(character, 1);                                    // We add that character to our Dictionary, and give Value of 1, since its the first occurence we've found.
+            else
+                characterCount[character]++;                                         // If our Dictionary DOES contain such Key (character), increase its Value by one, since we just encountered another occurence of it.
+        }
+
+        Console.WriteLine("Displaying characters and number of their occurences in the input string:");
+        foreach (var character in characterCount)
+        {
+            Console.WriteLine("'{0}' - {1}", character.Key, character.Value);
+        }
+        return inputString;
+    }
+
+    public string CharacterOccurrencesInStringUsingLINQ(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? " Lets count the occurences !" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        var characterCount = inputString
+                            .GroupBy(character => character)                // Groups our input string by characters which will represent Key values.
+                            .Select(character =>                            // Select each individual character and create a new anonymous type objet, which will hold character value, and count of those characters in a given input string.
+                                new
+                                {
+                                    Character = character.Key,
+                                    OccurenceCount = character.Count()
+                                });
+
+        Console.WriteLine("Displaying characters and number of their occurences in the input string:");
+        characterCount.ToList()
+                      .ForEach(x =>                                         // Iterate over every single element in characterCount IEnumerable, and display its Character and OccurenceCount values.
+                        Console.WriteLine("'{0}' - {1}", x.Character, x.OccurenceCount));
+
+        return inputString;
+    }
+
+    public string CharacterOccurrencesInStringUsingASeparatePlaceholderList(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "Why would you even do this?" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        Dictionary<char, int> characterCount = new Dictionary<char, int>();          // We will be using Dictionary to save characters and number of occurences in the input string.
+        List<char> charList = new List<char>();                                      // Create a separate list of chars that we'll be using as a placeholder to count occurences of characters, and simply store final values to the Dictionary.
+        charList.AddRange(inputString);
+
+        for (int i = 0; charList.Count > 0; i++)                                            // Each iteration, we increase value of i by one, and loop continues indefinitely, until our placeholder list becomes empty.
+        {
+            characterCount.Add(charList[0], charList.Where(x => x == charList[0]).Count()); // Every iteration we take the very FIRST character of the input string, and store it as Key to dictionary, and we set Value of that Key equal to the LINQ Count of that character's occurences in our placeholder list of chars.
+            charList = charList.Where(x => x != charList[0]).ToList();                      // Afterwards - we remove ALL occurences of that character, from our placeholder list of characters, by re-creating it with a LINQ .Where condition. So our list becomes shorter, and it's length closer to zero.
+        }
+
+        Console.WriteLine("Displaying characters and number of their occurences in the input string:");
+        foreach (var character in characterCount)
+        {
+            Console.WriteLine("'{0}' - {1}", character.Key, character.Value);
+        }
+        return inputString;
     }
 }
