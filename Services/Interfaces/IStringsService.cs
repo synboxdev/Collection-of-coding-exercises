@@ -11,4 +11,7 @@ public interface IStringsService
     public string ReverseOrderOfWordsInSentenceUsingSplitAndStringBuilder(string? inputString);
     public string ReverseEachWordInAString(string? inputString);
     public string ReverseEachWordInAStringUsingSplitAndStringBuilder(string? inputString);
+    public string CharacterOccurrencesInString(string? inputString);
+    public string CharacterOccurrencesInStringUsingLINQ(string? inputString);
+    public string CharacterOccurrencesInStringUsingASeparatePlaceholderList(string? inputString);
 }
