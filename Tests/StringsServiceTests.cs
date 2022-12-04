@@ -88,4 +88,40 @@ public class StringsServiceTests
     {
         Assert.Equal("sihT   ecnetnes si rof    tinu tset  ", stringsService.ReverseEachWordInAStringUsingSplitAndStringBuilder("This   sentence is for    unit test  "));
     }
+
+    [Fact]
+    public void RemoveDuplicateCharactersFromString_RemoveDuplicateCharactersFromNullParameter_ReturnsDefaultedString()
+    {
+        Assert.Equal("Colectin fdgxrs", stringsService.RemoveDuplicateCharactersFromString("Collection of coding exercises"));
+    }
+
+    [Fact]
+    public void RemoveDuplicateCharactersFromString_RemoveDuplicateCharactersFromValidParameter_ReturnsStringWithoutDuplicates()
+    {
+        Assert.Equal("Botle fwar", stringsService.RemoveDuplicateCharactersFromString("Bottle of water"));
+    }
+
+    [Fact]
+    public void RemoveDuplicateCharactersFromStringUsingHashSet_RemoveDuplicateCharactersFromNullParameter_ReturnsDefaultedString()
+    {
+        Assert.Equal("Colectin fdgxrs", stringsService.RemoveDuplicateCharactersFromStringUsingHashSet("Collection of coding exercises"));
+    }
+
+    [Fact]
+    public void RemoveDuplicateCharactersFromStringUsingHashSet_RemoveDuplicateCharactersFromValidParameter_ReturnsStringWithoutDuplicates()
+    {
+        Assert.Equal("Botle fwar", stringsService.RemoveDuplicateCharactersFromStringUsingHashSet("Bottle of water"));
+    }
+
+    [Fact]
+    public void RemoveDuplicateCharactersFromStringLINQ_RemoveDuplicateCharactersFromNullParameter_ReturnsDefaultedString()
+    {
+        Assert.Equal("Colectin fdgxrs", stringsService.RemoveDuplicateCharactersFromStringLINQ("Collection of coding exercises"));
+    }
+
+    [Fact]
+    public void RemoveDuplicateCharactersFromStringLINQ_RemoveDuplicateCharactersFromValidParameter_ReturnsStringWithoutDuplicates()
+    {
+        Assert.Equal("Botle fwar", stringsService.RemoveDuplicateCharactersFromStringLINQ("Bottle of water"));
+    }
 }
