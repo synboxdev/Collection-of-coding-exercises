@@ -368,4 +368,80 @@ public class StringsService : IStringsService
 
         return inputString;
     }
+
+    /// <summary>
+    /// Words are said to be Anagrams of each other if they share the same set of letters to form the respective words.
+    /// For example words 'flow' and 'wolf' are anagrams.
+    /// This is a bit more complex solution.
+    /// </summary>
+    public bool CheckIfWordsAreAnagramsOfEachOther(string[]? inputStrings)
+    {
+        // If provided input string array is null OR has less than two strings - we provide our own array, which contains three strings.
+        inputStrings = (inputStrings == null || inputStrings.Length < 2) ? 
+                        new string[] { "top", "pot", "otp" } : inputStrings;
+        Console.WriteLine("Here's a list of provided strings, to check whether they are anagrams");
+        inputStrings.ToList().ForEach(word => Console.WriteLine(word));
+
+        bool AreWordsAnagrams = false;
+
+        // Iterate through all words, and check whether they're all the same exact length. If they are not - they simply cant be anagrams.
+        for (int i = 0; i < inputStrings.Length - 1; i++)
+        {
+            if (inputStrings[i].Length != inputStrings[i + 1].Length)
+            {
+                Console.WriteLine("Provided words aren't all the same length, therefore they can't be anagrams.");
+                return AreWordsAnagrams;
+            }
+        }
+
+        // Create a list of frequencies for each word. Reason for this - we must know how many of each character, each word has, to later determine whether they all share same characters, as well as same number of occurences of those characters.
+        List<Dictionary<char, int>> frequenciesList = new List<Dictionary<char, int>>();
+        foreach (var word in inputStrings)
+        {
+            Dictionary<char, int> frequencies = new Dictionary<char, int>();        // Create a dictionary where KEY will be character itself, and VALUE will be number of occurences of that character in a given word.
+            foreach (var c in word)
+            {
+                if (!frequencies.ContainsKey(c))                                    // If dictionary doesn't have a given character - add it.
+                {
+                    frequencies.Add(c, 0);
+                }
+                frequencies[c]++;                                                   // Increase the occurence counter of a given character.
+            }
+            frequenciesList.Add(frequencies);                                       // And this 'local' dictionary to our list of frequencies for later logic to be applied.
+        }
+
+        // If all words are same length, and they must share same number of same characters - we can simply iterate over the first word's frequency list, and compare it to remaining words' frequency lists, to determine whether all of those words (2 or more) are anagrams.
+        foreach (var key in frequenciesList[0].Keys)                                // Key in this case represent an individual character of a word.
+        {
+            // One of two conditions will instantly determine whether words are anagrams or not:
+            if (!frequenciesList.All(x => x.ContainsKey(key)) ||                    // 1. ALL words must have a given character.
+                !frequenciesList.Any(x => x[key] == frequenciesList[0][key]))       // 2. ALL words must have same number of occurences of that character.
+            {
+                Console.WriteLine("Provided words are NOT anagrams of each other.");
+                return AreWordsAnagrams;                                            // If either condition is met - words are NOT anagrams.
+            }
+        }
+
+        Console.WriteLine("Provided words are indeed anagrams of each other!");
+        return AreWordsAnagrams = true;
+    }
+
+    public bool CheckIfWordsAreAnagramsOfEachOtherUsingLINQ(string? firstWord, string? secondWord)
+    {
+        // If provided input strings are null or empty, we pick strings of our choice as our input string.
+        firstWord = string.IsNullOrEmpty(firstWord) ? "top" : firstWord;
+        secondWord = string.IsNullOrEmpty(secondWord) ? "pot" : secondWord;
+        Console.WriteLine($"Input strings are {firstWord} and {secondWord}");
+
+        if (firstWord.OrderBy(a => a).SequenceEqual(secondWord.OrderBy(b => b)))    // We order both words, in alphabetical order, and compare them using SequenceEqual function, which compare whether two sequences of characters are equal.
+        { 
+            Console.WriteLine("Words ARE anagrams of each other!"); 
+            return true;
+        }
+        else
+        {
+            Console.WriteLine("Words are NOT anagrams of each other!");
+            return false;
+        }
+    }
 }

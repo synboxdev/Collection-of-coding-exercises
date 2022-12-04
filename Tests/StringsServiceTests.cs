@@ -124,4 +124,40 @@ public class StringsServiceTests
     {
         Assert.Equal("Botle fwar", stringsService.RemoveDuplicateCharactersFromStringLINQ("Bottle of water"));
     }
+
+    [Fact]
+    public void CheckIfWordsAreAnagramsOfEachOther_CheckIfWordsAreAnagramsOfEachOtherWithNullParameter_ReturnsTrue()
+    {
+        Assert.True(stringsService.CheckIfWordsAreAnagramsOfEachOther(null));
+    }
+
+    [Fact]
+    public void CheckIfWordsAreAnagramsOfEachOther_CheckIfWordsAreAnagramsOfEachOtherWithValidAnagramsParameter_ReturnsTrue()
+    {
+        Assert.True(stringsService.CheckIfWordsAreAnagramsOfEachOther(new string[] { "aab", "baa", "aba" }));
+    }
+
+    [Fact]
+    public void CheckIfWordsAreAnagramsOfEachOther_CheckIfWordsAreAnagramsOfEachOtherWithNotValidAnagramsParameter_ReturnsFalse()
+    {
+        Assert.False(stringsService.CheckIfWordsAreAnagramsOfEachOther(new string[] { "aaa", "bbb", "bba"}));
+    }
+
+    [Fact]
+    public void CheckIfWordsAreAnagramsOfEachOtherUsingLINQ_CheckIfWordsAreAnagramsOfEachOtherWithNullParameter_ReturnsTrue()
+    {
+        Assert.True(stringsService.CheckIfWordsAreAnagramsOfEachOtherUsingLINQ(null, string.Empty));
+    }
+
+    [Fact]
+    public void CheckIfWordsAreAnagramsOfEachOtherUsingLINQ_CheckIfWordsAreAnagramsOfEachOtherWithValidAnagramsParameter_ReturnsTrue()
+    {
+        Assert.True(stringsService.CheckIfWordsAreAnagramsOfEachOtherUsingLINQ("flow", "wolf"));
+    }
+
+    [Fact]
+    public void CheckIfWordsAreAnagramsOfEachOtherUsingLINQ_CheckIfWordsAreAnagramsOfEachOtherWithNotValidAnagramsParameter_ReturnsFalse()
+    {
+        Assert.False(stringsService.CheckIfWordsAreAnagramsOfEachOtherUsingLINQ("wolf", "fox"));
+    }
 }
