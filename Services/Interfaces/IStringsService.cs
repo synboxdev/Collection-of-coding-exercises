@@ -19,4 +19,6 @@ public interface IStringsService
     public string RemoveDuplicateCharactersFromStringLINQ(string? inputString);
     public string FindAllSubstringsFromString(string? inputString);
     public string FindAllSubstringsFromStringUsingStringBuilder(string? inputString);
+    public bool CheckIfWordsAreAnagramsOfEachOther(string[]? inputStrings);
+    public bool CheckIfWordsAreAnagramsOfEachOtherUsingLINQ(string? firstWord, string? secondWord);
 }
