@@ -320,4 +320,52 @@ public class StringsService : IStringsService
         Console.WriteLine($"Displaying input string, with duplicate characters removed: {resultWithoutDuplicates}");
         return resultWithoutDuplicates;
     }
+
+    public string FindAllSubstringsFromString(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "cube" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        // We'll be using two overlapping loops:
+        // First loop starts from 2nd character, and loops to the end of the input string. A
+        // And the second, internal loop, will start from 1st character, and exit at earlier and earlier position, while simultaneously taking longer and longer 'chunks' (substrings) or our input string.
+
+        // In other words - First iteration, we'll take one-character-long 'bites' from our input string, and 'bite' all the way to the end of the string.
+        // Second iteration - we'll take two-character-long 'bites', but end our iteration one character earlier.
+
+        Console.WriteLine("Listing all possible substrings:");
+        for (int i = 1; i <= inputString.Length; i++)           
+        {
+            for (int j = 0; j <= inputString.Length - i; j++)
+            {
+                Console.WriteLine(inputString.Substring(j, i));
+            }
+        }
+
+        return inputString;
+    }
+
+    public string FindAllSubstringsFromStringUsingStringBuilder(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "cube" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        // We'll be using two overlapping loops:
+        // First loop will simply loop from start to finish of our input string.
+        // Second loop's start position will constantly will be moving one character forward. End condition is same as first loops - end of the input string.
+
+        for (int i = 0; i < inputString.Length; i++)
+        {
+            StringBuilder stringBuilder = new StringBuilder();      // Instantiate StringBuilder, whose Append functionality we're going to utilize.
+            for (int j = i; j < inputString.Length; j++)
+            {
+                stringBuilder.Append(inputString[j]);               // Inside the internal loop, we'll be continually forming the same 'string', by Appending the j'th position character to it. Next iteration, StringBuilder is going to be re-instantiated, therefore - "reset"
+                Console.WriteLine(stringBuilder);                   // Display to console, an intermediate value.
+            }
+        }
+
+        return inputString;
+    }
 }

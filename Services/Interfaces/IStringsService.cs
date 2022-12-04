@@ -17,4 +17,6 @@ public interface IStringsService
     public string RemoveDuplicateCharactersFromString(string? inputString);
     public string RemoveDuplicateCharactersFromStringUsingHashSet(string? inputString);
     public string RemoveDuplicateCharactersFromStringLINQ(string? inputString);
+    public string FindAllSubstringsFromString(string? inputString);
+    public string FindAllSubstringsFromStringUsingStringBuilder(string? inputString);
 }
