@@ -268,4 +268,56 @@ public class StringsService : IStringsService
         }
         return inputString;
     }
+
+    public string RemoveDuplicateCharactersFromString(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "Collection of coding exercises" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        string resultWithoutDuplicates = string.Empty;              // We'll be forming a new string, that will NOT contains any duplicate character values.
+
+        for (int i = 0; i < inputString.Length; i++)                // Iterate through the entire input string.
+        {
+            if (!resultWithoutDuplicates.Contains(inputString[i]))  // If our result string does not have a given character - append it to our string's end.
+                resultWithoutDuplicates += inputString[i];
+        }
+
+        Console.WriteLine($"Displaying input string, with duplicate characters removed: {resultWithoutDuplicates}");
+        return resultWithoutDuplicates;
+    }
+
+    /// <summary>
+    /// Tidbit of information about HashSets:
+    /// As per Microsoft documentation, found here: https://learn.microsoft.com/en-us/dotnet/api/system.collections.generic.hashset-1?view=net-7.0
+    /// A HashSet<T> collection is not sorted and cannot contain duplicate elements. If order or element duplication is more important than performance for your application, consider using the List<T> class together with the Sort method.
+    /// </summary>
+    public string RemoveDuplicateCharactersFromStringUsingHashSet(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "Collection of coding exercises" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        HashSet<char> characters = new HashSet<char>();                 // We define a HashSet which will hold all non-duplicate character values from our input string. 
+        foreach (var character in inputString)                          // Iterate through the entire input string, and add every character to the HashSet, which will add the characeter ONLY IF its not currently present in the HashSet.
+            characters.Add(character);
+
+        string resultWithoutDuplicates = string.Join("", characters);   // Create a result string, by Joining all characters in HashSet, into a singular string.
+
+        Console.WriteLine($"Displaying input string, with duplicate characters removed: {resultWithoutDuplicates}");
+        return resultWithoutDuplicates;
+    }
+
+    public string RemoveDuplicateCharactersFromStringLINQ(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "Collection of coding exercises" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        string resultWithoutDuplicates = string.Join("", inputString.ToList().DistinctBy(c => c));  // Instantiate a new string which we will form to be input string, but without duplicates.
+                                                                                                    // LINQ's DistinctBy function will return us a collection of non-duplicate elements from the input string, and we'll immediately form a string out of it.
+        
+        Console.WriteLine($"Displaying input string, with duplicate characters removed: {resultWithoutDuplicates}");
+        return resultWithoutDuplicates;
+    }
 }

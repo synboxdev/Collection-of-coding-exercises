@@ -14,4 +14,7 @@ public interface IStringsService
     public string CharacterOccurrencesInString(string? inputString);
     public string CharacterOccurrencesInStringUsingLINQ(string? inputString);
     public string CharacterOccurrencesInStringUsingASeparatePlaceholderList(string? inputString);
+    public string RemoveDuplicateCharactersFromString(string? inputString);
+    public string RemoveDuplicateCharactersFromStringUsingHashSet(string? inputString);
+    public string RemoveDuplicateCharactersFromStringLINQ(string? inputString);
 }
