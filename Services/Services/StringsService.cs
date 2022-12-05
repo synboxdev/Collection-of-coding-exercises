@@ -316,7 +316,7 @@ public class StringsService : IStringsService
 
         string resultWithoutDuplicates = string.Join("", inputString.ToList().DistinctBy(c => c));  // Instantiate a new string which we will form to be input string, but without duplicates.
                                                                                                     // LINQ's DistinctBy function will return us a collection of non-duplicate elements from the input string, and we'll immediately form a string out of it.
-        
+
         Console.WriteLine($"Displaying input string, with duplicate characters removed: {resultWithoutDuplicates}");
         return resultWithoutDuplicates;
     }
@@ -335,7 +335,7 @@ public class StringsService : IStringsService
         // Second iteration - we'll take two-character-long 'bites', but end our iteration one character earlier.
 
         Console.WriteLine("Listing all possible substrings:");
-        for (int i = 1; i <= inputString.Length; i++)           
+        for (int i = 1; i <= inputString.Length; i++)
         {
             for (int j = 0; j <= inputString.Length - i; j++)
             {
@@ -377,10 +377,10 @@ public class StringsService : IStringsService
     public bool CheckIfWordsAreAnagramsOfEachOther(string[]? inputStrings)
     {
         // If provided input string array is null OR has less than two strings - we provide our own array, which contains three strings.
-        inputStrings = (inputStrings == null || inputStrings.Length < 2) ? 
+        inputStrings = (inputStrings == null || inputStrings.Length < 2) ?
                         new string[] { "top", "pot", "otp" } : inputStrings;
         Console.WriteLine("Here's a list of provided strings, to check whether they are anagrams");
-        inputStrings.ToList().ForEach(word => Console.WriteLine(word));
+        inputStrings.ToList().ForEach(Console.WriteLine);
 
         bool AreWordsAnagrams = false;
 
@@ -434,8 +434,8 @@ public class StringsService : IStringsService
         Console.WriteLine($"Input strings are {firstWord} and {secondWord}");
 
         if (firstWord.OrderBy(a => a).SequenceEqual(secondWord.OrderBy(b => b)))    // We order both words, in alphabetical order, and compare them using SequenceEqual function, which compare whether two sequences of characters are equal.
-        { 
-            Console.WriteLine("Words ARE anagrams of each other!"); 
+        {
+            Console.WriteLine("Words ARE anagrams of each other!");
             return true;
         }
         else
@@ -443,5 +443,39 @@ public class StringsService : IStringsService
             Console.WriteLine("Words are NOT anagrams of each other!");
             return false;
         }
+    }
+
+    public string FindLongestCommonEndingAmongStrings(string[]? inputStrings)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        // If provided input string array is null OR has less than two strings - we provide our own array, which contains three strings.
+        inputStrings = (inputStrings == null || inputStrings.Length < 2) ?
+                        new string[] { "allied", "multiplied", "lied" } : inputStrings;
+        Console.WriteLine("Here's a list of provided strings, to what is longest common ending among them:");
+        inputStrings.ToList().ForEach(Console.WriteLine);
+
+        string longestCommonEnding = string.Empty;
+        Dictionary<string, int> endingLengths = new Dictionary<string, int>();
+
+        foreach (var word in inputStrings)
+        {
+            for (int i = 0; i < word.Length; i++)
+            {
+                string ending = word.Substring(i);
+                if (inputStrings.All(x => x.EndsWith(ending)) && !endingLengths.ContainsKey(ending))
+                    endingLengths.Add(ending, ending.Length);
+            }
+        }
+
+        if (endingLengths.Count > 0)
+        {
+            longestCommonEnding = endingLengths.MaxBy(x => x.Value).Key;
+            Console.WriteLine($"Longest commond ending among input words is " +
+                $"'{longestCommonEnding}' with the length of '{longestCommonEnding.Length}'");
+        }
+        else
+            Console.WriteLine("There are no common ending among the input strings!");
+
+        return longestCommonEnding;
     }
 }

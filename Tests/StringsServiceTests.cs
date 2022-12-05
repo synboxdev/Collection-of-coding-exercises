@@ -160,4 +160,22 @@ public class StringsServiceTests
     {
         Assert.False(stringsService.CheckIfWordsAreAnagramsOfEachOtherUsingLINQ("wolf", "fox"));
     }
+    
+    [Fact]
+    public void FindLongestCommonEndingAmongStrings_FindLongestCommonEndingWithNullParameter_ReturnsDefaultLongestCommonEnding()
+    {
+        Assert.Equal("lied" ,stringsService.FindLongestCommonEndingAmongStrings(null));
+    }
+
+    [Fact]
+    public void FindLongestCommonEndingAmongStrings_FindLongestCommonEndingWithValidParameter_ReturnsLongestCommonEnding()
+    {
+        Assert.Equal("own", stringsService.FindLongestCommonEndingAmongStrings(new string[] {"own", "town", "grown"}));
+    }
+
+    [Fact]
+    public void FindLongestCommonEndingAmongStrings_FindLongestCommonEndingWithValidParameterButNoCommonEnding_ReturnsStringEmpty()
+    {
+        Assert.Equal(string.Empty, stringsService.FindLongestCommonEndingAmongStrings(new string[] {"box", "rat", "hello"}));
+    }
 }
