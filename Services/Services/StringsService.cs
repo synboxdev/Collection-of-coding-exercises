@@ -454,28 +454,86 @@ public class StringsService : IStringsService
         Console.WriteLine("Here's a list of provided strings, to what is longest common ending among them:");
         inputStrings.ToList().ForEach(Console.WriteLine);
 
-        string longestCommonEnding = string.Empty;
-        Dictionary<string, int> endingLengths = new Dictionary<string, int>();
+        string longestCommonEnding = string.Empty;                              // We'll save the longest commond ending that appears in every word to a single string variable.
+        Dictionary<string, int> endingLengths = new Dictionary<string, int>();  // We'll also be using a dictionary, so save every common ending that appears in every word, and its length.
 
-        foreach (var word in inputStrings)
+        foreach (var word in inputStrings)                                      // Iterate through every word in a provided array or strings.
         {
-            for (int i = 0; i < word.Length; i++)
+            for (int i = 0; i < word.Length; i++)                               // Iterate through the string's length.
             {
-                string ending = word.Substring(i);
-                if (inputStrings.All(x => x.EndsWith(ending)) && !endingLengths.ContainsKey(ending))
-                    endingLengths.Add(ending, ending.Length);
+                string ending = word.Substring(i);                              // Substring (cut off) the string from every position, starting at index 0, which creates a substring equivalent to the entire word, next iteration, word without the first letter, etc.
+                if (inputStrings.All(x => x.EndsWith(ending))                   // Two conditions must be met, for us to consider the substring a valid selection - ALL words must end with that specific substring, and our dictionary does NOT contain such ending.
+                    && !endingLengths.ContainsKey(ending))
+                    endingLengths.Add(ending, ending.Length);                   // If condition is met - we add that ending as KEY to our dictionary, and its VALUE is equal to its length.
             }
         }
 
-        if (endingLengths.Count > 0)
+        if (endingLengths.Count > 0)                                            // If our dictionary is not empty, i.e. There's at least one common ending found between all words, we display it and its length.
         {
             longestCommonEnding = endingLengths.MaxBy(x => x.Value).Key;
             Console.WriteLine($"Longest commond ending among input words is " +
                 $"'{longestCommonEnding}' with the length of '{longestCommonEnding.Length}'");
         }
         else
-            Console.WriteLine("There are no common ending among the input strings!");
+            Console.WriteLine("There are no common ending among the input strings!");           // Otherwise - inform the user that there were no common endings among the provided strings.
 
         return longestCommonEnding;
+    }
+
+    public bool CheckIfStringsHaveAllUniqueCharacters(string[]? inputStrings)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        // If provided input string array is null OR has less than two strings - we provide our own array, which contains three strings.
+        inputStrings = (inputStrings == null || inputStrings.Length < 2) ?
+                        new string[] { "pizza", "kebab", "taco" } : inputStrings;
+        Console.WriteLine("Here's a list of provided strings, to find out whether they individually contain only unique characters:");
+        inputStrings.ToList().ForEach(Console.WriteLine);
+
+        Dictionary<string, bool> validityDictionary = new Dictionary<string, bool>();   // We'll be using a dictionary, where KEY will be word itself, and VALUE will be bool which will indicate whether word has or doesn't have ONLY unique characters.
+
+        foreach (var word in inputStrings)                  // Iterate through every word.
+        {
+            validityDictionary.Add(word, true);             // Initially - add the word to dictionary, and 'temporarily' consider it that has only unique values.
+            for (int i = 0; i < word.Length - 1; i++)       // Utilize two loops - first will iterate from 1st, to second to last character.
+            {
+                for (int j = 1; j <= word.Length - 1; j++)  // Second loop will start from 2nd character, and loop all the way to the end.
+                {
+                    if (word[i] == word[j] && i != j)       // If we find same character, that is NOT in the same index position - it means we found duplicate character in the same word..
+                    {
+                        validityDictionary[word] = false;   // In that case - VALUE field of this KEY, to false - indicating that the word, in fact, does NOT contain only unique characters.
+                    }
+                }
+            }
+        }
+
+        // Displaying to the console, all words, and whether they do or do NOT contain only unique characters.
+        foreach (var word in validityDictionary)
+        {
+            Console.WriteLine($"Word '{word.Key}' does{(word.Value ? string.Empty : " NOT")} contain only unique characters!");
+        }
+
+        return inputStrings.Length == validityDictionary.Where(x => x.Value).Count();   // Our method (For Unit tests) will return true, only if ALL words in the provided array contain only unique characters.
+    }
+
+    public bool CheckIfStringsHaveAllUniqueCharactersUtilizingHashSet(string[]? inputStrings)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        // If provided input string array is null OR has less than two strings - we provide our own array, which contains three strings.
+        inputStrings = (inputStrings == null || inputStrings.Length < 2) ?
+                        new string[] { "pizza", "kebab", "taco" } : inputStrings;
+        Console.WriteLine("Here's a list of provided strings, to find out whether they individually contain only unique characters:");
+        inputStrings.ToList().ForEach(Console.WriteLine);
+
+        List<string> listOfUniqueCharacterWords = new List<string>();       // List which will hold only words that contain ONLY unique characters.
+
+        foreach (var word in inputStrings)                                  // Iterate through every word.
+        {
+            HashSet<char> uniqueChars = new HashSet<char>();                // Instantiate a temporary HashSet for every word..
+            word.ToList().ForEach(x => uniqueChars.Add(x));                 // And all all characters of that word, to the HashSet - which inherently will ONLY all characters that are NOT present in it.
+            if (word.Length == uniqueChars.Count)                           // Which in turn means - that if word's length is equal to the length of HashSet, only then it means that the word contains only unique characters.
+                listOfUniqueCharacterWords.Add(word);
+        }
+
+        return inputStrings.Length == listOfUniqueCharacterWords.Count();   // Our method (For Unit tests) will return true, only if ALL words in the provided array contain only unique characters.
     }
 }
