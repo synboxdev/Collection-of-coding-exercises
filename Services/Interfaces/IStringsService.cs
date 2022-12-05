@@ -21,4 +21,5 @@ public interface IStringsService
     public string FindAllSubstringsFromStringUsingStringBuilder(string? inputString);
     public bool CheckIfWordsAreAnagramsOfEachOther(string[]? inputStrings);
     public bool CheckIfWordsAreAnagramsOfEachOtherUsingLINQ(string? firstWord, string? secondWord);
+    public string FindLongestCommonEndingAmongStrings(string[]? inputStrings);
 }
