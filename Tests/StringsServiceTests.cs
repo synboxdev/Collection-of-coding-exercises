@@ -178,4 +178,28 @@ public class StringsServiceTests
     {
         Assert.Equal(string.Empty, stringsService.FindLongestCommonEndingAmongStrings(new string[] {"box", "rat", "hello"}));
     }
+
+    [Fact]
+    public void CheckIfStringsHaveAllUniqueCharacters_CheckIfStringsHaveAllUniqueCharactersWithValidParameterAndAllHaveOnlyUnique_ReturnsTrue()
+    {
+        Assert.True(stringsService.CheckIfStringsHaveAllUniqueCharacters(new string[] { "box", "rat", "day" }));
+    }
+
+    [Fact]
+    public void CheckIfStringsHaveAllUniqueCharacters_CheckIfStringsHaveAllUniqueCharactersWithValidParameterAndNoneHaveUnique_ReturnsFalse()
+    {
+        Assert.False(stringsService.CheckIfStringsHaveAllUniqueCharacters(new string[] { "hello", "  ", "strings" }));
+    }
+
+    [Fact]
+    public void CheckIfStringsHaveAllUniqueCharactersUtilizingHashSet_CheckIfStringsHaveAllUniqueCharactersUtilizingHashSetWithValidParameterAndAllHaveOnlyUnique_ReturnsTrue()
+    {
+        Assert.True(stringsService.CheckIfStringsHaveAllUniqueCharacters(new string[] { "box", "rat", "day" }));
+    }
+
+    [Fact]
+    public void CheckIfStringsHaveAllUniqueCharactersUtilizingHashSet_CheckIfStringsHaveAllUniqueCharactersUtilizingHashSetWithValidParameterAndNoneHaveUnique_ReturnsFalse()
+    {
+        Assert.False(stringsService.CheckIfStringsHaveAllUniqueCharacters(new string[] { "hello", "  ", "strings" }));
+    }
 }
