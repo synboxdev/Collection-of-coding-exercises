@@ -536,4 +536,73 @@ public class StringsService : IStringsService
 
         return inputStrings.Length == listOfUniqueCharacterWords.Count();   // Our method (For Unit tests) will return true, only if ALL words in the provided array contain only unique characters.
     }
+
+    public string FindLongestSubstringWithoutRepeatingCharacters(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "Microsoft" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        Dictionary<string, int> substringLengths = new Dictionary<string, int>(); // We'll store substrings, that ONLY contain unique characters.
+
+        // We'll be forming each substring individually, using three loops.
+        // First loop simply iterate through every character in a given word.
+        // Second and third loop, will iterate from the index of that characters, in a word, to the end of the string, and to the start of the string, respectively.
+        // By doing this, we'll check whether our newly being formed substring contains a given character or not. If it doesn't - we'll either Append that character to the end of our substring, or re-form our string by adding character at the very start.
+        foreach (char character in inputString)
+        {
+            string tempSubstring = string.Empty;
+            for (int i = inputString.IndexOf(character); i < inputString.Length; i++)   // Iterate from a given character, to the end of the string.
+            {
+                if (!tempSubstring.Contains(inputString[i]))
+                    tempSubstring += inputString[i];
+                else break;                                                             // If we found a non-unique character - break out of iteration, so that non-consecutive characters aren't checked/validated.
+            }
+            for (int j = inputString.IndexOf(character) - 1; j >= 0; j--)
+            {
+                if (j > 0 && !tempSubstring.Contains(inputString[j]))                   // Iterate from a given characters, to the 0'th index i.e. very beginning of the string.
+                    tempSubstring = inputString[j] + tempSubstring;                     // If we found a non-unique character - break out of iteration, so that non-consecutive characters aren't checked/validated.
+                else break;
+            }
+            if (!substringLengths.ContainsKey(tempSubstring))                           // If we dont have such substring in our dictionary - add it.
+                substringLengths.Add(tempSubstring, tempSubstring.Length);
+        }
+
+        // Utilize LINQ functionality to order the dictionary in descending order (starting from longest strings), and pick the first entry, that contains ONLY distinct values, which will automatically mean we're getting the longest substring (from all possible substrings), that has ONLY unique characters.
+        // If our word happens to have two or more substrings with same length - we'll take the first one.
+        string longestSubstring = substringLengths.OrderByDescending(x => x.Value).FirstOrDefault().Key;
+
+        Console.WriteLine($"Longest substring without repeating characters is '{longestSubstring}' with the length of {longestSubstring.Length}");
+
+        return longestSubstring;
+    }
+
+    public string FindLongestSubstringWithoutRepeatingCharactersByParsingAllPossibleSubstrings(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "pickoutthelongestsubstring" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        Dictionary<string, int> substringLengths = new Dictionary<string, int>();   // We'll store all possible substrings in this one dictionary where KEY will be substring itself, and VALUE will be the length of that substring.
+
+        // Here, we'll actually utilize logic from previous exercise 'Find all the substrings present in a given string' and store all unique substrings and their length as dictionary entries. 
+        for (int i = 1; i <= inputString.Length; i++)
+        {
+            for (int j = 0; j <= inputString.Length - i; j++)
+            {
+                var tempSubstring = inputString.Substring(j, i);                    // Create a substring.
+
+                if (!substringLengths.ContainsKey(tempSubstring))                   // If its not already present in the dictionary - add it.
+                    substringLengths.Add(tempSubstring, tempSubstring.Length);
+            }
+        }
+
+        // Utilize LINQ functionality to order the dictionary in descending order (starting from longest strings), and pick the first entry, that contains ONLY distinct values, which will automatically mean we're getting the longest substring (from all possible substrings), that has ONLY unique characters.
+        // If our word happens to have two or more substrings with same length - we'll take the first one.
+        string longestSubstring = substringLengths.OrderByDescending(x => x.Value)
+                                                  .FirstOrDefault(p => p.Key.Distinct().Count() == p.Value).Key;
+        Console.WriteLine($"Longest substring without repeating characters is '{longestSubstring}' with the length of {longestSubstring.Length}");
+
+        return longestSubstring;
+    }
 }

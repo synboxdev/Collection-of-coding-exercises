@@ -24,4 +24,6 @@ public interface IStringsService
     public string FindLongestCommonEndingAmongStrings(string[]? inputStrings);
     public bool CheckIfStringsHaveAllUniqueCharacters(string[]? inputStrings);
     public bool CheckIfStringsHaveAllUniqueCharactersUtilizingHashSet(string[]? inputStrings);
+    public string FindLongestSubstringWithoutRepeatingCharacters(string? inputString);
+    public string FindLongestSubstringWithoutRepeatingCharactersByParsingAllPossibleSubstrings(string? inputString);
 }
