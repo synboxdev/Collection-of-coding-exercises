@@ -202,4 +202,28 @@ public class StringsServiceTests
     {
         Assert.False(stringsService.CheckIfStringsHaveAllUniqueCharacters(new string[] { "hello", "  ", "strings" }));
     }
+
+    [Fact]
+    public void FindLongestSubstringWithoutRepeatingCharacters_FindLongestSubstringWithoutRepeatingCharactersWithNullParameter_ReturnsDefaultLongestSubstring()
+    {
+        Assert.Equal("Micros" ,stringsService.FindLongestSubstringWithoutRepeatingCharacters(null));
+    }
+
+    [Fact]
+    public void FindLongestSubstringWithoutRepeatingCharacters_FindLongestSubstringWithoutRepeatingCharactersWithValidParameter_ReturnsLongestSubstring()
+    {
+        Assert.Equal("ABCDEF", stringsService.FindLongestSubstringWithoutRepeatingCharacters("ABCDEFFG"));
+    }
+
+    [Fact]
+    public void FindLongestSubstringWithoutRepeatingCharactersByParsingAllPossibleSubstrings_FindLongestSubstringWithoutRepeatingCharactersByParsingAllPossibleSubstringsWithNullParameter_ReturnsDefaultLongestSubstring()
+    {
+        Assert.Equal("ubstring", stringsService.FindLongestSubstringWithoutRepeatingCharactersByParsingAllPossibleSubstrings(null));
+    }
+
+    [Fact]
+    public void FindLongestSubstringWithoutRepeatingCharactersByParsingAllPossibleSubstrings_FindLongestSubstringWithoutRepeatingCharactersByParsingAllPossibleSubstringsWithValidParameter_ReturnsLongestSubstring()
+    {
+        Assert.Equal("ABCDEF", stringsService.FindLongestSubstringWithoutRepeatingCharactersByParsingAllPossibleSubstrings("ABCDEFFG"));
+    }
 }
