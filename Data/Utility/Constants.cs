@@ -6,6 +6,7 @@ public class HelpCommandName
     public const string How = "how";
     public const string List = "list";
     public const string Quit = "quit";
+    public const string Clear = "clear";
 }
 
 public class CategoryName
