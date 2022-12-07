@@ -50,7 +50,7 @@ public class CommandService : ICommandService
     /// <returns>TRUE if method should be re-called, due to invalid input, or after user input was sucessfully executed. FALSE if application should be stopped.</returns>
     public bool TryParsingUserInput()
     {
-        Console.WriteLine("\nProvide some input..");
+        Console.WriteLine("Provide some input..");
         // Read user input, remove all non-alphanumeric characters. If cleared user input is null or empty - call helper method.
         string? userInput = Console.ReadLine()?.ToAlphaNumeric();
 
@@ -138,9 +138,9 @@ public class CommandService : ICommandService
         {
             case HelpCommandName.Help:
                 {
-                    Console.WriteLine("Listing all available help commands and their descriptions:\n");
+                    Console.WriteLine("Listing all available help commands and their descriptions:");
                     _options.HelpCommandCollection.HelpCommands.ForEach(x =>
-                        Console.WriteLine($"[{x.Name}] \t- {x.Description}"));
+                        Console.WriteLine($"\t[{x.Name}]\t{x.Description}"));
                     break;
                 }
             case HelpCommandName.Quit:
@@ -173,6 +173,10 @@ public class CommandService : ICommandService
                          "CategoryName -ListIndexOfExercise -ListIndexOfSolution\n" +
                          "For example: 'string -1 -2' Will yield you 'strings' category, Exercise #1, Solution #2");
                     break;
+                }
+            case HelpCommandName.Clear:
+                {
+                    Console.Clear(); break;
                 }
             default:
                 {
