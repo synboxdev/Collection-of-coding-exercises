@@ -77,4 +77,73 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Sum of all digits in the input number is equal to {sumOfDigits}");
         return sumOfDigits;
     }
+
+    /// <summary>
+    /// Tidbit of information about Factorials:
+    /// As per Wikipedia documentation, found here: https://en.wikipedia.org/wiki/Factorial
+    /// Factorial of a non-negative integer n, denoted by n!, is the product of all positive integers less than or equal to n
+    /// For example: 5! = 5 * 4! = 5 * 4 * 3 * 2 * 1
+    /// </summary>
+    public int FindFactorialOfAPositiveNumber(int number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random number between 1 and 10");
+        number = number <= 0 ? Random.Shared.Next(1, 10) : number;
+        Console.WriteLine($"Finding the factorial value of {number}");
+
+        int factorialValue = number;            // Starting value of our factorial will be equal to the provided input integer.
+        for (int i = number - 1; i >= 1; i--)   // Iterate from the starting input integer value, all the way down to 1.
+            factorialValue *= i;                // Multiply our compounding factorial value variable by the loop iterator.
+
+        Console.WriteLine($"Factorial value of input number is equal to {factorialValue}");
+        return factorialValue;
+    }
+
+    /// <summary>
+    /// Tidbit of information about Recursion:
+    /// Recursive function is a function that calls itself until a “base condition” is true, and execution stops.
+    /// Read more here: https://en.wikipedia.org/wiki/Recursion#In_computer_science
+    /// </summary>
+    public int? FindFactorialOfAPositiveNumberUsingRecursion(int? number, int? factorialValue)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        if (number == null || number <= 0)  // Since our method parameters are nullable, we intialize their initial values, and we're sure they wont be null when recursion recalls this method again.
+        {
+            Console.WriteLine("Picking a random number between 1 and 10");
+            number = (number == null || number <= 0) ? Random.Shared.Next(1, 10) : number;
+            Console.WriteLine($"Finding the factorial value of {number}");
+            factorialValue = number;    // Starting value of our factorial will be equal to the provided input integer.
+        }
+
+        number--;   // We subtract from our initial integer BEFORE doing multiplication, to make sure we haven't reached the end, which is 1
+        
+        if (number == 1)    // If we've reached 1, that means our factorial calculation has come to an end. Display the answer to the console, and return null, so that 'breaks' out of the recursion loop.
+        {
+            Console.WriteLine($"Factorial value of input number is equal to {factorialValue}");
+            return null;
+        }
+        else
+            factorialValue *= number;            // If if condition has not been met - multiple our current factorial value, by number subtracted by one.
+
+        return FindFactorialOfAPositiveNumberUsingRecursion(number, factorialValue);    // Continue calling the same method (itself), until If condition is met and it exits out. Pass our current number and factorial value, since we're continuing the calculation.
+    }
+
+    public int FindFactorialOfAPositiveNumberUsingWhileLoop(int number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random number between 1 and 10");
+        number = number <= 0 ? Random.Shared.Next(1, 10) : number;
+        Console.WriteLine($"Finding the factorial value of {number}");
+
+        int factorialValue = number;            // Starting value of our factorial will be equal to the provided input integer.
+        while (true)                     
+        {
+            number--;                           // Subtract our initial integer by one, to eventually reach while loop's exit condition.
+            if (number <= 1) break;             // Our loop's exit condition is once number, which is being subtracted by one every iteration, eventually reaches one or less.
+            factorialValue *= number;           // Multiply our compounding factorial value variable by the loop iterator. 
+        }
+
+        Console.WriteLine($"Factorial value of input number is equal to {factorialValue}");
+        return factorialValue;
+    }
 }

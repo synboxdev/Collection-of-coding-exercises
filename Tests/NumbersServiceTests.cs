@@ -41,4 +41,22 @@ public class NumbersServiceTests
     {
         Assert.Equal(10, numbersService.FindSumOfDigitsOfAPositiveNumberUsingLINQ(91));
     }
+
+    [Fact]
+    public void FindFactorialOfAPositiveNumber_FindFactorialOfAPositiveNumberWithValidParameter_ReturnsValidAnswer()
+    {
+        Assert.Equal(120, numbersService.FindFactorialOfAPositiveNumber(5));
+    }
+
+    [Fact]
+    public void FindFactorialOfAPositiveNumberUsingRecursion_FindFactorialOfAPositiveNumberUsingRecursionWithValidParameter_ExitsRecursionAndReturnsNull()
+    {
+        Assert.Null(numbersService.FindFactorialOfAPositiveNumberUsingRecursion(null, null));
+    }
+
+    [Fact]
+    public void FindFactorialOfAPositiveNumberUsingWhileLoop_FindSumOfDigitsOfAPositiveNumberUsingLINQWithValidParameter_ReturnsValidAnswer()
+    {
+        Assert.Equal(362880, numbersService.FindFactorialOfAPositiveNumberUsingWhileLoop(9));
+    }
 }
