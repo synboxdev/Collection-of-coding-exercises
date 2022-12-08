@@ -59,4 +59,10 @@ public class NumbersServiceTests
     {
         Assert.Equal(362880, numbersService.FindFactorialOfAPositiveNumberUsingWhileLoop(9));
     }
+
+    [Fact]
+    public void FibonacciSeriesCalculationAndDisplay_FibonacciSeriesCalculationAndDisplayWithValidParameter_ReturnsValidAnswer()
+    {
+        Assert.Equal(8, numbersService.FibonacciSeriesCalculationAndDisplay(6));
+    }
 }
