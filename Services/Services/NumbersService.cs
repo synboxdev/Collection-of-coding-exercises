@@ -146,4 +146,54 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Factorial value of input number is equal to {factorialValue}");
         return factorialValue;
     }
+
+    /// <summary>
+    /// Tidbit of information about Fibonacci numbers and Fibonacci sequence:
+    /// Fibonacci numbers form a sequence - the Fibonacci sequence, in which each number is the sum of the two preceding ones.
+    /// The sequence commonly starts from 0 and 1, although some authors start the sequence from 1 and 1 or sometimes (as did Fibonacci) from 1 and 2.
+    /// Read more here: https://en.wikipedia.org/wiki/Fibonacci_number
+    /// </summary>
+    public int FibonacciSeriesCalculationAndDisplay(int numberOfElements)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random number of elements, to display the Fibonacci sequence for between 2 and 20");
+        numberOfElements = numberOfElements < 2 ? Random.Shared.Next(2, 20) : numberOfElements;
+        Console.WriteLine($"Calculating and displaying Fibonacci series for {numberOfElements + 1} elements");
+
+        int firstNumber = 0;                             // We initialize the first two values of our Fibonacci sequence which are 0 and 1, and add them to our list of integer elements.
+        int secondNumber = 1;                            
+        List<int> fibonacciSequence =                    
+            new List<int> { firstNumber, secondNumber }; 
+                                                         
+        for (int i = 2; i <= numberOfElements; i++)      // Iterate from 2 (Since we've already added the first two values), all the way to the input number of elements.
+        {
+            var nextNumber = firstNumber + secondNumber; // Value of the next element in the sequence, is the addition of previous two.
+            firstNumber = secondNumber;                  // Then - our first number gets value of the second one..
+            secondNumber = nextNumber;                   // .. and our second number gets value of next number's (the one that was just calculated) value.
+            fibonacciSequence.Add(nextNumber);           // And then - we add newly calculated number to the list.
+        }
+
+        // Display our full Fibonacci sequence to console output. Reason for + 1 of elements, is because list indexing starts from zero, so for visual representation, we make sure to start our sequence from 1st number, and not 0'th
+        Console.WriteLine($"Displaying Fibonacci sequence elements for {numberOfElements + 1} elements:");
+        fibonacciSequence.ForEach(element => Console.WriteLine($"#{fibonacciSequence.IndexOf(element) + 1}\t{element}"));
+
+        return fibonacciSequence.Last();    // Return the last element value of our Fibonacci sequence. (For Unit tests)
+    }
+
+    public int? FibonacciSeriesCalculationAndDisplayUsingRecursion(int? firstNumber, int? secondNumber, int? numberOfElements, int counter)
+    {
+        if (firstNumber == null || secondNumber == null || numberOfElements == null)        // On the first method call, our values are null, so this method in only called once.
+        {
+            numberOfElements = (numberOfElements == null || numberOfElements < 2) ? Random.Shared.Next(2, 10) : numberOfElements;
+            Console.WriteLine($"Displaying Fibonacci sequence elements for {numberOfElements} elements:");
+            FibonacciSeriesCalculationAndDisplayUsingRecursion(0, 1, numberOfElements, 1);  // Call the same method with the initial values, providing the first number's and second number's initial values.
+        }
+        else if (counter <= numberOfElements)   // Until the counter, which indicates which number we're currently on reaches a total number of elements we want to display Fibonacci sequence for.
+        {
+            Console.WriteLine($"#{counter}\t{firstNumber}");
+            FibonacciSeriesCalculationAndDisplayUsingRecursion(secondNumber, firstNumber + secondNumber, numberOfElements, counter + 1);    // Call this method recursively, until 'else if' condition is met.
+        }
+        else return null;   // Break out of the recursion, when counter reaches the number of the elements.
+        return null;
+    }
 }
