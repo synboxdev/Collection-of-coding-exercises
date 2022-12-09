@@ -1,5 +1,4 @@
 ﻿using Services.Interfaces;
-using System;
 
 namespace Services;
 
@@ -195,5 +194,58 @@ public class NumbersService : INumbersService
         }
         else return null;   // Break out of the recursion, when counter reaches the number of the elements.
         return null;
+    }
+
+    /// <summary>
+    /// Tidbit of information about Armstrong (or also known as Narcissistic number)
+    /// In number theory, a narcissistic number in a given number base b is a number that is the sum of its own digits each raised to the power of the number of digits.
+    /// Read more here: https://en.wikipedia.org/wiki/Narcissistic_number
+    /// </summary>
+    public bool CheckIfNumberIsArmstrong(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random number of elements, to check whether its an Armstrong number or not.");
+        number = (number == null || number <= 0) ? Random.Shared.Next(1, 1000) : number;
+        Console.WriteLine($"Checking whether number {number} is Armstrong or not");
+        
+        bool isNumberArmstrong = false;                 // A boolean variable that will be determine whether sum of cubes is equal to our input number.
+        int sumOfCubes = 0;                             // Variable to hold our sum of cubic values of each digit of out input string.
+        foreach (var num in number.ToString())          // Convert our input variable to a string type, so that we can iterate over every single digit in our input number
+        {
+            int n = (int)char.GetNumericValue(num);     // Get the numeric value out of a digit (which is converted to char type when iterating over a string)
+            sumOfCubes += n * n * n;                    // Add a cubic multiplication value of the digit to the total sum of cubes. 
+        }
+
+        isNumberArmstrong = sumOfCubes == number ? true : false;    // If our sum of cubes (Each digit being raised to the power of three) is equal to the input number value, our input number is, in fact, an Armstong number!
+        Console.WriteLine($"Number {number} is{(isNumberArmstrong ? string.Empty : " NOT")} an Armstrong number!");
+
+        return isNumberArmstrong;
+    }
+
+    public bool CheckIfNumberIsArmstrongUsingRemainder(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random number of elements, to check whether its an Armstrong number or not.");
+        number = (number == null || number <= 0) ? Random.Shared.Next(1, 1000) : number;
+        Console.WriteLine($"Checking whether number {number} is Armstrong or not");
+        
+        bool isNumberArmstrong = false;                 // A boolean variable that will be determine whether sum of cubes is equal to our input number.
+        int sumOfCubes = 0;                             // Variable to hold our sum of cubic values of each digit of out input string.
+        
+        for (int i = (int)number; i > 0; i /= 10)            // Iteration loop start from our input number, until it reaches zero. Each iteration is divided out of 10.
+        {
+            int remainder = i % 10;                          // Remainder, as you might've guessed, is the remaining value after division of 10, of our loop iterator, which start of, being equal to our input number.
+            sumOfCubes += remainder * remainder * remainder; // Add a cubic multiplication value of the digit to the total sum of cubes.
+        }
+        // So, for example:
+        // First iteration if our number is 371, its remainder after division of 10 is 1. 1^3 = 1
+        // Next iteration, 371 / 10 = 37.1, which then rounds up to 37 because i is integer type, its remainder after division of 10 is 7. 7^3 = 343
+        // Next iteration (our last one), 37 / 10 = 3 (Because i is integer type), its remainder after division is 3 (because it cant divide out of 10, the remainder is the entire number 3. 3^3 = 27
+        // Sum of cubes is 1 + 343 + 27 = 371, which is exactly our input number.
+
+        isNumberArmstrong = sumOfCubes == number ? true : false;    // If our sum of cubes (Each digit being raised to the power of three) is equal to the input number value, our input number is, in fact, an Armstong number!
+        Console.WriteLine($"Number {number} is{(isNumberArmstrong ? string.Empty : " NOT")} an Armstrong number!");
+
+        return isNumberArmstrong;
     }
 }

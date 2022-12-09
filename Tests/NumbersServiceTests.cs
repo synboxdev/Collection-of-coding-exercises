@@ -65,4 +65,28 @@ public class NumbersServiceTests
     {
         Assert.Equal(8, numbersService.FibonacciSeriesCalculationAndDisplay(6));
     }
+
+    [Fact]
+    public void CheckIfNumberIsArmstrong_FibonacciSeriesCalculationAndDisplayWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsArmstrong(371));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsArmstrong_FibonacciSeriesCalculationAndDisplayWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsArmstrong(333));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsArmstrongUsingRemainder_FibonacciSeriesCalculationAndDisplayWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsArmstrongUsingRemainder(371));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsArmstrongUsingRemainder_FibonacciSeriesCalculationAndDisplayWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsArmstrongUsingRemainder(333));
+    }
 }
