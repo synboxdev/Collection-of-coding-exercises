@@ -11,4 +11,6 @@ public interface INumbersService
     public int FindFactorialOfAPositiveNumberUsingWhileLoop(int number);
     public int FibonacciSeriesCalculationAndDisplay(int numberOfElements);
     public int? FibonacciSeriesCalculationAndDisplayUsingRecursion(int? firstNumber, int? secondNumber, int? numberOfElements, int counter);
+    public bool CheckIfNumberIsArmstrong(int? number);
+    public bool CheckIfNumberIsArmstrongUsingRemainder(int? number);
 }
