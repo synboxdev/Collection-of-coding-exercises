@@ -1,13 +1,13 @@
 # <b><font size="7">Collection of coding exercises</font></b>
 
 ## <b><font size="6">📄 Table of contents</font></b>
-* 💡 [About the project](#about-the-project)
-* ⚙️ [Getting started](#getting-started)
+* [About the project](#about-the-project)
+* [Getting started](#getting-started)
     * [Downloading the repository](#downloading-the-repository)
     * [Starting the project](#starting-the-project)
-* 📚 [Technology stack](#technology-stack)
+* [Technology stack](#technology-stack)
 
-### <b><font size="6">💡 About the project</font></b>
+### <b><font size="6">About the project</font></b>
 
 'Collection of coding exercises' is a command-line based project, which a collection of solutions, to a variety of different exercises in different subjects/areas that one might encounter during an exam, technical interview or perhaps in pursuit of some extra programming practice.
 
@@ -15,7 +15,7 @@ Primary goal is to provide an accessible, nicely structured and documented proje
 
 ---
 
-### <b><font size="6">⚙️ Getting started</font></b>
+### <b><font size="6">Getting started</font></b>
 
 #### <b><font size="5">Downloading the repository</font></b>
 
@@ -92,7 +92,8 @@ Method 2 - Using <b>Visual Studio</b>
 
 ---
 
-#### <b><font size="6">📚 Technology stack</font></b>
+#### <b><font size="5">Technology stack</font></b>
+
 As mentioned in the introductory description of the project, this is inherently a relatively simple project, which primarely focuses on the complexity of the exercises themselves, instead of over-arching architecture of the project. Howevery, here's the technologies that were used in the making of this project:
 * [C#](https://learn.microsoft.com/en-us/dotnet/csharp/) 
 * [.NET 7 Framework](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
