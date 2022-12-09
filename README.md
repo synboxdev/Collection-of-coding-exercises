@@ -21,11 +21,9 @@ Primary goal is to provide an accessible, nicely structured and documented proje
 
 To get you started, you must first clone the repository (download it your own machine). You can do this by a number of methods, here's a few:
 <br><br>
-
 Method 1 - Downloading zipped repository and extracting it locally: <br>
 [Download](https://github.com/synboxdev/Collection-of-coding-exercises/archive/refs/heads/master.zip) zipped repository, and extract the files to a folder of your choosing.
 <br><br>
-
 Method 2 - Using [Windows CLI](https://learn.microsoft.com/en-us/windows-server/administration/windows-commands/cmd) to download the repository: <br>
 1. Open up <b>Cmd.exe</b>
 2. Navigate to an empty folder of your choosing
@@ -58,7 +56,7 @@ git clone https://github.com/synboxdev/Collection-of-coding-exercises.git
 Method 4 - Using <b>Visual Studio Code</b> built-in terminal
 1. Open up Visual Studio Code
 2. Open up the Terminal (View > Terminal)
-3. Make sure you're navigated to a directory where you want the repository to be downloaded to
+3. Make sure you're navigated to the directory where you want the repository to be downloaded to
 ```
 cd C:\Users\DeveloperUser\Desktop\MyEmptyFolder
 ```
@@ -94,10 +92,14 @@ Method 2 - Using <b>Visual Studio</b>
 
 ---
 
-#### <b><font size="5">📚 Technology Stack</font></b>
+#### <b><font size="6">📚 Technology stack</font></b>
 As mentioned in the introductory description of the project, this is inherently a relatively simple project, which primarely focuses on the complexity of the exercises themselves, instead of over-arching architecture of the project. Howevery, here's the technologies that were used in the making of this project:
 * [C#](https://learn.microsoft.com/en-us/dotnet/csharp/) 
 * [.NET 7 Framework](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
 * [Console App project](https://en.wikipedia.org/wiki/Console_application)
+* [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) / [Visual Studio Code](https://code.visualstudio.com/)
+* [Git](https://learn.microsoft.com/en-us/devops/develop/git/what-is-git) / [Sourcetree](https://www.sourcetreeapp.com/)
 
-Project thus far has been built, and will continue to be built, using only [standard framework libraries](https://learn.microsoft.com/en-us/dotnet/standard/framework-libraries). Reasoning for this is relatively simple - main focus of the project is to solve variety of exercises and programming problems, using the standard set of tools available right out of the box using the .NET framework, and not rely on some third party libraries, extensions or tools.
+Project, more specifically - solutions for the exercises thus far has been built, and will continue to be built, using only [standard framework libraries](https://learn.microsoft.com/en-us/dotnet/standard/framework-libraries), with the exception of unit tests, which are utilizing [Moq Framework](https://learn.microsoft.com/en-us/shows/visual-studio-toolbox/unit-testing-moq-framework) and [xUnit.net](https://xunit.net/) tools for input and output testing of our solutions.
+
+Reasoning for this is relatively simple - main focus of the project is to solve variety of exercises and programming problems, using the standard set of tools available right out of the box using the .NET framework, and not rely on some third party libraries, extensions or tools.
