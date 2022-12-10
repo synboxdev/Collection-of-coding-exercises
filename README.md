@@ -6,6 +6,8 @@
     * [Downloading the repository](#downloading-the-repository)
     * [Starting the project](#starting-the-project)
 * [Technology stack](#technology-stack)
+* [Contributing](#Contributing)
+* [Code of Conduct](#Code-of-Conduct)
 
 ### <b><font size="6">About the project</font></b>
 
@@ -92,7 +94,7 @@ Method 2 - Using <b>Visual Studio</b>
 
 ---
 
-#### <b><font size="5">Technology stack</font></b>
+### <b><font size="5">Technology stack</font></b>
 
 As mentioned in the introductory description of the project, this is inherently a relatively simple project, which primarely focuses on the complexity of the exercises themselves, instead of over-arching architecture of the project. Howevery, here's the technologies that were used in the making of this project:
 * [C#](https://learn.microsoft.com/en-us/dotnet/csharp/) 
@@ -104,3 +106,13 @@ As mentioned in the introductory description of the project, this is inherently 
 Project, more specifically - solutions for the exercises thus far has been built, and will continue to be built, using only [standard framework libraries](https://learn.microsoft.com/en-us/dotnet/standard/framework-libraries), with the exception of unit tests, which are utilizing [Moq Framework](https://learn.microsoft.com/en-us/shows/visual-studio-toolbox/unit-testing-moq-framework) and [xUnit.net](https://xunit.net/) tools for input and output testing of our solutions.
 
 Reasoning for this is relatively simple - main focus of the project is to solve variety of exercises and programming problems, using the standard set of tools available right out of the box using the .NET framework, and not rely on some third party libraries, extensions or tools.
+
+---
+
+### <b><font size="5">Contributing</font></b>
+Any and all positive contributions are welcome, including features, issues, documentation, guides, and more. See [Contributing documentation](CONTRIBUTING.md) for more details.
+
+---
+
+### <b><font size="5">Code of Conduct</font></b>
+This project and everyone participating in it is governed by the [Code of Conduct](CODE_OF_CONDUCT.md). By participating and contributing the the project and its contents, you are expected to uphold this code.
