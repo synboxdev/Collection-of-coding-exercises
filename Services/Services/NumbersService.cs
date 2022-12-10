@@ -115,7 +115,7 @@ public class NumbersService : INumbersService
         }
 
         number--;   // We subtract from our initial integer BEFORE doing multiplication, to make sure we haven't reached the end, which is 1
-        
+
         if (number == 1)    // If we've reached 1, that means our factorial calculation has come to an end. Display the answer to the console, and return null, so that 'breaks' out of the recursion loop.
         {
             Console.WriteLine($"Factorial value of input number is equal to {factorialValue}");
@@ -135,7 +135,7 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Finding the factorial value of {number}");
 
         int factorialValue = number;            // Starting value of our factorial will be equal to the provided input integer.
-        while (true)                     
+        while (true)
         {
             number--;                           // Subtract our initial integer by one, to eventually reach while loop's exit condition.
             if (number <= 1) break;             // Our loop's exit condition is once number, which is being subtracted by one every iteration, eventually reaches one or less.
@@ -160,10 +160,10 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Calculating and displaying Fibonacci series for {numberOfElements + 1} elements");
 
         int firstNumber = 0;                             // We initialize the first two values of our Fibonacci sequence which are 0 and 1, and add them to our list of integer elements.
-        int secondNumber = 1;                            
-        List<int> fibonacciSequence =                    
-            new List<int> { firstNumber, secondNumber }; 
-                                                         
+        int secondNumber = 1;
+        List<int> fibonacciSequence =
+            new List<int> { firstNumber, secondNumber };
+
         for (int i = 2; i <= numberOfElements; i++)      // Iterate from 2 (Since we've already added the first two values), all the way to the input number of elements.
         {
             var nextNumber = firstNumber + secondNumber; // Value of the next element in the sequence, is the addition of previous two.
@@ -207,7 +207,7 @@ public class NumbersService : INumbersService
         Console.WriteLine("Picking a random number of elements, to check whether its an Armstrong number or not.");
         number = (number == null || number <= 0) ? Random.Shared.Next(1, 1000) : number;
         Console.WriteLine($"Checking whether number {number} is Armstrong or not");
-        
+
         bool isNumberArmstrong = false;                 // A boolean variable that will be determine whether sum of cubes is equal to our input number.
         int sumOfCubes = 0;                             // Variable to hold our sum of cubic values of each digit of out input string.
         foreach (var num in number.ToString())          // Convert our input variable to a string type, so that we can iterate over every single digit in our input number
@@ -228,10 +228,10 @@ public class NumbersService : INumbersService
         Console.WriteLine("Picking a random number of elements, to check whether its an Armstrong number or not.");
         number = (number == null || number <= 0) ? Random.Shared.Next(1, 1000) : number;
         Console.WriteLine($"Checking whether number {number} is Armstrong or not");
-        
+
         bool isNumberArmstrong = false;                 // A boolean variable that will be determine whether sum of cubes is equal to our input number.
         int sumOfCubes = 0;                             // Variable to hold our sum of cubic values of each digit of out input string.
-        
+
         for (int i = (int)number; i > 0; i /= 10)            // Iteration loop start from our input number, until it reaches zero. Each iteration is divided out of 10.
         {
             int remainder = i % 10;                          // Remainder, as you might've guessed, is the remaining value after division of 10, of our loop iterator, which start of, being equal to our input number.
@@ -247,5 +247,58 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Number {number} is{(isNumberArmstrong ? string.Empty : " NOT")} an Armstrong number!");
 
         return isNumberArmstrong;
+    }
+
+    /// <summary>
+    /// Palindrome is a word (Or a number, in this case) that has the same spelling from front to back and vice versa
+    /// </summary>
+    public bool NumberIsPalindrome(int? number)
+    {
+        // Practically identical solution to what we used in 'StringIsPalindrome' in StringsService. We simply cast our number to a string, and cast the comparing numbers to string, and do equality comparison.
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random number of elements, to check whether its a palindrome or not.");
+        number = (number == null || number <= 0) ? Random.Shared.Next(1, 1000) : number;
+        Console.WriteLine($"Checking whether number {number} is a palindrome or not");
+
+        bool isNumberPalindrome = true;                 // A boolean variable that will be determine whether our input number is a palindrome or not.
+
+        for (int i = 0, j = number.ToString().Length - 1; i < number.ToString().Length / 2; i++, j--)   // Iterate using two variables, from start of the word to the end, and from the end to start, simultaneously.
+        {                                                                                               // Explanation of the exit condition - If word has 5 symbols, exit conditon triggers once i reaches 3, because there's no reason to check the exact middle of the string, since there's nothing to compare it to.
+            if (number.ToString()[i] != number.ToString()[j])                                           // Compare each letter from start and the end, all the way to the very middle of the input string. If at least a single comparison is NOT equal, that means a given string is NOT a palindrome.
+            {
+                isNumberPalindrome = false;     // If two numbers, both cast as strings, are NOT equal, that means number is NOT a palindrome.
+                break;
+            }
+        }
+        Console.WriteLine($"{number} is" + $"{(isNumberPalindrome ? string.Empty : " NOT")}" + " a palindrome!");
+
+        return isNumberPalindrome;
+    }
+
+    public bool NumberIsPalindromeUsingRemaider(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random number of elements, to check whether its a palindrome or not.");
+        number = (number == null || number <= 0) ? Random.Shared.Next(1, 1000) : number;
+        Console.WriteLine($"Checking whether number {number} is a palindrome or not");
+
+        bool isNumberPalindrome = true;                 // A boolean variable that will be determine whether our input number is a palindrome or not.
+        int temporaryNumber = (int)number;              // We define a few variables, that we'll be using during the solution.
+        int remainder, reversedNumber = 0;              // temporaryNumber will start out being equal to our input number, which we'll be continuously dividing, to form a reversed number.
+                                                        // remainder variable will be necessary to hold our remainding value after division. Reversed number will be formed during each iteration of the loop, and later on, will be compared to our input number.
+
+        while (temporaryNumber > 0)                             // Iterate until our temporaryNumber becomes equal to zero.
+        {
+            remainder = temporaryNumber % 10;                   // Remainder is equal to the remaining value after dividing the number out of 10.
+            reversedNumber = reversedNumber * 10 + remainder;   // Reversed number will be 'glued' together, by multiplying it from itself, and adding the remainder value.
+            temporaryNumber /= 10;                              // Temporary number is divided out of 10, every iteration.
+        }
+        // For example, if input number is 636, on first iteration reversedNumber is zero, remainder is 8. So 0 * 10 + 6 = 6, Next iteration 6 * 10 + 3 = 63, And last iteration 63 * 10 + 6 = 636.
+        if (reversedNumber != number)
+            isNumberPalindrome = false;
+
+        Console.WriteLine($"{number} is" + $"{(isNumberPalindrome ? string.Empty : " NOT")}" + " a palindrome!");
+
+        return isNumberPalindrome;
     }
 }
