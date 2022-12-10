@@ -13,4 +13,6 @@ public interface INumbersService
     public int? FibonacciSeriesCalculationAndDisplayUsingRecursion(int? firstNumber, int? secondNumber, int? numberOfElements, int counter);
     public bool CheckIfNumberIsArmstrong(int? number);
     public bool CheckIfNumberIsArmstrongUsingRemainder(int? number);
+    public bool NumberIsPalindrome(int? number);
+    public bool NumberIsPalindromeUsingRemaider(int? number);
 }

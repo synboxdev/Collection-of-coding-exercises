@@ -89,4 +89,28 @@ public class NumbersServiceTests
     {
         Assert.False(numbersService.CheckIfNumberIsArmstrongUsingRemainder(333));
     }
+
+    [Fact]
+    public void NumberIsPalindrome_NumberIsPalindromeWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.NumberIsPalindrome(636));
+    }
+
+    [Fact]
+    public void NumberIsPalindrome_NumberIsPalindromeWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.NumberIsPalindrome(123));
+    }
+
+    [Fact]
+    public void NumberIsPalindromeUsingRemaider_NumberIsPalindromeUsingRemaiderWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.NumberIsPalindromeUsingRemaider(636));
+    }
+
+    [Fact]
+    public void NumberIsPalindromeUsingRemaider_NumberIsPalindromeUsingRemaiderWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.NumberIsPalindromeUsingRemaider(123));
+    }
 }
