@@ -226,4 +226,10 @@ public class StringsServiceTests
     {
         Assert.Equal("ABCDEF", stringsService.FindLongestSubstringWithoutRepeatingCharactersByParsingAllPossibleSubstrings("ABCDEFFG"));
     }
+
+    [Fact]
+    public void BasicStringCompression_BasicStringCompressionWithValidParameter_ReturnsCompressedString()
+    {
+        Assert.Equal("?223k12311k243", stringsService.BasicStringCompression("??222k2221kk444"));
+    }
 }

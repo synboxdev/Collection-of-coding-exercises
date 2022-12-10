@@ -26,4 +26,5 @@ public interface IStringsService
     public bool CheckIfStringsHaveAllUniqueCharactersUtilizingHashSet(string[]? inputStrings);
     public string FindLongestSubstringWithoutRepeatingCharacters(string? inputString);
     public string FindLongestSubstringWithoutRepeatingCharactersByParsingAllPossibleSubstrings(string? inputString);
+    public string BasicStringCompression(string? inputString);
 }

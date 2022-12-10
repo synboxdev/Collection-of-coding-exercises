@@ -605,4 +605,33 @@ public class StringsService : IStringsService
 
         return longestSubstring;
     }
+
+    /// <summary>
+    /// Extremely basic solution to an exercise of compressing a string. More complex and versatile solutions normally utilize in-built compression classes.
+    /// </summary>
+    public string BasicStringCompression(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "000iii?@@@12333???" : inputString;
+        Console.WriteLine($"Input string: {inputString} and its byte count is {Encoding.UTF8.GetByteCount(inputString)}");
+        string compressedString = string.Empty;
+
+        int countOfOccurences = 1;                      // Variable to count occurences of a given element.
+        for (int i = 0; i < inputString.Length; i++)    // Iterate throughout the entire input string
+        {
+            if ((i != inputString.Length - 1 &&          // If a given characters is NOT last character of the string, and its not the same as the NEXT character in line - means we must continue forming our new, compressed string.
+                inputString[i] != inputString[i + 1]) ||
+                i == inputString.Length - 1)
+            {
+                compressedString += inputString[i] +    // Compressed string is being formed by added the current characters and the number of its occurences, cast as string variable. So for example if 'ppp' will be converted to 'p3'
+                                    (countOfOccurences > 1 ? countOfOccurences.ToString() : 1.ToString());  // If number of occurences is greater than one, add that number, otherwise - there was only a single occurence of a given character.
+                countOfOccurences = 1;
+            }
+            else
+                countOfOccurences++;                    // If current character and the NEXT character in line are the same - simply increase count of occurences, and continue iterating over the string.
+        }
+
+        Console.WriteLine($"Input string: {compressedString} and its byte count is {Encoding.UTF8.GetByteCount(compressedString)}");
+        return compressedString;
+    }
 }
