@@ -301,4 +301,25 @@ public class NumbersService : INumbersService
 
         return isNumberPalindrome;
     }
+
+    public int? FindAngleBetweenClockArrows(int hours, int minutes)
+    {
+        Console.WriteLine("Picking random hour and minutes, to find the angle between the arrows positioned on a clock.");
+        hours = hours <= 0 ? Random.Shared.Next(1, 24) : hours;                             // If hour isn't provided, we pick a random number between 1 and 24.
+        minutes = minutes <= 0 ? Random.Shared.Next(0, 60) : minutes;                       // If minute isn't provided, we pick a random number between 0 and 60
+        Console.WriteLine($"Finding the angle between arrows, when the time is {hours}:" +  // Based on whether hour is above 12, we indicate whethere a given time is AM or PM
+                            string.Format("{0:00}", minutes) +
+                            $"{(hours > 12 ? " PM" : " AM")}");
+
+        float hoursAngle = ((hours - 12) * 30f) + (minutes * .5f);          // Calculate hours angle. First convert time back to 12-hour clock, then multiply it by 30 degrees (because that's how much the arrow moves in a single hour). Also, add the degree that the minutes make up - which is .5 degree for every single minute.
+        float minutesAngle = (float)(minutes * 6f);                         // Each individual minute, moves the minute arrow by exactly 6 degrees.
+
+        float angle = hoursAngle > minutesAngle ?                           // Based on which angle is greater - subtract greater value from lower value, and calculate the absolute of it.
+                      Math.Abs(hoursAngle - minutesAngle) :
+                      Math.Abs(minutesAngle - hoursAngle);
+        angle = angle > 180 ? 360 - angle : angle;                          // If the angle is greater than 180 degrees, we subtract it from 360. Which basically means we want to calculate and display the 'smaller' half of the divided angle.
+
+        Console.WriteLine($"Angle between the hour and minute clock arrows is equal to {angle}");
+        return (int)angle;
+    }
 }

@@ -113,4 +113,10 @@ public class NumbersServiceTests
     {
         Assert.False(numbersService.NumberIsPalindromeUsingRemaider(123));
     }
+
+    [Fact]
+    public void FindAngleBetweenClockArrows_FindAngleBetweenClockArrowsWithValidParameter_ReturnsTrue()
+    {
+        Assert.Equal(108 ,numbersService.FindAngleBetweenClockArrows(15, 36));
+    }
 }

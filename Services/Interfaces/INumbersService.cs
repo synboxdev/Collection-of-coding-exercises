@@ -15,4 +15,5 @@ public interface INumbersService
     public bool CheckIfNumberIsArmstrongUsingRemainder(int? number);
     public bool NumberIsPalindrome(int? number);
     public bool NumberIsPalindromeUsingRemaider(int? number);
+    public int? FindAngleBetweenClockArrows(int hours, int minutes);
 }
