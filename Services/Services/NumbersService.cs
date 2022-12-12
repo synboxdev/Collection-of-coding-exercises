@@ -345,4 +345,31 @@ public class NumbersService : INumbersService
 
         return factors;
     }
+
+    /// <summary>
+    /// Tidbit of information about Fizz buzz word game:
+    /// Fizz buzz is a group word game for children to teach them about division. Fizz buzz (often spelled FizzBuzz in this context) has been used as an interview screening device for computer programmers.
+    /// Read more here: https://en.wikipedia.org/wiki/Fizz_buzz
+    /// </summary>
+    public int? FizzBuzzWordGame(int? lastNumber)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Playing out the FizzBuzz word game, starting from 1, all the way to a randomly selected, positive integer.");
+        lastNumber = (lastNumber == null || lastNumber <= 0) ? Random.Shared.Next(1, 100) : lastNumber;
+        Console.WriteLine($"Fizz Buzz game starts, playing until number {lastNumber} is reached.");
+
+        for (int i = 1; i <= lastNumber; i++)   // Iterate starting from 1 all the way to the last number. 
+        {
+            // For the conditions that print out a text, instead of a number, we'll print out number in brackets for easier understanding.
+            string whatToDisplay = (i % 3 == 0) && (i % 5 == 0) ? $"FizzBuzz ({i})" :   // If the number is divisible by both 3 and 5 - display 'FizzBuzz'
+                                   (i % 3 == 0) ? $"Fizz ({i})" :                       // If the number is divisible only by 3 - display 'Fizz'
+                                   (i % 5 == 0) ? $"Buzz ({i})" :                       // If the number is divisible only by 5 - display 'Buzz'
+                                   i.ToString();                                        // If none of the above conditions are met - display the number itself.
+
+            Console.WriteLine(whatToDisplay);
+        }
+
+        Console.WriteLine("Fizz Buzz game has finished!");
+        return lastNumber;
+    }
 }
