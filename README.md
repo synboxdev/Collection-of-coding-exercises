@@ -1,13 +1,13 @@
 # <b><font size="7">Collection of coding exercises</font></b>
 
 ## <b><font size="6">📄 Table of contents</font></b>
-* ## [About the project](#about-the-project)
-* ## [Getting started](#getting-started)
-    * ### [Downloading the repository](#downloading-the-repository)
-    * ### [Starting the project](#starting-the-project)
-* ## [Technology stack](#technology-stack)
-* ## [Contributing](#Contributing)
-* ## [Code of Conduct](#Code-of-Conduct)
+* ### [About the project](#about-the-project)
+* ### [Getting started](#getting-started)
+    * #### [Downloading the repository](#downloading-the-repository)
+    * #### [Starting the project](#starting-the-project)
+* ### [Technology stack](#technology-stack)
+* ### [Contributing](#Contributing)
+* ### [Code of Conduct](#Code-of-Conduct)
 
 ### <b><font size="6">About the project</font></b>
 
@@ -102,11 +102,11 @@ dotnet run
 
 As mentioned in the introductory description of the project, this is inherently a relatively simple project, which primarely focuses on the complexity of the exercises themselves, instead of over-arching architecture of the project. Howevery, here's the technologies that were used in the making of this project:
 
-* ### [C#](https://learn.microsoft.com/en-us/dotnet/csharp/) 
-* ### [.NET 7 Framework](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
-* ### [Console App project](https://en.wikipedia.org/wiki/Console_application)
-* ### [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) / [Visual Studio Code](https://code.visualstudio.com/)
-* ### [Git](https://learn.microsoft.com/en-us/devops/develop/git/what-is-git) / [Sourcetree](https://www.sourcetreeapp.com/)
+* #### [C#](https://learn.microsoft.com/en-us/dotnet/csharp/) 
+* #### [.NET 7 Framework](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
+* #### [Console App project](https://en.wikipedia.org/wiki/Console_application)
+* #### [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) / [Visual Studio Code](https://code.visualstudio.com/)
+* #### [Git](https://learn.microsoft.com/en-us/devops/develop/git/what-is-git) / [Sourcetree](https://www.sourcetreeapp.com/)
 
 Project, more specifically - solutions for the exercises thus far has been built, and will continue to be built, using only [standard framework libraries](https://learn.microsoft.com/en-us/dotnet/standard/framework-libraries), with the exception of unit tests, which are utilizing [Moq Framework](https://learn.microsoft.com/en-us/shows/visual-studio-toolbox/unit-testing-moq-framework) and [xUnit.net](https://xunit.net/) tools for input and output testing of our solutions.
 
