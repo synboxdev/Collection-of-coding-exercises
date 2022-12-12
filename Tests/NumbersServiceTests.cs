@@ -119,4 +119,11 @@ public class NumbersServiceTests
     {
         Assert.Equal(108 ,numbersService.FindAngleBetweenClockArrows(15, 36));
     }
+
+    [Fact]
+    public void FindFactorsOfANumber_FindFactorsOfANumberWithValidParameter_ReturnsTrue()
+    {
+        Assert.Equal(new List<int>() { 1, 2, 3, 5, 6, 10, 15, 30 }, 
+            numbersService.FindFactorsOfANumber(30));
+    }
 }
