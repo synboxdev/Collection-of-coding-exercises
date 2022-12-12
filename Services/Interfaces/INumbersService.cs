@@ -16,4 +16,5 @@ public interface INumbersService
     public bool NumberIsPalindrome(int? number);
     public bool NumberIsPalindromeUsingRemaider(int? number);
     public int? FindAngleBetweenClockArrows(int hours, int minutes);
+    public List<int>? FindFactorsOfANumber(int? number);
 }

@@ -322,4 +322,27 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Angle between the hour and minute clock arrows is equal to {angle}");
         return (int)angle;
     }
+
+    /// <summary>
+    /// Tidbit of information about Factors:
+    /// The factor of a number, in math, is a divisor of the given number that divides it completely, without leaving any remainder.
+    /// </summary>
+    public List<int>? FindFactorsOfANumber(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random positive integer, to find and diplay all of its factors.");
+        number = (number == null || number <= 0) ? Random.Shared.Next(1, 100) : number;
+        Console.WriteLine($"Finding all factors of number {number}.");
+        
+        List<int>? factors = new List<int>();   // Create a list of integer type, which we'll be using to store a list of factors of a given input number
+
+        for (int i = 1; i <= number; i++)       // Iterate from 1 to the value of our number (So if our number is 20, we loop from 1 to 20, increasing iterator i by one, each iteration). 
+            if (number % i == 0)                // If our number, divides out of iterator i, and leaves a remainder of 0, that means its a factor of our number, so we add it to the list.
+                factors.Add(i);
+
+        Console.WriteLine($"Factors of our number {number} are the following:");    // Print out all the factors that we've found to the console window.
+        factors.ForEach(Console.WriteLine);
+
+        return factors;
+    }
 }
