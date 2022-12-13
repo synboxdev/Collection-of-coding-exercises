@@ -60,4 +60,5 @@ void SetUpDepedencyInjection(IServiceCollection services)
     services.AddSingleton<CommandService>();
     services.AddSingleton<IStringsService, StringsService>();
     services.AddSingleton<INumbersService, NumbersService>();
+    services.AddSingleton<IArraysService, ArraysService>();
 }
