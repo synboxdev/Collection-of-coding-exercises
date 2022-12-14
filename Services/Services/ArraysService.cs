@@ -105,10 +105,10 @@ public class ArraysService : IArraysService
 
         int[] rotatedArray = new int[array.Length];             // Instantiate a new array, which will hold our rotated array. It will have same length (same number of elements) as our input array.
         int positionInRotatedArray = 0;                         // Position in the array will indicate into which position we must enter a given value.
-        
+
         // We'll utilize two loops, first of which, will start from the pivot point, and run until the end of the array
         // And we'll populate our rotated array, starting from 0th position.
-        for (int i = (int)pivot; i < array.Length; i++)         
+        for (int i = (int)pivot; i < array.Length; i++)
         {
             rotatedArray[positionInRotatedArray] = array[i];
             positionInRotatedArray++;
@@ -144,5 +144,81 @@ public class ArraysService : IArraysService
         rotatedArray.ToList().ForEach(Console.WriteLine);
 
         return rotatedArray;
+    }
+
+    /// <summary>
+    /// Tidbit of information about Multidimensional arrays:
+    /// Arrays can have more than one dimension.
+    /// As per Microsoft documentation, found here: https://learn.microsoft.com/en-us/dotnet/csharp/programming-guide/arrays/multidimensional-arrays
+    /// </summary>
+    public int[] Convert2DArrayInto1DArrayRowWise(int[,]? array2D)
+    {
+        // If a 2D array isn't provided to the method or is invalid, we create a very simple array of integers.
+        array2D = (array2D == null || (array2D.GetLength(0) > 0 && array2D.GetLength(1) > 0)) ?
+            new int[,] { { 1, 2, 3 }, { 4, 5, 6 } } : array2D;
+        Console.WriteLine("Here's our input 2D array that we will be converting into 1D array, row wise:");
+        for (int i = 0; i < array2D.GetLength(0); i++)      // Iterate over rows (Which is 1st dimension of our array)
+        {
+            for (int j = 0; j < array2D.GetLength(1); j++)  // Iterate over columns (Which is our 2nd dimension of our array)
+            {
+                Console.Write($"{array2D[i, j]}\t");        // Print out and display the initial, 2D array to the console window.
+            }
+            Console.WriteLine();
+        }
+
+        int[] array1D = new int[array2D.GetLength(0) * array2D.GetLength(1)];   // We instantiate a new, one dimensional array, whose size will be multiplication of row and column amount, to be able to store all elements of our 2D array.
+        int positionInArray1D = 0;                                              // We also need a temporary variable, to indicate into which position we must enter a given element.
+
+        for (int i = 0; i < array2D.GetLength(0); i++)
+        {
+            for (int j = 0; j < array2D.GetLength(1); j++)
+            {
+                array1D[positionInArray1D] = array2D[i, j];     // Insert i'th rows' j'th columns' element into continually increasing position index.
+                positionInArray1D++;                            // After an element was inserted, we increase the position index for the next variable.
+            }
+        }
+
+        Console.WriteLine("Here's our new, one dimensional array, created from input 2D array:");
+        array1D.ToList().ForEach(x => Console.Write(x + "\t"));
+        Console.WriteLine();
+
+        return array1D;
+    }
+
+    /// <summary>
+    /// Practically identical solution as the previous one (Convert2DArrayInto1DArrayRowWise), we simply iterate over columns, and then over rows.
+    /// </summary>
+    public int[] Convert2DArrayInto1DArrayColumnWise(int[,]? array2D)
+    {
+        // If a 2D array isn't provided to the method or is invalid, we create a very simple array of integers.
+        array2D = (array2D == null || (array2D.GetLength(0) > 0 && array2D.GetLength(1) > 0)) ?
+            new int[,] { { 1, 2, 3 }, { 4, 5, 6 } } : array2D;
+        Console.WriteLine("Here's our input 2D array that we will be converting into 1D array, column wise:");
+        for (int i = 0; i < array2D.GetLength(0); i++)
+        {
+            for (int j = 0; j < array2D.GetLength(1); j++)
+            {
+                Console.Write($"{array2D[i, j]}\t");
+            }
+            Console.WriteLine();
+        }
+
+        int[] array1D = new int[array2D.GetLength(0) * array2D.GetLength(1)];
+        int positionInArray1D = 0;
+
+        for (int i = 0; i < array2D.GetLength(1); i++)
+        {
+            for (int j = 0; j < array2D.GetLength(0); j++)
+            {
+                array1D[positionInArray1D] = array2D[j, i];
+                positionInArray1D++;
+            }
+        }
+
+        Console.WriteLine("Here's our new, one dimensional array, created from input 2D array:");
+        array1D.ToList().ForEach(x => Console.Write(x + "\t"));
+        Console.WriteLine();
+
+        return array1D;
     }
 }
