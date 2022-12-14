@@ -174,7 +174,7 @@ public class CommandService : ICommandService
                     Console.WriteLine(
                         $"You can call any solution, of any exercise displayed in [{HelpCommandName.List}] by typing the following:\n" +
                          "CategoryName -ListIndexOfExercise -ListIndexOfSolution\n" +
-                         "For example: 'string -1 -2' Will yield you 'strings' category, Exercise #1, Solution #2");
+                         "For example: 'strings -1 -2' Will yield you 'strings' category, Exercise #1, Solution #2");
                     break;
                 }
             case HelpCommandName.Clear:

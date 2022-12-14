@@ -38,4 +38,18 @@ public class ArraysServiceTests
         Assert.Equal(new int[] { 0, 5, 7, 8, 9 },
             arraysService.RotateArrayRightGivenAPivotUsingLINQ(new int[] { 7, 8, 9, 0, 5 }, 3));
     }
+
+    [Fact]
+    public void Convert2DArrayInto1DArrayRowWise_Convert2DArrayInto1DArrayRowWiseWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(new int[] { 1, 2, 3, 4, 5, 6 },
+            arraysService.Convert2DArrayInto1DArrayRowWise(new int[,] { { 1, 2, 3 }, { 4, 5, 6 } }));
+    }
+
+    [Fact]
+    public void Convert2DArrayInto1DArrayColumnWise_Convert2DArrayInto1DArrayColumnWiseWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(new int[] { 1, 4, 2, 5, 3, 6 },
+            arraysService.Convert2DArrayInto1DArrayColumnWise(new int[,] { { 1, 2, 3 }, { 4, 5, 6 } }));
+    }
 }
