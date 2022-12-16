@@ -10,4 +10,6 @@ public interface IArraysService
     public int[]? RotateArrayRightGivenAPivotUsingLINQ(int[]? array, int? pivot);
     public int[] Convert2DArrayInto1DArrayRowWise(int[,]? array2D);
     public int[] Convert2DArrayInto1DArrayColumnWise(int[,]? array2D);
+    public int[,] Convert1DArrayInto2DArrayRowWise(int[]? array1D, int? rows, int? columns);
+    public int[,] Convert1DArrayInto2DArrayColumnWise(int[]? array1D, int? rows, int? columns);
 }
