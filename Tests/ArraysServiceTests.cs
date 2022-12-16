@@ -52,4 +52,19 @@ public class ArraysServiceTests
         Assert.Equal(new int[] { 1, 4, 2, 5, 3, 6 },
             arraysService.Convert2DArrayInto1DArrayColumnWise(new int[,] { { 1, 2, 3 }, { 4, 5, 6 } }));
     }
+
+    [Fact]
+    public void Convert1DArrayInto2DArrayRowWise_Convert1DArrayInto2DArrayRowWiseWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(new int[,] { { 1, 2 }, { 3, 4 }, { 5, 6 } },
+            arraysService.Convert1DArrayInto2DArrayRowWise(new int[] { 1, 2, 3, 4, 5, 6 }, 3, 2));
+    }
+
+    [Fact]
+    public void Convert1DArrayInto2DArrayColumnWise_Convert1DArrayInto2DArrayColumnWiseWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(new int[,] { { 1, 2, 3 }, { 4, 5, 6 } },
+            arraysService.Convert1DArrayInto2DArrayRowWise(new int[] { 1, 2, 3, 4, 5, 6 }, 2, 3));
+    }
+
 }

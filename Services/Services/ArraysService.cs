@@ -221,4 +221,81 @@ public class ArraysService : IArraysService
 
         return array1D;
     }
+
+    public int[,] Convert1DArrayInto2DArrayRowWise(int[]? array1D, int? rows, int? columns)
+    {
+        // If a 2D array isn't provided to the method or is invalid, we create a very simple array of integers.
+        array1D = (array1D == null || array1D.Count() == 0) ?
+            new int[] { 1, 2, 3, 4, 5, 6 } : array1D;
+        // If provided rows and/or columns are invalid, OR their multiplied value isn't equal to length of our 1D array (which means basically means we dont have enough slots in rows and columns, to take up all 1D array values) - We initiate our own values.
+        rows = (rows == null || rows == 0 || rows * columns < array1D.Length) ? 2 : rows;
+        columns = (columns == null || columns == 0 || rows * columns < array1D.Length) ? 3 : columns;
+        Console.WriteLine("Here's our input 1D array that we will be converting into 2D array, ROW wise:");
+        array1D.ToList().ForEach(x => Console.Write(x + "\t"));
+        Console.WriteLine();
+
+        // Initialize a 2D array, and an indexing variable, using which we'll know which element from our 1D array, we must enter into a 2D array.
+        int[,] array2D = new int[(int)rows, (int)columns];
+        int index = 0;
+
+        for (int i = 0; i < array2D.GetLength(0); i++)
+        {
+            for (int j = 0; j < array2D.GetLength(1); j++)
+            {
+                array2D[i, j] = array1D[index];
+                index++;
+            }
+        }
+
+        Console.WriteLine($"Displaying our newly formed, 2D array that has {rows} Rows and {columns} Columns:");
+        for (int i = 0; i < array2D.GetLength(0); i++)      // Iterate over columns (Which is 1st dimension of our array)
+        {
+            for (int j = 0; j < array2D.GetLength(1); j++)  // Iterate over rows (Which is our 2nd dimension of our array)
+            {
+                Console.Write($"{array2D[i, j]}\t");        // Print out and display the initial, 2D array to the console window.
+            }
+            Console.WriteLine();
+        }
+
+        return array2D;
+    }
+
+    /// <summary>
+    /// Practically identical solution as the previous one (Convert1DArrayInto2DArrayRowWise), we simply iterate over columns, and then over rows.
+    /// </summary>
+    public int[,] Convert1DArrayInto2DArrayColumnWise(int[]? array1D, int? rows, int? columns)
+    {
+        // If a 2D array isn't provided to the method or is invalid, we create a very simple array of integers.
+        array1D = (array1D == null || array1D.Count() == 0) ?
+            new int[] { 1, 2, 3, 4, 5, 6 } : array1D;
+        rows = (rows == null || rows == 0 || rows * columns < array1D.Length) ? 2 : rows;
+        columns = (columns == null || columns == 0 || rows * columns < array1D.Length) ? 3 : columns;
+        Console.WriteLine("Here's our input 1D array that we will be converting into 2D array, COLUMN wise:");
+        array1D.ToList().ForEach(x => Console.Write(x + "\t"));
+        Console.WriteLine();
+
+        int[,] array2D = new int[(int)rows, (int)columns];
+        int index = 0;
+
+        for (int i = 0; i < array2D.GetLength(1); i++)
+        {
+            for (int j = 0; j < array2D.GetLength(0); j++)
+            {
+                array2D[j, i] = array1D[index];
+                index++;
+            }
+        }
+
+        Console.WriteLine($"Displaying our newly formed, 2D array that has {rows} Rows and {columns} Columns:");
+        for (int i = 0; i < array2D.GetLength(1); i++)      // Iterate over columns (Which is 1st dimension of our array)
+        {
+            for (int j = 0; j < array2D.GetLength(0); j++)  // Iterate over rows (Which is our 2nd dimension of our array)
+            {
+                Console.Write($"{array2D[j, i]}\t");        // Print out and display the initial, 2D array to the console window.
+            }
+            Console.WriteLine();
+        }
+
+        return array2D;
+    }
 }
