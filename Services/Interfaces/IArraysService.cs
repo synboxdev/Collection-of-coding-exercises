@@ -12,4 +12,6 @@ public interface IArraysService
     public int[] Convert2DArrayInto1DArrayColumnWise(int[,]? array2D);
     public int[,] Convert1DArrayInto2DArrayRowWise(int[]? array1D, int? rows, int? columns);
     public int[,] Convert1DArrayInto2DArrayColumnWise(int[]? array1D, int? rows, int? columns);
+    public int[]? FindTwoIntegersInArrayThatEqualToAGivenSum(int[]? array, int? sumToFind);
+    public int[]? FindTwoIntegersInArrayThatEqualToAGivenSumUsingLINQ(int[]? array, int? sumToFind);
 }
