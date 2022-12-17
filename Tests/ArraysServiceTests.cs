@@ -67,4 +67,17 @@ public class ArraysServiceTests
             arraysService.Convert1DArrayInto2DArrayRowWise(new int[] { 1, 2, 3, 4, 5, 6 }, 2, 3));
     }
 
+    [Fact]
+    public void FindTwoIntegersInArrayThatEqualToAGivenSum_FindTwoIntegersInArrayThatEqualToAGivenSumWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(new int[] {20, 100},
+            arraysService.FindTwoIntegersInArrayThatEqualToAGivenSum(new int[] { 10, 20, 30, 40, 80, 100 }, 120));
+    }
+
+    [Fact]
+    public void FindTwoIntegersInArrayThatEqualToAGivenSumUsingLINQ_FindTwoIntegersInArrayThatEqualToAGivenSumUsingLINQWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(new int[] { 20, 100 },
+            arraysService.FindTwoIntegersInArrayThatEqualToAGivenSumUsingLINQ(new int[] { 10, 20, 30, 40, 80, 100 }, 120));
+    }
 }

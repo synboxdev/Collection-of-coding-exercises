@@ -298,4 +298,72 @@ public class ArraysService : IArraysService
 
         return array2D;
     }
+
+    /// <summary>
+    /// Brute force method, that iterates over each element, using two loops, and find the first two separate elements, whose sum is equal to a given sum that we are looking for. Complexity is O(n^2).
+    /// </summary>
+    public int[]? FindTwoIntegersInArrayThatEqualToAGivenSum(int[]? array, int? sumToFind)
+    {
+        // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
+        array = (array == null || array.Count() == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
+        sumToFind = (sumToFind == null || sumToFind == 0) ? 6 : sumToFind;  // If sum to find isn't provided either - we set a value to it ourselves.
+        Console.WriteLine($"Here's out input array in which we will look for a two integers, that equal to {sumToFind}:");
+        array.ToList().ForEach(Console.WriteLine);
+
+        List<int> integersEqualToSum = new List<int>();             // Create a integer type list, into which we will store (if we find) two integers, from a given array, that are equal to a given sum.
+        for (int i = 0; i < array.Length; i++)                      // Utilize two loops, to check each element, with each element, and if they aren't the same exact element, and their sum is equal to sum that we're looking for - add these two values to our list.
+        {
+            for (int j = 0; j < array.Length; j++)
+            {
+                if (i != j && array[i] + array[j] == sumToFind)
+                {
+                    integersEqualToSum.AddRange(new int[] { array[i], array[j] });
+                    // If we've successfully found and added two values to our list - display results to console window, and break out of the entire method by simply returning the expected result.
+                    Console.WriteLine($"Two integers that are equal to our input sum of {sumToFind} are the following: {integersEqualToSum[0]} and {integersEqualToSum[1]}");
+                    return integersEqualToSum.ToArray();
+                }
+            }
+        }
+
+        Console.WriteLine("Unfortunately, no two integers are equal to sum that we were looking for.");
+        return integersEqualToSum.ToArray();
+    }
+
+    /// <summary>
+    /// Complexity wise this solution is the same as the previous one, however we utilize a Dictionary, and do conditional check based on Dictionary key/value pairs.
+    /// </summary>
+    public int[]? FindTwoIntegersInArrayThatEqualToAGivenSumUsingLINQ(int[]? array, int? sumToFind)
+    {
+        // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
+        array = (array == null || array.Count() == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
+        sumToFind = (sumToFind == null || sumToFind == 0) ? 6 : sumToFind;  // If sum to find isn't provided either - we set a value to it ourselves.
+        Console.WriteLine($"Here's out input array in which we will look for a two integers, that equal to {sumToFind}:");
+        array.ToList().ForEach(Console.WriteLine);
+
+        List<int> integersEqualToSum = new List<int>();                 // Create a integer type list, into which we will store (if we find) two integers, from a given array, that are equal to a given sum.
+        Dictionary<int, int> dictionary = new Dictionary<int, int>();   // First - we form a Dictionary for each array's element.
+        for (int i = 0; i < array.Length; i++)
+            dictionary.Add(i, array[i]);
+
+        // Iterate through every element of the dictionary.
+        // If sum of its value and ANY other value (whose key isn't same as the given element's key) in the dictionary are equal to sum that we're looking for - add those two values to the list and break out of the loop.
+        foreach (var entry in dictionary)
+        {
+            int? dictValue = dictionary.FirstOrDefault(x => x.Value + entry.Value == sumToFind &&
+                                          x.Key != entry.Key).Value;
+            if (dictValue != null && dictValue != 0)
+            {
+                integersEqualToSum.Add(entry.Value);
+                integersEqualToSum.Add((int)dictValue);
+                break;                                  // Since we've found the result - two integer value whose sum is equal to sum that we're looking for - we can break out of the loop.
+            }
+        }
+
+        // If we've successfully found and added two values to our list - display results to console window.
+        if (integersEqualToSum.Count > 0)
+            Console.WriteLine($"Two integers that are equal to our input sum of {sumToFind} are the following: {integersEqualToSum[0]} and {integersEqualToSum[1]}");
+        else
+            Console.WriteLine("Unfortunately, no two integers are equal to sum that we were looking for.");
+        return integersEqualToSum.ToArray();
+    }
 }
