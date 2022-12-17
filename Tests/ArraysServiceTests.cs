@@ -80,4 +80,18 @@ public class ArraysServiceTests
         Assert.Equal(new int[] { 20, 100 },
             arraysService.FindTwoIntegersInArrayThatEqualToAGivenSumUsingLINQ(new int[] { 10, 20, 30, 40, 80, 100 }, 120));
     }
+
+    [Fact]
+    public void MoveZerosToEndOfArray_MoveZerosToEndOfArrayWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(new int[] { 12, 24, 32, 14, 54, 0, 0 },
+            arraysService.MoveZerosToEndOfArray(new int[] { 12, 0, 0, 24, 32, 14, 54 }));
+    }
+
+    [Fact]
+    public void MoveZerosToEndOfArrayUsingLINQ_MoveZerosToEndOfArrayUsingLINQWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(new int[] { 54, 32, 24, 14, 12, 0, 0},
+            arraysService.MoveZerosToEndOfArrayUsingLINQ(new int[] { 12, 0, 0, 24, 32, 14, 54 }));
+    }
 }

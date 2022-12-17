@@ -366,4 +366,56 @@ public class ArraysService : IArraysService
             Console.WriteLine("Unfortunately, no two integers are equal to sum that we were looking for.");
         return integersEqualToSum.ToArray();
     }
+
+    public int[]? MoveZerosToEndOfArray(int[]? array)
+    {
+        // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
+        array = (array == null || array.Count() == 0) ? new int[] { 12, 0, 0, 24, 32, 14, 54 } : array;
+        Console.WriteLine("Here's our input array, in which we will move all zeros, to the end of the array:");
+        array.ToList().ForEach(x => Console.Write($"{x}\t"));
+        Console.WriteLine();
+
+        int NonZeroBuffer = 0;                              // Variable which will increased by one, for each non-zero element we encounter.
+        for (int i = 0; i < array.Length; i++)              // Iterate throughout the array
+        {
+            if (array[i] != 0)                              // If a given array's element is NOT a zero..
+            {
+                array[NonZeroBuffer] = array[i];            // Write that element into position of 'NonZeroBuffer', which will start off as 0
+                NonZeroBuffer++;                            // Increase our buffer variable by one.
+            }
+        }
+        // After this loop, all non-zero variable will be 'pushed' towards the front of the array, replacing positions of variable that were zero.
+        // For example - our input array { 12, 0, 0, 24, 32, 14, 54 }, Will look like { 12, 24, 32, 14, 54, 14, 54 }, and NonZeroBuffer will be equal to 5
+
+        // This loop will start FROM NonZeroBuffer value (In our case - 5) and iterate to the end of the array, and replace all values with zeros, since we 'pushed' all non-zero variable to the front.
+        for (int i = NonZeroBuffer; i < array.Length; i++)
+            array[i] = 0;
+
+        Console.WriteLine("Here's array, with all zeros moved to the end of it:");
+        array.ToList().ForEach(x => Console.Write($"{x}\t"));
+        Console.WriteLine();
+
+        return array;
+    }
+
+    /// <summary>
+    /// Probably the most straight-forward and simple solution to this exercise is to simply utilize LINQ functionality, to sort the array in descending order, which will inherently reposition all zeros to the end of it.
+    /// </summary>
+    public int[]? MoveZerosToEndOfArrayUsingLINQ(int[]? array)
+    {
+        // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
+        array = (array == null || array.Count() == 0) ? new int[] { 12, 0, 0, 24, 32, 14, 54 } : array;
+        Console.WriteLine("Here's our input array, in which we will move all zeros, to the end of the array:");
+        array.ToList().ForEach(x => Console.Write($"{x}\t"));
+        Console.WriteLine();
+
+        // Simply call the LINQ function, which will re-order the array in descending manner.
+        array = array.OrderByDescending(x => x).ToArray();
+        
+        Console.WriteLine("Here's array, with all zeros moved to the end of it:");
+        array.ToList().ForEach(x => Console.Write($"{x}\t"));
+        Console.WriteLine();
+
+        return array;
+    }
 }
