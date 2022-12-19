@@ -94,4 +94,28 @@ public class ArraysServiceTests
         Assert.Equal(new int[] { 54, 32, 24, 14, 12, 0, 0},
             arraysService.MoveZerosToEndOfArrayUsingLINQ(new int[] { 12, 0, 0, 24, 32, 14, 54 }));
     }
+
+    [Fact]
+    public void FindMajorityElementInAnArray_FindMajorityElementInAnArrayWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(12, arraysService.FindMajorityElementInAnArray(new int[] { 12, 12, 0, 12, 2, 12, 54 }));
+    }
+
+    [Fact]
+    public void FindMajorityElementInAnArray_FindMajorityElementInAnArrayWithValidParameterValues_ReturnsNull()
+    {
+        Assert.Null(arraysService.FindMajorityElementInAnArray(new int[] { 12, 0, 0, 12, 2, 14, 54 }));
+    }
+
+    [Fact]
+    public void FindMajorityElementInAnArrayUsingLINQ_FindMajorityElementInAnArrayUsingLINQWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(12, arraysService.FindMajorityElementInAnArrayUsingLINQ(new int[] { 12, 12, 0, 12, 2, 12, 54 }));
+    }
+
+    [Fact]
+    public void FindMajorityElementInAnArrayUsingLINQ_FindMajorityElementInAnArrayUsingLINQWithValidParameterValues_ReturnsNull()
+    {
+        Assert.Null(arraysService.FindMajorityElementInAnArrayUsingLINQ(new int[] { 12, 0, 0, 12, 2, 14, 54 }));
+    }
 }
