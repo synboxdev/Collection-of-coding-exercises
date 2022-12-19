@@ -16,4 +16,6 @@ public interface IArraysService
     public int[]? FindTwoIntegersInArrayThatEqualToAGivenSumUsingLINQ(int[]? array, int? sumToFind);
     public int[]? MoveZerosToEndOfArray(int[]? array);
     public int[]? MoveZerosToEndOfArrayUsingLINQ(int[]? array);
+    public int? FindMajorityElementInAnArray(int[]? array);
+    public int? FindMajorityElementInAnArrayUsingLINQ(int[]? array);
 }

@@ -418,4 +418,67 @@ public class ArraysService : IArraysService
 
         return array;
     }
+
+    /// <summary>
+    /// This is rather inefficient and bloated solution to a relatively simple exercise, yet just for the sake of variety we can solve it without using LINQ functions.
+    /// </summary>
+    public int? FindMajorityElementInAnArray(int[]? array)
+    {
+        // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
+        array = (array == null || array.Count() == 0) ? new int[] { 12, 12, 0, 12, 12, 14, 54 } : array;
+        Console.WriteLine("Here's our input array, in which we will move all zeros, to the end of the array:");
+        array.ToList().ForEach(x => Console.Write($"{x}\t"));
+        Console.WriteLine();
+
+        int elementAmount = 0;                                          // Simply to NOT use LINQ functions that indicate length/size of a given collection, such as .Count() or .Length, we'll simply have a counter to indicate us with the total amount of elements.
+        int? majorityElement = null;                                    // Nullable integer variable which will either remain null, if there is no majority element, or will be equal to the value of majority element, if there is one.
+        Dictionary<int, int> frequencies = new Dictionary<int, int>();  // Dictionary using which we'll keep track of each unique element, and its frequency occurence.
+        
+        // Iterate over every element in a given array - if our dictionary does NOT contain such key - add it to our dictionary, otherwise - simply increase the occurence (Value) by one.
+        foreach (int element in array)
+        {
+            if (!frequencies.ContainsKey(element))
+                frequencies.Add(element, 1);
+            else
+                frequencies[element]++;
+
+            elementAmount++;
+        }
+
+        // Iterate over every element in our dictionary, and check whether its Value (Number of occurences) is greater than HALF of total of our elements
+        foreach (var element in frequencies)
+        {
+            if (element.Value > elementAmount / 2)
+                majorityElement = element.Key;
+        }
+
+        // If we had found a majority element - display it in the console window.
+        if (majorityElement != null)
+            Console.WriteLine($"Majority element of the given array is {majorityElement}");
+        else
+            Console.WriteLine($"The given array does NOT contain a majority element!");
+
+        return majorityElement;
+    }
+
+    public int? FindMajorityElementInAnArrayUsingLINQ(int[]? array)
+    {
+        // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
+        array = (array == null || array.Count() == 0) ? new int[] { 12, 0, 0, 12, 12, 14, 54 } : array;
+        Console.WriteLine("Here's our input array, in which we will move all zeros, to the end of the array:");
+        array.ToList().ForEach(x => Console.Write($"{x}\t"));
+        Console.WriteLine();
+
+        // Instantiate a var type variable, and instantly assign a value to it, which will be a result of our LINQ query:
+        // We're grouping the array by each element, and then returning FirstOrDefault (which means first that meets our condition, or default value if no element meets our condition) element whose .Count(), which is occurence, is greater than HALF of the length of the array.
+        var majorityElement = array.GroupBy(a => a).FirstOrDefault(a => a.Count() > array.Length / 2);
+
+        // If we had found a majority element - display it in the console window.
+        if (majorityElement != null)
+            Console.WriteLine($"Majority element of the given array is {majorityElement.Key}");
+        else
+            Console.WriteLine($"The given array does NOT contain a majority element!");
+
+        return majorityElement != null ? majorityElement.Key : null;
+    }
 }
