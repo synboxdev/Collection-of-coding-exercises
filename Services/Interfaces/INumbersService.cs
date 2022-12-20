@@ -18,4 +18,5 @@ public interface INumbersService
     public int? FindAngleBetweenClockArrows(int hours, int minutes);
     public List<int>? FindFactorsOfANumber(int? number);
     public int? FizzBuzzWordGame(int? lastNumber);
+    public string? PrimeNumberStrength(int? number);
 }

@@ -333,7 +333,7 @@ public class NumbersService : INumbersService
         Console.WriteLine("Picking a random positive integer, to find and diplay all of its factors.");
         number = (number == null || number <= 0) ? Random.Shared.Next(1, 100) : number;
         Console.WriteLine($"Finding all factors of number {number}.");
-        
+
         List<int>? factors = new List<int>();   // Create a list of integer type, which we'll be using to store a list of factors of a given input number
 
         for (int i = 1; i <= number; i++)       // Iterate from 1 to the value of our number (So if our number is 20, we loop from 1 to 20, increasing iterator i by one, each iteration). 
@@ -371,5 +371,79 @@ public class NumbersService : INumbersService
 
         Console.WriteLine("Fizz Buzz game has finished!");
         return lastNumber;
+    }
+
+    /// <summary>
+    /// This is one of rare exceptions where we utilize a previously created function/solution - in this case, its simply calling to check whether a given positive integer number is Prime or not.
+    /// A prime number is BALANCED if it is equidistant from the prime before it and the prime after it. It is therefore the arithmetic mean of those primes. For example, 5 is a balanced prime, two units away from 3, and two from 7.
+    /// A prime that is greater than the arithmetic mean of the primes before and after it is called a strong prime. It is closer to the prime after it than the one before it. For example, the strong prime 17 is closer to 19 than it is to 13
+    /// A prime that is lesser than the arithmetic mean of the primes before and after it is called weak prime. For example, 19.
+    /// </summary>
+    public string? PrimeNumberStrength(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        number = (number == null || number <= 0) ? Random.Shared.Next(10, 200) : number;
+        Console.WriteLine($"Will be determining strength of our selected number {number}");
+
+        // We will utilize a System.IO library to temporarily suppress console window output, because we don't want CheckIfNumberIsPrime method output to be mixed up with this method, since we only use it to get a return boolean value determining whether a given number is PRIME or not.
+        TextWriter tw = Console.Out;
+        Console.SetOut(TextWriter.Null);
+        if (!CheckIfNumberIsPrime(number))  // Utilize our previously created solution to get a boolean value whether a given variable is PRIME or not.
+        {
+            Console.SetOut(tw);
+            Console.WriteLine("Randomly selected number happens to NOT be PRIME number itself, therefor we can't determine its strength");
+            return null;
+        }
+        
+        // If our selected input variable is indeed a PRIME number - we can proceed with the solution.
+        // First we must find the closest previous, and closest next primes, and calculate the distance to both, from our input number.
+        int closestPreviousPrime = (int)number;
+        for (int i = closestPreviousPrime - 1; i >= 2; i--)     // Iterate from our input number, to 2, check whether a given iterator i happens to be a PRIME number or not - if so, assign its value to our closestPreviousPrime variable, and break out of the loop.
+        {
+            if (!CheckIfNumberIsPrime(i))
+                continue;
+            else
+            {
+                closestPreviousPrime = i;
+                break;
+            }
+        }
+        Console.SetOut(tw); // Remove the suppression of Console output, since we will not be using our CheckIfNumberIsPrime method anymore.
+        Console.WriteLine($"Closest previous prime to our number is {closestPreviousPrime}");
+        
+        // Next loop - we will be determining the next, closest prime number, starting from our current prime number.
+        int closestNextPrime = (int)number + 1;
+        for (int i = 2; i < closestNextPrime; i++)  // Iterate from 2 to our current prime number - if its remainder after division of i is equal to zero - increase our closestNextPrime by one, and reset iterator back to 2.
+        {
+            if (closestNextPrime % i == 0)
+            {
+                closestNextPrime++;
+                i = 2;
+            }
+        }
+        Console.WriteLine($"Closest next prime to our number is {closestNextPrime}");
+        
+        // Calculate the distance (non-negative) to both of our closest primes.
+        double distanceToPrevious = Math.Abs((double)number - closestPreviousPrime);
+        double distanceToNext = Math.Abs((double)number - closestNextPrime);
+
+        // Based on whether our current number is closer to previous or next prime - its either WEAK or STRONG, accordingly. If distance to both is equal (For example prime 5 is same distance(2) to previous prime 3 and next prime 7)
+        if (distanceToPrevious == distanceToNext)
+        {
+            Console.WriteLine($"Distance to BOTH nearest primes is the same ({distanceToNext}). That means our selected prime number {number} is BALANCED!");
+            return "Balanced";
+        }
+        else if (distanceToPrevious < distanceToNext)
+        {
+            Console.WriteLine($"Distance to previous prime is smaller ({distanceToPrevious}) than the distance to next ({distanceToNext}) prime. That means our selected prime number {number} is WEAK!");
+            return "Weak";
+        }
+        else if (distanceToPrevious > distanceToNext)
+        {
+            Console.WriteLine($"Distance to next prime is smaller ({distanceToNext}) than the distance to our previous prime ({distanceToPrevious}). That means our selected prime number {number} is STRONG!");
+            return "Strong";
+        }
+
+        return null;
     }
 }
