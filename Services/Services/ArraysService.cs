@@ -411,7 +411,7 @@ public class ArraysService : IArraysService
 
         // Simply call the LINQ function, which will re-order the array in descending manner.
         array = array.OrderByDescending(x => x).ToArray();
-        
+
         Console.WriteLine("Here's array, with all zeros moved to the end of it:");
         array.ToList().ForEach(x => Console.Write($"{x}\t"));
         Console.WriteLine();
@@ -433,7 +433,7 @@ public class ArraysService : IArraysService
         int elementAmount = 0;                                          // Simply to NOT use LINQ functions that indicate length/size of a given collection, such as .Count() or .Length, we'll simply have a counter to indicate us with the total amount of elements.
         int? majorityElement = null;                                    // Nullable integer variable which will either remain null, if there is no majority element, or will be equal to the value of majority element, if there is one.
         Dictionary<int, int> frequencies = new Dictionary<int, int>();  // Dictionary using which we'll keep track of each unique element, and its frequency occurence.
-        
+
         // Iterate over every element in a given array - if our dictionary does NOT contain such key - add it to our dictionary, otherwise - simply increase the occurence (Value) by one.
         foreach (int element in array)
         {
@@ -480,5 +480,69 @@ public class ArraysService : IArraysService
             Console.WriteLine($"The given array does NOT contain a majority element!");
 
         return majorityElement != null ? majorityElement.Key : null;
+    }
+
+    /// <summary>
+    /// Tidbit of information about Farey sequence:
+    /// In mathematics, the Farey sequence of order n is the sequence of completely reduced fractions, either between 0 and 1, or without this restriction, which when in lowest terms have denominators less than or equal to n, arranged in order of increasing size.
+    /// Read more here: https://en.wikipedia.org/wiki/Farey_sequence
+    /// </summary>
+    public double[] FindFareySequenceToAGivenOrder(int? order)
+    {
+        // If order of Farey Sequence is not defined or provided, we assign a value of 4 to be able to proceed with the exercise.
+        order = order == null || order == 0 ? 4 : order;
+        Console.WriteLine($"We will be forming and displayed Farey Sequence of order {order}.");
+
+        // Initialize a dictionary into which we will enter element of Farey Sequence.
+        // KEY will be string interpretation of our fraction, and VALUE will be fraction value itself.
+        Dictionary<string, double> sequenceElements = new Dictionary<string, double>
+        {
+            { "0/1", 0f },
+            { "1/1", 1f }
+        };
+
+        // We will be utilizing two loops, to iterate through all possible variations of the fraction.
+        // First loop will start from the order's value, and loop until it reaches 1 (since we've already added 1/1), and decrease by one after each iteration.
+        for (int i = (int)order; i > 0; i--)
+        {
+            // Second loop will start at 1, and iterate until i, which will start at 4, next iteration be 3, etc.
+            // So first iteration will yield us 1/4, 2/4 (which will result into 1/2), 3/4. Next iteration will yield us 1/3, 2/3
+            for (int j = 1; j < i; j++)
+            {
+                int numerator = j;          // Our numerator (Number at the top of the fraction) will be iterator variable j
+                int denominator = i;        // Our numerator (Number at the bottom of the fraction) will be iterator variable i
+                int gcd = 0;                // gcd stands for Greatest common divisor.
+
+                if (denominator % 2 == 0 && numerator % 2 == 0) // If remainder of both number individually, is equal to zero, that means can and MUST find GCD, so that we don't have overlapping fractions that equate to same value, such as 1/2 and 2/4
+                {
+                    // Continually loop, until denominator is equal to zero, then assign numerator value to GCD, and break out of the loop. Normally you would use a separate recursive method to get this value, but we want our solutions to be completely self-contained.
+                    while (denominator != 0)
+                    {
+                        denominator = numerator % denominator;
+                        if (denominator == 0)
+                        {
+                            gcd = numerator;
+                            break;
+                        }
+                    }
+                }
+
+                // Define and form our KEY and VALUE variable, which we will put into our dictionary.
+                // If GCD is greater than one, we must divide both numerator and denominator by that GCD.
+                // For example, if we have fraction 2/4, and their GCD is 2, our fraction really is 1/2
+                string key = gcd > 1 ? $"{j / gcd}/{i / gcd}" : $"{j}/{i}";
+                var value = gcd > 1 ? Math.Round((double)(j / gcd) / (i / gcd), 2) : Math.Round((double)j / i, 2);
+
+                // If our dictionary DOES NOT contain a key (string interpretation of our fraction) or VALUE equal to the fraction - add it.
+                // This is an extra layer of protection that prevents a fraction such as 2/4 to be placed into the dictionary, if we already have 1/2, that has value of 0.5 (same as 2/4 = 0.5)
+                if (!sequenceElements.ContainsKey(key) && !sequenceElements.ContainsValue(value))
+                    sequenceElements.Add(key, value);
+            }
+        }
+
+        // Order our dictionary by VALUE, and display the results into console window.
+        sequenceElements.OrderBy(a => a.Value).ToList().ForEach(element => Console.WriteLine($"{element.Key}\t{(element.Value > 0 ? element.Value.ToString("#.##") : element.Value)}"));
+
+        return sequenceElements.Values.OrderBy(a => a).ToArray();
     }
 }
