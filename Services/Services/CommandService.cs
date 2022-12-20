@@ -1,11 +1,11 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.Extensions.Logging;
-using Data.Models.AppSettings;
+﻿using Data.Models.AppSettings;
 using Data.Models.AppSettings.Collection;
 using Data.Models.UserInput;
 using Data.Utility;
-using Services.Utility;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Services.Interfaces;
+using Services.Utility;
 using System.Reflection;
 
 namespace Services;
@@ -152,7 +152,11 @@ public class CommandService : ICommandService
                 }
             case HelpCommandName.List:
                 {
-                    Console.WriteLine($"Listing all available exercise collection selections that you can invoke:\n");
+                    Console.WriteLine($"Project currently contains " +
+                                      $"[{_options.ExerciseCollection.Categories.Sum(x => x.Exercises.Sum(e => e.Solutions.Count))}] solutions, " +
+                                      $"to [{_options.ExerciseCollection.Categories.Sum(x => x.Exercises.Count)}] of exercises " +
+                                      $"in [{_options.ExerciseCollection.Categories.Count}] different categories!");
+                    Console.WriteLine($"Listing all available exercise collection selections that you can invoke:");
                     foreach (Category category in _options.ExerciseCollection.Categories)
                     {
                         Console.WriteLine($"Category [{category.Name}] has the following exercises:");
@@ -166,6 +170,7 @@ public class CommandService : ICommandService
                                                        $"{solution.Description}");
                             }
                         }
+                        Console.WriteLine();
                     }
                     break;
                 }

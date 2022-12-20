@@ -140,7 +140,7 @@ public class StringsServiceTests
     [Fact]
     public void CheckIfWordsAreAnagramsOfEachOther_CheckIfWordsAreAnagramsOfEachOtherWithNotValidAnagramsParameter_ReturnsFalse()
     {
-        Assert.False(stringsService.CheckIfWordsAreAnagramsOfEachOther(new string[] { "aaa", "bbb", "bba"}));
+        Assert.False(stringsService.CheckIfWordsAreAnagramsOfEachOther(new string[] { "aaa", "bbb", "bba" }));
     }
 
     [Fact]
@@ -160,23 +160,23 @@ public class StringsServiceTests
     {
         Assert.False(stringsService.CheckIfWordsAreAnagramsOfEachOtherUsingLINQ("wolf", "fox"));
     }
-    
+
     [Fact]
     public void FindLongestCommonEndingAmongStrings_FindLongestCommonEndingWithNullParameter_ReturnsDefaultLongestCommonEnding()
     {
-        Assert.Equal("lied" ,stringsService.FindLongestCommonEndingAmongStrings(null));
+        Assert.Equal("lied", stringsService.FindLongestCommonEndingAmongStrings(null));
     }
 
     [Fact]
     public void FindLongestCommonEndingAmongStrings_FindLongestCommonEndingWithValidParameter_ReturnsLongestCommonEnding()
     {
-        Assert.Equal("own", stringsService.FindLongestCommonEndingAmongStrings(new string[] {"own", "town", "grown"}));
+        Assert.Equal("own", stringsService.FindLongestCommonEndingAmongStrings(new string[] { "own", "town", "grown" }));
     }
 
     [Fact]
     public void FindLongestCommonEndingAmongStrings_FindLongestCommonEndingWithValidParameterButNoCommonEnding_ReturnsStringEmpty()
     {
-        Assert.Equal(string.Empty, stringsService.FindLongestCommonEndingAmongStrings(new string[] {"box", "rat", "hello"}));
+        Assert.Equal(string.Empty, stringsService.FindLongestCommonEndingAmongStrings(new string[] { "box", "rat", "hello" }));
     }
 
     [Fact]
@@ -206,7 +206,7 @@ public class StringsServiceTests
     [Fact]
     public void FindLongestSubstringWithoutRepeatingCharacters_FindLongestSubstringWithoutRepeatingCharactersWithNullParameter_ReturnsDefaultLongestSubstring()
     {
-        Assert.Equal("Micros" ,stringsService.FindLongestSubstringWithoutRepeatingCharacters(null));
+        Assert.Equal("Micros", stringsService.FindLongestSubstringWithoutRepeatingCharacters(null));
     }
 
     [Fact]

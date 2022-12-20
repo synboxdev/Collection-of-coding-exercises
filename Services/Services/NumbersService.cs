@@ -394,7 +394,7 @@ public class NumbersService : INumbersService
             Console.WriteLine("Randomly selected number happens to NOT be PRIME number itself, therefor we can't determine its strength");
             return null;
         }
-        
+
         // If our selected input variable is indeed a PRIME number - we can proceed with the solution.
         // First we must find the closest previous, and closest next primes, and calculate the distance to both, from our input number.
         int closestPreviousPrime = (int)number;
@@ -410,7 +410,7 @@ public class NumbersService : INumbersService
         }
         Console.SetOut(tw); // Remove the suppression of Console output, since we will not be using our CheckIfNumberIsPrime method anymore.
         Console.WriteLine($"Closest previous prime to our number is {closestPreviousPrime}");
-        
+
         // Next loop - we will be determining the next, closest prime number, starting from our current prime number.
         int closestNextPrime = (int)number + 1;
         for (int i = 2; i < closestNextPrime; i++)  // Iterate from 2 to our current prime number - if its remainder after division of i is equal to zero - increase our closestNextPrime by one, and reset iterator back to 2.
@@ -422,7 +422,7 @@ public class NumbersService : INumbersService
             }
         }
         Console.WriteLine($"Closest next prime to our number is {closestNextPrime}");
-        
+
         // Calculate the distance (non-negative) to both of our closest primes.
         double distanceToPrevious = Math.Abs((double)number - closestPreviousPrime);
         double distanceToNext = Math.Abs((double)number - closestNextPrime);
