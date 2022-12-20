@@ -18,4 +18,5 @@ public interface IArraysService
     public int[]? MoveZerosToEndOfArrayUsingLINQ(int[]? array);
     public int? FindMajorityElementInAnArray(int[]? array);
     public int? FindMajorityElementInAnArrayUsingLINQ(int[]? array);
+    public double[] FindFareySequenceToAGivenOrder(int? order);
 }

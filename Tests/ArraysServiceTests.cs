@@ -70,7 +70,7 @@ public class ArraysServiceTests
     [Fact]
     public void FindTwoIntegersInArrayThatEqualToAGivenSum_FindTwoIntegersInArrayThatEqualToAGivenSumWithValidParameterValues_ReturnsValidResult()
     {
-        Assert.Equal(new int[] {20, 100},
+        Assert.Equal(new int[] { 20, 100 },
             arraysService.FindTwoIntegersInArrayThatEqualToAGivenSum(new int[] { 10, 20, 30, 40, 80, 100 }, 120));
     }
 
@@ -91,7 +91,7 @@ public class ArraysServiceTests
     [Fact]
     public void MoveZerosToEndOfArrayUsingLINQ_MoveZerosToEndOfArrayUsingLINQWithValidParameterValues_ReturnsValidResult()
     {
-        Assert.Equal(new int[] { 54, 32, 24, 14, 12, 0, 0},
+        Assert.Equal(new int[] { 54, 32, 24, 14, 12, 0, 0 },
             arraysService.MoveZerosToEndOfArrayUsingLINQ(new int[] { 12, 0, 0, 24, 32, 14, 54 }));
     }
 
@@ -117,5 +117,11 @@ public class ArraysServiceTests
     public void FindMajorityElementInAnArrayUsingLINQ_FindMajorityElementInAnArrayUsingLINQWithValidParameterValues_ReturnsNull()
     {
         Assert.Null(arraysService.FindMajorityElementInAnArrayUsingLINQ(new int[] { 12, 0, 0, 12, 2, 14, 54 }));
+    }
+
+    [Fact]
+    public void FindFareySequenceToAGivenOrder_FindFareySequenceToAGivenOrderWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(new double[] { 0, .25, .33, .5, .67, .75, 1 }, arraysService.FindFareySequenceToAGivenOrder(4));
     }
 }
