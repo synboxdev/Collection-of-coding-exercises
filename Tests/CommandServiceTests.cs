@@ -44,7 +44,7 @@ public class CommandServiceTests
     public void TryExecutingInputCommand_TryExecutingNewInstanceOfInputCommand_ThrowsNullReferenceException()
     {
         // Arrange, Act & Assert
-        Assert.Throws<NullReferenceException>(() => 
+        Assert.Throws<NullReferenceException>(() =>
             commandService.TryExecutingInputCommand(new Data.Models.UserInput.InputCommand()));
     }
 
@@ -95,8 +95,8 @@ public class CommandServiceTests
     {
         // Arrange, Act & Assert
         Assert.True(commandService.CallServiceMethod(
-            new Data.Models.AppSettings.Collection.Category() 
-            { 
+            new Data.Models.AppSettings.Collection.Category()
+            {
                 Name = CategoryName.Strings
             }, "ReverseAString"));
     }
@@ -112,13 +112,13 @@ public class CommandServiceTests
     public void GetServiceByCategoryName_GetServiceByCategoryWithoutName_ReturnsNull()
     {
         // Arrange, Act & Assert
-        Assert.Null(commandService.GetServiceByCategoryName(new Data.Models.AppSettings.Collection.Category() { Name = null}));
+        Assert.Null(commandService.GetServiceByCategoryName(new Data.Models.AppSettings.Collection.Category() { Name = null }));
     }
 
     [Fact]
     public void GetServiceByCategoryName_GetServiceByCategoryWithValidCategory_ReturnsNotNull()
     {
         // Arrange, Act & Assert
-        Assert.NotNull(commandService.GetServiceByCategoryName(new Data.Models.AppSettings.Collection.Category() { Name = CategoryName.Strings}));
+        Assert.NotNull(commandService.GetServiceByCategoryName(new Data.Models.AppSettings.Collection.Category() { Name = CategoryName.Strings }));
     }
 }

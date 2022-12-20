@@ -44,7 +44,7 @@ void SetUpAppConfiguration(IConfigurationBuilder builder)
     var configuration = builder
             .SetBasePath(Directory.GetCurrentDirectory())
             .AddJsonFile("AppSettings.json", optional: false, reloadOnChange: true);
-    
+
     IConfigurationRoot configurationRoot = configuration.Build();
 }
 
