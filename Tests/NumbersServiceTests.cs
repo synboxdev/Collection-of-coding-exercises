@@ -116,13 +116,37 @@ public class NumbersServiceTests
     [Fact]
     public void FindAngleBetweenClockArrows_FindAngleBetweenClockArrowsWithValidParameter_ReturnsTrue()
     {
-        Assert.Equal(108 ,numbersService.FindAngleBetweenClockArrows(15, 36));
+        Assert.Equal(108, numbersService.FindAngleBetweenClockArrows(15, 36));
     }
 
     [Fact]
     public void FindFactorsOfANumber_FindFactorsOfANumberWithValidParameter_ReturnsTrue()
     {
-        Assert.Equal(new List<int>() { 1, 2, 3, 5, 6, 10, 15, 30 }, 
+        Assert.Equal(new List<int>() { 1, 2, 3, 5, 6, 10, 15, 30 },
             numbersService.FindFactorsOfANumber(30));
+    }
+
+    [Fact]
+    public void NumberPrimeStrength_NumberPrimeStrengthWithValidParameter_ReturnsNull()
+    {
+        Assert.Null(numbersService.PrimeNumberStrength(66));
+    }
+
+    [Fact]
+    public void NumberPrimeStrength_NumberPrimeStrengthWithValidParameterBalancedPrime_ReturnsValidAnswer()
+    {
+        Assert.Equal("Balanced", numbersService.PrimeNumberStrength(5));
+    }
+
+    [Fact]
+    public void NumberPrimeStrength_NumberPrimeStrengthWithValidParameterWeakPrime_ReturnsValidAnswer()
+    {
+        Assert.Equal("Weak", numbersService.PrimeNumberStrength(83));
+    }
+
+    [Fact]
+    public void NumberPrimeStrength_NumberPrimeStrengthWithValidParameterStrongPrime_ReturnsValidAnswer()
+    {
+        Assert.Equal("Strong", numbersService.PrimeNumberStrength(37));
     }
 }
