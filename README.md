@@ -1,15 +1,16 @@
-# <b><font size="7">Collection of coding exercises</font></b>
+# Collection of coding exercises
 
-## <b><font size="6">📄 Table of contents</font></b>
-* ### [About the project](#about-the-project)
-* ### [Getting started](#getting-started)
-    * #### [Downloading the repository](#downloading-the-repository)
-    * #### [Starting the project](#starting-the-project)
-* ### [Technology stack](#technology-stack)
-* ### [Contributing](#Contributing)
-* ### [Code of Conduct](#Code-of-Conduct)
+## 📄 Table of contents
 
-### <b><font size="6">About the project</font></b>
+* [About the project](#about-the-project)
+* [Getting started](#getting-started)
+    * [Downloading the repository](#downloading-the-repository)
+    * [Starting the project](#starting-the-project)
+* [Technology stack](#technology-stack)
+* [Contributing](#Contributing)
+* [Code of Conduct](#code-of-conduct)
+
+## About the project
 
 'Collection of coding exercises' is a command-line based project, which is a collection of solutions, to a variety of different exercises in different subjects/areas that one might encounter during an exam, technical interview or perhaps in pursuit of some extra programming practice.
 
@@ -19,9 +20,9 @@ Functionality, readability and simplicity are, and should be, the main focus of 
 
 ---
 
-### <b><font size="6">Getting started</font></b>
+## Getting started
 
-#### <b><font size="5">Downloading the repository</font></b>
+### Downloading the repository
 
 To get you started, you must first clone the repository (download it your own machine). You can do this by a number of methods, here's a few:
 <br><br>
@@ -78,7 +79,7 @@ git clone https://github.com/synboxdev/Collection-of-coding-exercises.git
 
 ---
 
-#### <b><font size="5">Starting the project</font></b>
+### Starting the project
 
 <font size="4">Method 1 - Continuing to use any terminal (Windows CLI, Visual Studio or Visual Studio Code):</font>
 1. Now that you've successfully downloaded the repository, you must navigate further inside the solution's project files, to start up the project. Exeucte the following command, inside the terminal, to navigate to a correct location inside the project:
@@ -98,7 +99,7 @@ dotnet run
 
 ---
 
-### <b><font size="5">Technology stack</font></b>
+## Technology stack
 
 As mentioned in the introductory description of the project, this is inherently a relatively simple project, which primarely focuses on the complexity of the exercises themselves, instead of over-arching architecture of the project. Howevery, here's the technologies that were used in the making of this project:
 
@@ -114,10 +115,10 @@ Reasoning for this is relatively simple - main focus of the project is to solve 
 
 ---
 
-### <b><font size="5">Contributing</font></b>
+## Contributing
 Any and all positive contributions are welcome, including features, issues, documentation, guides, and more. See [Contributing documentation](CONTRIBUTING.md) for more details.
 
 ---
 
-### <b><font size="5">Code of Conduct</font></b>
+## Code of Conduct
 This project and everyone participating in it is governed by the [Code of Conduct](CODE_OF_CONDUCT.md). By participating and contributing the the project and its contents, you are expected to uphold this code.
