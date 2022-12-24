@@ -446,4 +446,54 @@ public class NumbersService : INumbersService
 
         return null;
     }
+
+    /// <summary>
+    /// Tidbit of information about Ulam Sequence (Also might be known as Ulam number):
+    /// Ulam number is defined to be the smallest integer that is the sum of two distinct earlier terms in exactly one way and larger than all earlier terms.
+    /// The standard Ulam sequence (the (1, 2)-Ulam sequence) starts with U1 = 1 and U2 = 2
+    /// Read more here: https://en.wikipedia.org/wiki/Ulam_number
+    /// </summary>
+    public int? FindNthElementOfUlamSequence(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random number between 5 and 25, and finding the value of it in Ulam Sequence!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(5, 25) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        int[] ulamArray = new int[(int)number]; // Initialize an integer type array, size of N. Our N'th element will simply be the last element of this sequence.
+        ulamArray[0] = 1;                       // First two element of Ulam Sequence are 1 and 2, so we add them to the array right away.
+        ulamArray[1] = 2;
+        int startingPoint = 3;                  // Since we have first two elements of our Ulam Sequence, we pre-define starting point from where we will be looking for next element of the sequence. This is our so-called 'Next Potential Element'
+
+        // Continually interate, until the last element of our array is NOT a zero. (In a newly initialized non-nullable integer array, all element are zero).
+        while (ulamArray[ulamArray.Length - 1] == 0)
+        {
+            int count = 0;                      // Placeholder counter which will interate once we find a combination of two unique elements whose summed value is equal to our next potential element's value.
+            // First loop iterates from 1st element, to second to last element of the first element in the array, whose value is currently 0.
+            for (int i = 0; i < Array.IndexOf(ulamArray, ulamArray.FirstOrDefault(x => x == 0)) - 1; i++)
+            {
+                // Second llop iterates from 2nd element, to exactly the first element in the array, whose value is currently 0.
+                for (int j = i + 1; j < Array.IndexOf(ulamArray, ulamArray.FirstOrDefault(x => x == 0)); j++)
+                {
+                    if (ulamArray[i] + ulamArray[j] == startingPoint)
+                        count++;
+                    if (count > 1) break;       // If there is more than one combination of unique elements whose sum make up our next potential element - break out of the loops and increase the potential element value by one.
+                }
+                if (count > 1) break;           // If there is more than one combination of unique elements whose sum make up our next potential element - break out of the loops and increase the potential element value by one.
+            }
+            if (count == 1)                     // If there is exactly one combination of two elements whose sum is equal to our next potential element's value - set it as new value of our array's first element whose current value is 0.
+                ulamArray[Array.IndexOf(ulamArray, ulamArray.FirstOrDefault(x => x == 0))] = startingPoint;
+
+            startingPoint++;                    // We increase our next potential element's value by one. Always.
+        }
+        // For example, we start out with an array that is [1, 2, 0, 0, 0].
+        // After first iteration our array will be [1, 2, 3, 0, 0]. After second iteration - [1, 2, 3, 4, 0]. After third iteration - [1, 2, 3, 4, 6]. And the next iteration - our while loop condition will break out of the loop, since the very last element of the array is no longer a zero.
+
+        Console.WriteLine($"Displaying first {number} elements of Ulam Sequence:");
+        ulamArray.ToList().ForEach(x => Console.Write($"{x}  "));
+
+        Console.WriteLine();
+        Console.WriteLine($"Value of {number}'th element of the Ulam Sequence is {ulamArray[ulamArray.Length - 1]}");
+        return ulamArray[ulamArray.Length - 1];
+    }
 }

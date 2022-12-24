@@ -149,4 +149,10 @@ public class NumbersServiceTests
     {
         Assert.Equal("Strong", numbersService.PrimeNumberStrength(37));
     }
+
+    [Fact]
+    public void FindNthElementOfUlamSequence_FindNthElementOfUlamSequenceWithValidParameter_ReturnsValidAnswer()
+    {
+        Assert.Equal(16, numbersService.FindNthElementOfUlamSequence(9));
+    }
 }
