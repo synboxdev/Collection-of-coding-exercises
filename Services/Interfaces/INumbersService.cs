@@ -19,4 +19,5 @@ public interface INumbersService
     public List<int>? FindFactorsOfANumber(int? number);
     public int? FizzBuzzWordGame(int? lastNumber);
     public string? PrimeNumberStrength(int? number);
+    public int? FindNthElementOfUlamSequence(int? number);
 }
