@@ -16,7 +16,7 @@
 
 Motive is to provide an accessible, nicely structured and documented project, that would be easy to navigate, and would provide users with well-written, functional and tested solutions, with necessary comments and explanations.
 
-Functionality, readability and simplicity are, and should be, the main focus of solutions to any and all exercises. Performance and efficiency are also imporant, but realistically speaking those are non-factors to these one-off, isolated problems and exercises that are being solved. However, suggestions or solutions that specifically focus on performance are always welcome.
+Functionality, readability and simplicity are, and should be, the main focus of solutions to any and all exercises. Performance and efficiency are also important, but realistically speaking those are non-factors to these one-off, isolated problems and exercises that are being solved. However, suggestions or solutions that specifically focus on performance are always welcome.
 
 ---
 
@@ -82,7 +82,7 @@ git clone https://github.com/synboxdev/Collection-of-coding-exercises.git
 ### Starting the project
 
 <font size="4">Method 1 - Continuing to use any terminal (Windows CLI, Visual Studio or Visual Studio Code):</font>
-1. Now that you've successfully downloaded the repository, you must navigate further inside the solution's project files, to start up the project. Exeucte the following command, inside the terminal, to navigate to a correct location inside the project:
+1. Now that you've successfully downloaded the repository, you must navigate further inside the solution's project files, to start up the project. Execute the following command, inside the terminal, to navigate to a correct location inside the project:
 ```
 cd Collection-of-coding-exercises/Core
 ```
@@ -101,7 +101,7 @@ dotnet run
 
 ## Technology stack
 
-As mentioned in the introductory description of the project, this is inherently a relatively simple project, which primarely focuses on the complexity of the exercises themselves, instead of over-arching architecture of the project. Howevery, here's the technologies that were used in the making of this project:
+As mentioned in the introductory description of the project, this is inherently a relatively simple project, which primarily focuses on the complexity of the exercises themselves, instead of over-arching architecture of the project. However, here's the technologies that were used in the making of this project:
 
 * #### [C#](https://learn.microsoft.com/en-us/dotnet/csharp/) 
 * #### [.NET 7 Framework](https://dotnet.microsoft.com/en-us/download/dotnet/7.0)
