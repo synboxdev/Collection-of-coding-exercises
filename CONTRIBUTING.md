@@ -1,8 +1,10 @@
-# <b><font size="7">Contributing to 'Collection of coding exercises'</font></b>
+# Contributing to 'Collection of coding exercises'
 
 First and foremost, I appreciate you being interested enough in this project to even consider contributing to it as a whole. The following contents of the documented lays out the basic rules and guidelines about the contributing to the project. That being said, by no means these are laws set in stone, follow your best judgment, and feel free to propose changes to this document, or the project itself. Any and all positive contributions are welcome, including features, issues, documentation, guides, and more.
+
 ---
-## <b><font size="6">📄 Table of contents</font></b>
+
+## 📄 Table of contents
 
 * [Code of Conduct](#code-of-conduct)
 * [GitHub ToS](#github-terms-of-service)
@@ -29,11 +31,11 @@ If it wasn't already clear - you should always follow [GitHub's terms of service
 ## What makes a good exercise or solution
 As far as I'm concerned, I don't think there's a perfect answer to this question, but here's my approach to what makes a good exercise or solution to be added to the project
 
-* <b>A given exercise (A problem or algorithm to be solved) does not exist in the project.</b> It should be relatively unique in comparison to the already existing exercises. You shouldn't try to reinvent the wheel when looking for a exercise to solve.
+* <b>A given exercise (A problem or algorithm to be solved) does not exist in the project.</b> It should be relatively unique in comparison to the already existing exercises. You shouldn't try to reinvent the wheel when looking for an exercise to solve.
 
-* <b>A given exercise is self-contained.</b> Exercises itself should be treated as isolated problem or an algorithm that is to be solved, but not multiple exercises stacked into one. Now, to be clear - that does not mean that a problem can't have layers, or multiple steps of logic that are required for a solution. An exercise should have a clear and concise objective, and should not be a question or a vague rhetoric question to be interpreted.
+* <b>A given exercise is self-contained.</b> Exercise itself should be treated as isolated problem or an algorithm that is to be solved, but not multiple exercises stacked into one. Now, to be clear - that does not mean that a problem can't have layers, or multiple steps of logic that are required for a solution, however an exercise should have a clear and concise objective, and should not be an open-ended question or a vague description that is to be interpreted.
 
-* <b>A given solution is unique enough in comparison to the existing solutions to that exercise.</b> Feel free to reuse parts of existing solution to a given exercise, but don't be afraid to utilize different tools and functionalities that the C# .NET Framework provides you with right out of the box. A solution should be inherently a different approach to the problem, which means re-writing an existing solution, but with a loop that simply goes backwards, isn't an alternative solution and a good addition to the project.
+* <b>A given solution is unique enough in comparison to the existing solutions to that exercise.</b> Feel free to reuse parts of existing solutions to a given exercise, but don't be afraid to utilize different tools and functionalities that the C# .NET Framework provides you with right out of the box. A solution should be inherently a different approach to the problem, which means re-writing an existing solution, but with a loop that simply goes backwards, isn't an alternative solution and a good addition to the project.
 
 ---
 
@@ -43,7 +45,7 @@ In order for the project to remain well-built and structured you should align wi
 ---
 
 ## Issues
-I'd consider [GitHub Issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues) as a standardized and widely accepted way of contributing to the project and its contents. It covers everything from feature requests, bugs, suggestions to questions. If you wish to read further, GitHub documentation on [Creating an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue) has got you covered. As a generel rule of thumb, here's a few bulletpoints I'd like you to follow, when creating an issues, regardless of its type:
+I'd consider [GitHub Issues](https://docs.github.com/en/issues/tracking-your-work-with-issues/about-issues) as a standardized and widely accepted way of contributing to the project and its contents. It covers everything from feature requests, bugs, suggestions to questions. If you wish to read further, GitHub documentation on [Creating an issue](https://docs.github.com/en/issues/tracking-your-work-with-issues/creating-an-issue) has got you covered. As a general rule of thumb, here's a few bulletpoints I'd like you to follow, when creating an issues, regardless of its type:
 * Title of the issues should be clear, concise and descriptive.
 * Utilize existing [labels](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels) for your issues to be more informative. If you believe an additional label should be created - create an issue with a default label 'enhancement', where you'd explain what label and why should be added to the project.
 * Provide an informative, comprehensive description of the bug, suggested feature or an enhancement that you believe should be changed/added or improved in the project.
