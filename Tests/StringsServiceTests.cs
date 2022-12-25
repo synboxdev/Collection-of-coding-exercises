@@ -232,4 +232,10 @@ public class StringsServiceTests
     {
         Assert.Equal("?223k12311k243", stringsService.BasicStringCompression("??222k2221kk444"));
     }
+
+    [Fact]
+    public void FibonacciWord_FibonacciWordWithValidParameter_ReturnsCompressedString()
+    {
+        Assert.Equal("abbabbababbab", stringsService.FibonacciWord(6));
+    }
 }

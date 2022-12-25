@@ -634,4 +634,34 @@ public class StringsService : IStringsService
         Console.WriteLine($"Input string: {compressedString} and its byte count is {Encoding.UTF8.GetByteCount(compressedString)}");
         return compressedString;
     }
+
+    /// <summary>
+    /// Practically an identical solution to 'FibonacciSeriesCalculationAndDisplay' in Numbers category. The only difference is that we're forming an appended string, instead of calculating the numeric value of the next element.
+    /// </summary>
+    public string FibonacciWord(int? indexOfWord)
+    {
+        // If index of word isn't provided to the method or is invalid, we pick a random, positive integer number which will indicate which word of our Fibonacci Sequence to retrieve.
+        Console.WriteLine("Picking a random number, which will be index of Fibonacci word that we will retrieve");
+        indexOfWord = indexOfWord == null || indexOfWord < 2 ? Random.Shared.Next(2, 10) : indexOfWord;
+        Console.WriteLine($"Calculating and displaying Fibonacci series for {indexOfWord + 1} elements");
+
+        string fibonacciWord = string.Empty;
+        string firstWord = "a";
+        string secondWord = "b";
+        List<string> fibonacciSequence = new List<string> { firstWord, secondWord };
+
+        for (int i = 2; i <= indexOfWord; i++)
+        {
+            var nextWord = firstWord + secondWord;
+            firstWord = secondWord;
+            secondWord = nextWord;
+            fibonacciSequence.Add(nextWord);
+        }
+
+        // Display our full Fibonacci sequence to console output. Reason for + 1 of elements, is because list indexing starts from zero, so for visual representation, we make sure to start our sequence from 1st number, and not 0'th
+        Console.WriteLine($"Displaying Fibonacci sequence elements for {indexOfWord + 1} elements:");
+        fibonacciSequence.ForEach(element => Console.WriteLine($"#{fibonacciSequence.IndexOf(element) + 1}\t{element}"));
+
+        return fibonacciSequence.Last();    // Return the last element value of our Fibonacci sequence. (For Unit tests)
+    }
 }
