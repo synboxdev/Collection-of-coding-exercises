@@ -28,4 +28,5 @@ public interface IStringsService
     public string FindLongestSubstringWithoutRepeatingCharactersByParsingAllPossibleSubstrings(string? inputString);
     public string BasicStringCompression(string? inputString);
     public string FibonacciWord(int? indexOfWord);
+    public string TrueAlphabeticalOrder(string? inputString);
 }
