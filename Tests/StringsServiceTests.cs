@@ -238,4 +238,10 @@ public class StringsServiceTests
     {
         Assert.Equal("abbabbababbab", stringsService.FibonacciWord(6));
     }
+
+    [Fact]
+    public void TrueAlphabeticalOrder_TrueAlphabeticalOrderWithValidParameter_ReturnsOrderedString()
+    {
+        Assert.Equal("aaac d eehi nvy", stringsService.TrueAlphabeticalOrder("have a nice day"));
+    }
 }

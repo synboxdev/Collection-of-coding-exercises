@@ -664,4 +664,31 @@ public class StringsService : IStringsService
 
         return fibonacciSequence.Last();    // Return the last element value of our Fibonacci sequence. (For Unit tests)
     }
+
+    /// <summary>
+    /// A simple, yet quite an interesting problem:
+    /// Create a function which takes every letter in every word, and puts it in alphabetical order, however, here's the catch - original word lengths must stay the same.
+    /// Few notes - All sentences will be in lowercase, and no punctuation or numbers shall be included.
+    /// </summary>
+    public string TrueAlphabeticalOrder(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "collection of coding exercises" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        List<int> whitespaceIndexes = new List<int>();
+        for (int i = 0; i < inputString.Length; i++)
+        {
+            if (Char.IsWhiteSpace(inputString[i]))
+                whitespaceIndexes.Add(i);
+        }
+
+        string trueAlphabeticalString = string.Concat(inputString.Replace(" ", "").OrderBy(a => a));
+
+        foreach (int whitespaceIndex in whitespaceIndexes)
+            trueAlphabeticalString = trueAlphabeticalString.Insert(whitespaceIndex, " ");
+
+        Console.WriteLine($"New, ordered string, in 'True alphabetical order' - '{trueAlphabeticalString}'");
+        return trueAlphabeticalString;
+    }
 }
