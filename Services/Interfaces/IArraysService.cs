@@ -19,4 +19,5 @@ public interface IArraysService
     public int? FindMajorityElementInAnArray(int[]? array);
     public int? FindMajorityElementInAnArrayUsingLINQ(int[]? array);
     public double[] FindFareySequenceToAGivenOrder(int? order);
+    public int? SunLoungerProblem(int[]? array);
 }
