@@ -124,4 +124,10 @@ public class ArraysServiceTests
     {
         Assert.Equal(new double[] { 0, .25, .33, .5, .67, .75, 1 }, arraysService.FindFareySequenceToAGivenOrder(4));
     }
+
+    [Fact]
+    public void SunLoungerProblem_SunLoungerProblemWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(2, arraysService.SunLoungerProblem(new int[] { 0, 0, 0, 0 }));
+    }
 }

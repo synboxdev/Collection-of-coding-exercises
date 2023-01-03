@@ -545,4 +545,56 @@ public class ArraysService : IArraysService
 
         return sequenceElements.Values.OrderBy(a => a).ToArray();
     }
+
+    /// <summary>
+    /// A fun and simple problem to solve:
+    /// A stretch of sea loungers is represented by an array of characters 0 - free, 1 - occupied.
+    /// There must be one free place between two people lounging on the beach.
+    /// Create a function to compute how many new people at most can settle in on the available sea loungers.
+    /// </summary>
+    public int? SunLoungerProblem(int[]? array)
+    {
+        // If a an array isn't provided to the method or is invalid, we create our own.
+        array = (array == null || array.Count() == 0) ? new int[] { 0, 1, 0, 0, 0, 0, 0, 1 } : array;
+        Console.WriteLine("Here's our input array, which represents free and occupied seats on sun loungers:");
+        array.ToList().ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+
+        int[] occupiedArray = array;    // We create a replica of our initial array, in case we need to 'mock' occupied seats, to correctly count available empty seats.
+        int freePlaces = 0;             // Also, we create an integer variable, which will be our counter for empty available seats.
+
+        // First, we must check two conditions, which would instantly result in returning value:
+        // If the array length is one (there's a singular seat) and its empty, OR there are two seats, and NEITHER of them are occupied (i.e. both are available) - that means we have one singular available seat.
+        if ((occupiedArray.Length == 1 && occupiedArray[0] == 0) ||
+            (occupiedArray.Length == 2 && !occupiedArray.Any(x => x == 1)))
+        {
+            freePlaces = 1;
+            Console.WriteLine("There one singular available sea lounger!");
+        }
+        // If there are two sea loungers, and at least one of them is occupied, unfortunately, we can't sit at the other one - since we must adhere to the initially set rules (see Summary tab above the method).
+        else if (occupiedArray.Length == 2 && occupiedArray.Any(x => x == 1))
+        {
+            freePlaces = 1;
+            Console.WriteLine("Unfortunately, there are no empty sea loungers available.");
+        }
+        // If neither condition above was met, we simply count available seats.
+        // Rules are relatively simple - iterate over the array, if a given seat is empty, and seats before it, and after it (if its not the first or the last seat) are empty - we have an available seat.
+        // So then - 'mock' that a seat is occupied, and continue counting. Another thing we check, if the index of seat before or after a given seat is not exceeding our array bounds, so we don't run into ArgumentOutOfBounds exception.
+        else
+        {
+            for (int i = 0; i < occupiedArray.Length; i++)
+            {
+                if (((i == 0 && occupiedArray[i] == 0 && occupiedArray[i + 1] == 0)) ||
+                    (i == occupiedArray.Length - 1 && occupiedArray[i] == 0 && occupiedArray[i - 1] == 0) ||
+                    ((i > 0 && i < occupiedArray.Length - 1) && (occupiedArray[i - 1] == 0 && occupiedArray[i] == 0 && occupiedArray[i + 1] == 0)))
+                {
+                    occupiedArray[i] = 1;
+                    freePlaces++;
+                }
+            }
+        }
+
+        Console.WriteLine($"There are a total of {freePlaces} available sea loungers, whilst complying to the rule of leaving one empty space in between every visitor.");
+        return freePlaces;
+    }
 }
