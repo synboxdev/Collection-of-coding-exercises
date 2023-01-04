@@ -496,4 +496,31 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Value of {number}'th element of the Ulam Sequence is {ulamArray[ulamArray.Length - 1]}");
         return ulamArray[ulamArray.Length - 1];
     }
+
+    /// <summary>
+    /// Tidbit of information about Collatz conjecture:
+    /// The Collatz conjecture is one of the most famous unsolved problems in mathematics. 
+    /// The conjecture asks whether repeating two simple arithmetic operations will eventually transform every positive integer into 1.
+    /// Read more here: https://en.wikipedia.org/wiki/Collatz_conjecture
+    /// </summary>
+    public int? CollatzConjectureProblem(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random number between 1 and 100, and finding out how many steps it will take for it to reach 1, following Collatz's Conjecture!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(1, 100) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        int stepsToOne = 0;
+
+        while (number != 1)
+        {
+            number = (number % 2 == 0) ?
+                     (number / 2) :
+                     (number * 3) + 1;
+            stepsToOne++;
+        }
+
+        Console.WriteLine($"It has taken us {stepsToOne} steps to reach final value of one!");
+        return stepsToOne;
+    }
 }

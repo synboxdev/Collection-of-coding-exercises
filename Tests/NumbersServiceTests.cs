@@ -155,4 +155,11 @@ public class NumbersServiceTests
     {
         Assert.Equal(16, numbersService.FindNthElementOfUlamSequence(9));
     }
+
+    [Fact]
+    public void CollatzConjectureProblem_CollatzConjectureProblemWithValidParameter_ReturnsValidAnswer()
+    {
+        Assert.Equal(17, numbersService.CollatzConjectureProblem(15));
+        Assert.Equal(111, numbersService.CollatzConjectureProblem(27));
+    }
 }
