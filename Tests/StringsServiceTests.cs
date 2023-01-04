@@ -244,4 +244,16 @@ public class StringsServiceTests
     {
         Assert.Equal("aaac d eehi nvy", stringsService.TrueAlphabeticalOrder("have a nice day"));
     }
+
+    [Fact]
+    public void IsSentenceSmooth_IsSentenceSmoothWithValidParameterSmoothSentence_ReturnsTrue()
+    {
+        Assert.True(stringsService.IsSentenceSmooth("Show was shocking"));
+    }
+
+    [Fact]
+    public void IsSentenceSmooth_IsSentenceSmoothWithValidParameterNotSmoothSentence_ReturnsFalse()
+    {
+        Assert.False(stringsService.IsSentenceSmooth("Collection of coding exercises"));
+    }
 }

@@ -691,4 +691,39 @@ public class StringsService : IStringsService
         Console.WriteLine($"New, ordered string, in 'True alphabetical order' - '{trueAlphabeticalString}'");
         return trueAlphabeticalString;
     }
+
+    /// <summary>
+    /// A fun little problem to solve - determine whether a given sentence is 'smooth' or not? (See below for details)
+    /// A given sentence is considered 'smooth' if each word, starts with the same letter and the last letter of a previous word. Uppercase or lowercase of the same letter are considered to be the same.
+    /// For example, a sentence 'Bob built two ornaments' would be a 'smooth' sentence.
+    /// For the sake of simplicity, we're going to consider that a given sentence is 'normal' - no multiple spaces, symbols, numbers, etc.
+    /// </summary>
+    public bool IsSentenceSmooth(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "Bob built two ornaments" : inputString;
+        Console.WriteLine($"Input string: {inputString}");
+
+        bool isSentenceSmooth = true;       // Initialize a boolean variable which will act as a 'switch' to indicate whether our input string is a 'smooth' sentence or not.
+        string[] sentenceWords = inputString.Split(" ").ToArray();  // Split our input string, into an array of string, where each element is simply a word from the input string, so that we could iterate over it easily.
+
+        // Loop over every element in out split sentence array, starting from the first element, to the very last one. Reason for starting at index 1, and not zero, is simply because we need to compare current word's first letter, with the previous word's last letter.
+        for (int i = 1; i <= sentenceWords.Length - 1; i++)
+        {
+            // For the sake of simplicity and ease of undertanding - define which word is our current one, and which one is the previous one.
+            string previousWord = sentenceWords[i - 1];
+            string currentWord = sentenceWords[i];
+
+            // If the current word, DOES NOT start with the same characters, and the previous word's last character - we alternate the boolean value, and break out of the loop, since there's no more need to check further.
+            if (!currentWord.ToLower().StartsWith(previousWord[previousWord.Length - 1]))
+            {
+                isSentenceSmooth = false;
+                break;
+            }
+        }
+
+        // Output to the console window, whether the provided input string is a 'smooth' sentence or not
+        Console.WriteLine($"Our input sentence is{(isSentenceSmooth ? "" : " NOT")} a 'smooth' sentence!");
+        return isSentenceSmooth;
+    }
 }

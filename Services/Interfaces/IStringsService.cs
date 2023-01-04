@@ -29,4 +29,5 @@ public interface IStringsService
     public string BasicStringCompression(string? inputString);
     public string FibonacciWord(int? indexOfWord);
     public string TrueAlphabeticalOrder(string? inputString);
+    public bool IsSentenceSmooth(string? inputString);
 }
