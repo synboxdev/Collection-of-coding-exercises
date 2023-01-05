@@ -162,4 +162,22 @@ public class NumbersServiceTests
         Assert.Equal(17, numbersService.CollatzConjectureProblem(15));
         Assert.Equal(111, numbersService.CollatzConjectureProblem(27));
     }
+
+    [Fact]
+    public void IsNumberHarshadOrMoran_IsNumberHarshadOrMoranWithValidParameter_ReturnsMoran()
+    {
+        Assert.Equal("Moran", numbersService.IsNumberHarshadOrMoran(133));
+    }
+
+    [Fact]
+    public void IsNumberHarshadOrMoran_IsNumberHarshadOrMoranWithValidParameter_ReturnsHarshad()
+    {
+        Assert.Equal("Harshad", numbersService.IsNumberHarshadOrMoran(102));
+    }
+
+    [Fact]
+    public void IsNumberHarshadOrMoran_IsNumberHarshadOrMoranWithValidParameter_ReturnsNeither()
+    {
+        Assert.Equal("Neither", numbersService.IsNumberHarshadOrMoran(32));
+    }
 }
