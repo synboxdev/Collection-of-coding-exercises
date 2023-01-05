@@ -21,4 +21,5 @@ public interface INumbersService
     public string? PrimeNumberStrength(int? number);
     public int? FindNthElementOfUlamSequence(int? number);
     public int? CollatzConjectureProblem(int? number);
+    public string? IsNumberHarshadOrMoran(int? number);
 }

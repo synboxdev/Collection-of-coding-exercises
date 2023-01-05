@@ -523,4 +523,50 @@ public class NumbersService : INumbersService
         Console.WriteLine($"It has taken us {stepsToOne} steps to reach final value of one!");
         return stepsToOne;
     }
+
+    /// <summary>
+    /// Tidbit of information about Harshad number:
+    /// In mathematics, a harshad number (or Niven number) in a given number base is an integer that is divisible by the sum of its digits when written in that base. 
+    /// A subset of the Harshad numbers are the Moran numbers. Moran numbers yield a prime when divided by the sum of their digits.
+    /// For example: 132 is divisible by 6 (1+3+2) and equals to 22, which is NOT a prime, but it's divisible without remainder, so - its a Harshad number.
+    ///              133 is also divisible by 7 (1+3+3) and equal to 19, which IS a prime number, so - its a Moran number.
+    ///              134 when divided from sum of its digits equal to a number with a remainder (16.75), so its neither Harshad, nor Moran number.
+    /// Read more here: https://en.wikipedia.org/wiki/Harshad_number
+    /// </summary>
+    public string? IsNumberHarshadOrMoran(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random number between 1 and 250, to find out whether that number is Harshad number, Moran number or neither");
+        number = (number == null || number <= 0) ? Random.Shared.Next(1, 250) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        char[]? individualDigits = number?.ToString().ToCharArray();                // Firstly, we must split the input number, into an array of individual digits.
+        int? sumOfDigits = 0;                                                       // Declare a temporary integer variable, to hold the sum of the individual digits of our input number.
+        foreach (var digit in individualDigits)                                     // Iterate of all the individual digits of our input number, and get numeric value out of the char type variable, get their absolute value and add it to the sum variable.
+            sumOfDigits += Convert.ToInt32(Math.Abs(char.GetNumericValue(digit)));
+
+        int? resultNumber = number / sumOfDigits;
+
+        // We will utilize a System.IO library to temporarily suppress console window output, because we don't want CheckIfNumberIsPrime method output to be mixed up with this method, since we only use it to get a return boolean value determining whether a given number is PRIME or not.
+        TextWriter tw = Console.Out;
+        Console.SetOut(TextWriter.Null);
+        bool IsResultAPrimeNumber = CheckIfNumberIsPrime(resultNumber);
+        Console.SetOut(tw); // Remove the suppression of Console output, since we will not be using our CheckIfNumberIsPrime method anymore.
+
+        if (number % sumOfDigits == 0 && IsResultAPrimeNumber)  // If the division of our number and sum of digits leaves not remainder AND the result of the division is a prime number - we've out ourselves a Moran number!
+        {
+            Console.WriteLine($"Our input number {number} is a Moran number!");
+            return "Moran";
+        }
+        else if (number % sumOfDigits == 0)                     // If the division of our number and sum of digits leaves no remainder but its NOT a prime number, we've got ourselves a Harshad number!
+        {
+            Console.WriteLine($"Our input number {number} is a Harshad number!");
+            return "Harshad";
+        }
+        else    // In all other cases - the input number is neither Harsah, nor Moran number.
+        {
+            Console.WriteLine($"Our input number {number} is neither Harshad, nor Moran number!");
+            return "Neither";
+        }
+    }
 }
