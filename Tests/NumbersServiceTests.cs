@@ -180,4 +180,16 @@ public class NumbersServiceTests
     {
         Assert.Equal("Neither", numbersService.IsNumberHarshadOrMoran(32));
     }
+
+    [Fact]
+    public void CheckIfNumberHasABreakpoint_IsNumberHarshadOrMoranWithValidParameter_ReturnsHasBreakpoint()
+    {
+        Assert.True(numbersService.CheckIfNumberHasABreakpoint(159780));
+    }
+
+    [Fact]
+    public void CheckIfNumberHasABreakpoint_IsNumberHarshadOrMoranWithValidParameter_ReturnsDoesntHaveBreakpoint()
+    {
+        Assert.False(numbersService.CheckIfNumberHasABreakpoint(10));
+    }
 }

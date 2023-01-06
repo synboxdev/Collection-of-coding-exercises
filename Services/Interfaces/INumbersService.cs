@@ -22,4 +22,5 @@ public interface INumbersService
     public int? FindNthElementOfUlamSequence(int? number);
     public int? CollatzConjectureProblem(int? number);
     public string? IsNumberHarshadOrMoran(int? number);
+    public bool? CheckIfNumberHasABreakpoint(int? number);
 }
