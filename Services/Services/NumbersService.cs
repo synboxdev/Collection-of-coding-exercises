@@ -569,4 +569,37 @@ public class NumbersService : INumbersService
             return "Neither";
         }
     }
+
+    /// <summary>
+    /// A number has a breakpoint if it can be split in a way where the digits on the left side and the digits on the right side sum to the same number.
+    /// </summary>
+    public bool? CheckIfNumberHasABreakpoint(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random number between 1 and 100000, to find out whether it has a breakpoint or not!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(1, 100000) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        string? numberAsString = number.ToString();         // First we create a string variable, since we'll realistically treat our input number as a string type variable for ease of solving this problem.
+        bool numberHasBreakpoint = false;                   // Also - define a boolean type variable which will be our 'switch' for indicating whether a given number has or has NOT a breakpoint.
+
+        // Iterate over the number, starting from 1st position (2nd digit) all the way to second to last, since we must compare either side, and if one side has no numbers - there's nothing to compare.
+        for (int i = 1; i < numberAsString.Length; i++)
+        {
+            // Here, we 'chop' the number in half by substringing from 0th position to i'th, and from i'th to the end of the number.
+            var leftSide = numberAsString.Substring(0, i);
+            var rightSide = numberAsString.Substring(i);
+
+            // Then we check a conditional check - whether the sum of digits of both side, equate to same number - if so, our number DOES have a breakpoint, otherwise - default boolean value of FALSE will remain.
+            if (leftSide.Select(x => int.Parse(x.ToString())).Sum() == rightSide.Select(x => int.Parse(x.ToString())).Sum())
+            {
+                numberHasBreakpoint = true;
+                break;
+            }
+        }
+
+        // Output our solutions' results to the console window.
+        Console.WriteLine($"Our input number {(numberHasBreakpoint ? "DOES" : "DOES NOT")} have a breakpoint!");
+        return numberHasBreakpoint;
+    }
 }
