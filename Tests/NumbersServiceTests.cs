@@ -182,14 +182,21 @@ public class NumbersServiceTests
     }
 
     [Fact]
-    public void CheckIfNumberHasABreakpoint_IsNumberHarshadOrMoranWithValidParameter_ReturnsHasBreakpoint()
+    public void CheckIfNumberHasABreakpoint_CheckIfNumberHasABreakpointWithValidParameter_ReturnsHasBreakpoint()
     {
         Assert.True(numbersService.CheckIfNumberHasABreakpoint(159780));
     }
 
     [Fact]
-    public void CheckIfNumberHasABreakpoint_IsNumberHarshadOrMoranWithValidParameter_ReturnsDoesntHaveBreakpoint()
+    public void CheckIfNumberHasABreakpoint_CheckIfNumberHasABreakpointWithValidParameter_ReturnsDoesntHaveBreakpoint()
     {
         Assert.False(numbersService.CheckIfNumberHasABreakpoint(10));
+    }
+
+    [Fact]
+    public void LookAndSaySequence_LookAndSaySequenceWithValidParameter_ReturnsValidAnswer()
+    {
+        Assert.Equal("132117132110", numbersService.LookAndSaySequence(70, 4));
+        Assert.Equal("13112221", numbersService.LookAndSaySequence(1, 6));
     }
 }
