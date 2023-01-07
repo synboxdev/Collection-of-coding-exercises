@@ -23,4 +23,5 @@ public interface INumbersService
     public int? CollatzConjectureProblem(int? number);
     public string? IsNumberHarshadOrMoran(int? number);
     public bool? CheckIfNumberHasABreakpoint(int? number);
+    public string? LookAndSaySequence(int? number, int? iterations);
 }

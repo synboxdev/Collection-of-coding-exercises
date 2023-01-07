@@ -602,4 +602,64 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Our input number {(numberHasBreakpoint ? "DOES" : "DOES NOT")} have a breakpoint!");
         return numberHasBreakpoint;
     }
+
+    /// <summary>
+    /// Tidbit of information about Look-and-say sequence:
+    /// In mathematics, the look-and-say sequence is the sequence of integers, which is generated as follows (an example):
+    ///     1 is read off as "one 1" or 11.
+    ///     11 is read off as "two 1s" or 21.
+    ///     21 is read off as "one 2, one 1" or 1211.
+    ///     and so on, until we get to the n'th iteration of our sequence.
+    /// Read more here: https://en.wikipedia.org/wiki/Look-and-say_sequence
+    /// </summary>
+    public string? LookAndSaySequence(int? number, int? iterations)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine($"Picking a random number between 1 and 1000, to find to find out its value after {iterations} iterations!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(1, 1000) : number;
+        iterations = (iterations == null || iterations <= 0) ? Random.Shared.Next(1, 10) : iterations;
+        Console.WriteLine($"Number of our choice is {number}, and we'll find the value after {iterations} iterations");
+
+        // Initialize the list of sequence elements, and place the first element, since we need it to form subsequent elements.
+        List<string> sequenceElements = new List<string>
+        {
+            number.ToString()
+        };
+
+        // Do as many iterations, as we've provided.
+        for (int i = 0; i < iterations; i++)
+        {
+            // Initialize the base variable for our next element, which initially will be an empty string, and the number of occurences will start at 1.
+            string nextElement = string.Empty;
+            int occurences = 1;
+
+            // In case the number that was intially provided is length of one (A single digit number) - we manually add it as the 2nd element of the sequence.
+            if (sequenceElements[i].Length == 1)
+            {
+                sequenceElements.Add($"1{sequenceElements[i]}");    // Add it to the list, and break out of the loop, since we must move on to the next iteration.
+                continue;
+            }
+            else
+            {
+                // Iterate over the length of the number.
+                for (int j = 0; j < sequenceElements[i].Length; j++)
+                {
+                    // If the NEXT character does NOT exceed the length of number (we dont go outside the bounds of the length of the string), and its value is same as the current characters value - we increase the number of occurences of that number.
+                    if (j + 1 < sequenceElements[i].Length && sequenceElements[i][j] == sequenceElements[i][j + 1])
+                        occurences++;
+                    // Otherwise - we've either encountered the end of the string (number), or the NEXT character is not the same as our current character - therefor we must start forming next element of our sequence.
+                    else
+                    {
+                        nextElement += $"{occurences}{sequenceElements[i][j]}";     // Next element is formed by appending it with the Occurence counter and the number (of which we counted occurences).
+                        occurences = 1;                                             // Since our NEXT character is a different number, and we'll be counting it from start - we must restart the occurence counter.
+                    }
+                }
+            }
+            // One the next element of the sequence has been formed, add it to the sequence list, and move on to the next iteration.
+            sequenceElements.Add(nextElement);
+        }
+
+        // Return the LAST element of the sequence list, which will simply be the n'th element of the sequence (where n = iterations i.e. variable we provide into the method). 
+        return sequenceElements.Last();
+    }
 }
