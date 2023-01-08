@@ -15,6 +15,7 @@ public class CommandServiceTests
     private readonly IStringsService _stringsService;
     private readonly INumbersService _numbersService;
     private readonly IArraysService _arraysService;
+    private readonly IDataStructuresService _dataStructuresService;
 
     private readonly CommandService commandService;
 
@@ -25,12 +26,14 @@ public class CommandServiceTests
         _stringsService = Mock.Of<IStringsService>();
         _numbersService = Mock.Of<INumbersService>();
         _arraysService = Mock.Of<IArraysService>();
+        _dataStructuresService = Mock.Of<IDataStructuresService>();
 
         commandService = new CommandService(_options,
                                             _logger,
                                             _stringsService,
                                             _numbersService,
-                                            _arraysService);
+                                            _arraysService,
+                                            _dataStructuresService);
     }
 
     [Fact]
