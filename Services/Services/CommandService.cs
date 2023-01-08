@@ -17,18 +17,21 @@ public class CommandService : ICommandService
     private readonly IStringsService _stringsService;
     private readonly INumbersService _numbersService;
     private readonly IArraysService _arraysService;
+    private readonly IDataStructuresService _dataStructuresService;
 
     public CommandService(IOptions<AppSettings> options,
                           ILogger<CommandService> logger,
                           IStringsService stringsService,
                           INumbersService numbersService,
-                          IArraysService arraysService)
+                          IArraysService arraysService,
+                          IDataStructuresService dataStructuresService)
     {
         _logger = logger;
         _options = options.Value;
         _stringsService = stringsService;
         _numbersService = numbersService;
         _arraysService = arraysService;
+        _dataStructuresService = dataStructuresService;
     }
 
     /// <summary>
@@ -241,6 +244,8 @@ public class CommandService : ICommandService
                 return _numbersService;
             case CategoryName.Arrays:
                 return _arraysService;
+            case CategoryName.DataStructures:
+                return _dataStructuresService;
             default: return null;
         }
     }
