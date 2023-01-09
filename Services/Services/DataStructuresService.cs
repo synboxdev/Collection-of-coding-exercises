@@ -53,4 +53,27 @@ public class DataStructuresService : IDataStructuresService
 
         return reversedLinkedList;
     }
+
+    public LinkedListNode<int>? FindNodeInLinkedList(LinkedList<int>? linkedList, int? valueToFind)
+    {
+        // If a node that we're supposed to find is null, we'll instantiate our own with a value of 5.
+        valueToFind = valueToFind != null ? valueToFind : Random.Shared.Next(1, 20);
+        Console.WriteLine($"We will be looking for a LinkedListNode with value {valueToFind}");
+
+        // If our provided linked list as a parameter, is null or does not have any nodes (values) inside it - we'll add a few ourselves.
+        if (linkedList == null || linkedList.Count == 0)
+        {
+            linkedList = new LinkedList<int>();
+            for (int i = 0; i < 10; i++)
+                linkedList.AddLast(i);
+        }
+        Console.WriteLine("Here are nodes of our input Linked List:");
+        ConsoleOutputLinkedList(ConsoleOutputType.Inline, linkedList);
+
+        // We utilize LinkedList's function Find that returns a LinkedListNode with a given value. If no such node if found - null is returned.
+        var foundNode = linkedList.Find((int)valueToFind);
+        Console.WriteLine($"{(foundNode?.Value != valueToFind ? "No such node was found!" : "Node found successfully!")}");
+
+        return foundNode != null ? foundNode : null;
+    }
 }
