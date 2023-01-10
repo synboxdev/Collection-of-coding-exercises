@@ -76,4 +76,33 @@ public class DataStructuresService : IDataStructuresService
 
         return foundNode != null ? foundNode : null;
     }
+
+    public LinkedList<int> MergeTwoLinkedListsUsingLINQ(LinkedList<int> linkedListOne, LinkedList<int> linkedListTwo)
+    {
+        // If our provided linked list as a parameter, is null or does not have any nodes (values) inside it - we create our own lists with some random values, since we'll output a single, sorted, linked list.
+        if (linkedListOne == null || linkedListOne.Count == 0)
+        {
+            linkedListOne = new LinkedList<int>();
+            for (int i = 0; i < 5; i++)
+                linkedListOne.AddLast(Random.Shared.Next(1, 20));
+        }
+        Console.WriteLine("Here are nodes of our first Linked List:");
+        ConsoleOutputLinkedList(ConsoleOutputType.Inline, linkedListOne);
+
+        if (linkedListTwo == null || linkedListTwo.Count == 0)
+        {
+            linkedListTwo = new LinkedList<int>();
+            for (int i = 0; i < 5; i++)
+                linkedListTwo.AddLast(Random.Shared.Next(1, 20));
+        }
+        Console.WriteLine("Here are nodes of our second Linked List:");
+        ConsoleOutputLinkedList(ConsoleOutputType.Inline, linkedListTwo);
+
+        // Probably the most simple and elegant solution to this problem - is to utilize LINQ's Concat (Which is SQL's equivalent of UnionAll) and OrderBy functions
+        LinkedList<int> mergedLinkedList = new LinkedList<int>(linkedListOne.Concat(linkedListTwo).OrderBy(x => x));
+        Console.WriteLine("Here's a final, merged and sorted Linked List:");
+        ConsoleOutputLinkedList(ConsoleOutputType.Inline, mergedLinkedList);
+
+        return mergedLinkedList;
+    }
 }

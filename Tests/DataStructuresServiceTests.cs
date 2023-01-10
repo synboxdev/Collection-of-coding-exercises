@@ -31,4 +31,17 @@ public class DataStructuresServiceTests
     {
         Assert.Null(dataStructuresService.FindNodeInLinkedList(null, 99));
     }
+
+    [Fact]
+    public void MergeTwoLinkedListsUsingLINQ_MergeTwoLinkedListsUsingLINQWithNullParameters_ResultLinkedListHasSameAmountOfElements()
+    {
+        Assert.Equal(10, dataStructuresService.MergeTwoLinkedListsUsingLINQ(null, null).Count);
+    }
+
+    [Fact]
+    public void MergeTwoLinkedListsUsingLINQ_MergeTwoLinkedListsUsingLINQWithNullParameters_ResultLinkedListIsNotNullOrEmpty()
+    {
+        Assert.NotNull(dataStructuresService.MergeTwoLinkedListsUsingLINQ(null, null));
+        Assert.NotEmpty(dataStructuresService.MergeTwoLinkedListsUsingLINQ(null, null));
+    }
 }
