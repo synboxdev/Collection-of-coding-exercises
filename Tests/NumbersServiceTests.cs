@@ -199,4 +199,10 @@ public class NumbersServiceTests
         Assert.Equal("132117132110", numbersService.LookAndSaySequence(70, 4));
         Assert.Equal("13112221", numbersService.LookAndSaySequence(1, 6));
     }
+
+    [Fact]
+    public void KaprekarsConstantProblem_KaprekarsConstantProblemWithValidParameter_ReturnsValidAnswer()
+    {
+        Assert.Equal(3, numbersService.KaprekarsConstantProblem(4159));
+    }
 }
