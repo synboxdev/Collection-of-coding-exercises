@@ -662,4 +662,45 @@ public class NumbersService : INumbersService
         // Return the LAST element of the sequence list, which will simply be the n'th element of the sequence (where n = iterations i.e. variable we provide into the method). 
         return sequenceElements.Last();
     }
+
+    /// <summary>
+    /// Tidbit of information about Kaprekar's Constant or 6174 (number):
+    /// 6174 is known as Kaprekar's constant after the Indian mathematician D. R. Kaprekar.
+    ///  1. Take any four-digit number, using at least two different digits (leading zeros are allowed).
+    ///  2. Arrange the digits in descending and then in ascending order to get two four-digit numbers, adding leading zeros if necessary.
+    ///  3. Subtract the smaller number from the bigger number.
+    ///  4. Go back to step 2 and repeat.
+    /// The above process, known as Kaprekar's routine, will always reach its fixed point, 6174, in at most 7 iterations.
+    /// Read more here: https://en.wikipedia.org/wiki/6174_(number)
+    /// </summary>
+    public int? KaprekarsConstantProblem(int? fourDigitNumber)
+    {
+        // If input four digit is invalid (Has less or more than exactly four digits, does NOT have a value entirely, or has less than two distinct digits) - we simply initialize our own.
+        if (fourDigitNumber.ToString().Length != 4 &&
+            !fourDigitNumber.HasValue &&
+            fourDigitNumber.ToString().Distinct().Count() < 2)
+        {
+            fourDigitNumber = 1459;
+        }
+        Console.WriteLine($"Here's our input four digit number - {fourDigitNumber}, which we'll use trying to follow Kaprekar's routine");
+
+        int numberOfSteps = 0;                      // Initialize a variable to save the number of steps it takes us to reach number 6174
+        int resultNumber = (int)fourDigitNumber;    // Initialize our result number, which will be re-calculated every cycle, and its initial value is equivalent to our input four digit number.
+
+        // Iterate until we reach our final number, which is specifically 6174
+        while (resultNumber != 6174)
+        {
+            // Instantiate two variable - which is our input number, converted to string type variable, and reordered in ascending and descending manner respectively.
+            int rearrangedAscending = Convert.ToInt32(string.Concat(resultNumber.ToString().OrderBy(x => x)));
+            int rearrangedDescending = Convert.ToInt32(string.Concat(resultNumber.ToString().OrderByDescending(x => x)));
+
+            // As third step of Kaprekar's routine tells us - we must subtract smaller number from the bigger number. Also - we've just completed one iteration - which is means add one more step to total number of steps.
+            resultNumber = rearrangedDescending - rearrangedAscending;
+            numberOfSteps++;
+        }
+
+        // Print out the result - which is the number of steps it has taken us, to reach number 6174.
+        Console.WriteLine($"It has taken {numberOfSteps} steps, to reach number 6174");
+        return numberOfSteps;
+    }
 }
