@@ -105,4 +105,65 @@ public class DataStructuresService : IDataStructuresService
 
         return mergedLinkedList;
     }
+
+    public LinkedList<int> RemoveDuplicatesFromLinkedListUsingHashSet(LinkedList<int> linkedList)
+    {
+        // If our provided linked list as a parameter, is null or does not have any nodes (values) inside it - we create our own lists with some random values, since we'll output a single, sorted, linked list.
+        if (linkedList == null || linkedList.Count == 0)
+        {
+            linkedList = new LinkedList<int>();
+            linkedList.AddLast(1);
+            linkedList.AddLast(1);
+            linkedList.AddLast(2);
+            linkedList.AddLast(2);
+            linkedList.AddLast(3);
+        }
+        Console.WriteLine("Here are nodes of our first Linked List:");
+        ConsoleOutputLinkedList(ConsoleOutputType.Inline, linkedList);
+
+        // Instantiate a new HashSet, iterate over every node in the input Linked List. Only unique elements will be added to HashSet, because if such element it NOT yet present inside the HashSet.
+        HashSet<int> hashSetOfNodes = new HashSet<int>();
+        foreach (var node in linkedList)
+            hashSetOfNodes.Add(node);
+
+        // Clear the Linked list - i.e. Delete all the nodes.
+        linkedList.Clear();
+
+        // Iterate over the HashSet, and Add all HashSet's elements, as nodes, back to the Linked List - which will now will ONLY contain unique elements.
+        foreach (var hashSetNode in hashSetOfNodes)
+            linkedList.AddLast(hashSetNode);
+
+        Console.WriteLine("Here's a final Linked List, without any duplicate values:");
+        ConsoleOutputLinkedList(ConsoleOutputType.Inline, linkedList);
+        return linkedList;
+    }
+
+    public LinkedList<int> RemoveDuplicatesFromLinkedListUsingLINQ(LinkedList<int> linkedList)
+    {
+        // If our provided linked list as a parameter, is null or does not have any nodes (values) inside it - we create our own lists with some random values, since we'll output a single, sorted, linked list.
+        if (linkedList == null || linkedList.Count == 0)
+        {
+            linkedList = new LinkedList<int>();
+            linkedList.AddLast(1);
+            linkedList.AddLast(1);
+            linkedList.AddLast(2);
+            linkedList.AddLast(2);
+            linkedList.AddLast(3);
+        }
+        Console.WriteLine("Here are nodes of our first Linked List:");
+        ConsoleOutputLinkedList(ConsoleOutputType.Inline, linkedList);
+
+        // Instantiate a new LinkedList of the same type as our input Linked List;
+        LinkedList<int> linkedListWithoutDuplicates = new LinkedList<int>();
+        // Iterate over the input Linked List, and check if our new Linked List contains node with such value - if not, add it to the end of the Linked List. Final Linked List will now contain ONLY unique node elements.
+        for (LinkedListNode<int> node = linkedList.First; node != null; node = node.Next)
+        {
+            if (!linkedListWithoutDuplicates.Contains(node.Value))
+                linkedListWithoutDuplicates.AddLast(node.Value);
+        }
+
+        Console.WriteLine("Here's a final Linked List, without any duplicate values:");
+        ConsoleOutputLinkedList(ConsoleOutputType.Inline, linkedListWithoutDuplicates);
+        return linkedListWithoutDuplicates;
+    }
 }
