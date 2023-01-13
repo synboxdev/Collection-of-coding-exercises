@@ -82,4 +82,22 @@ public class DataStructuresServiceTests
         Assert.Equal(2, dataStructuresService.RemoveDuplicatesFromLinkedListUsingLINQ(sampleLinkedList).First.Value);
         Assert.Equal(4, dataStructuresService.RemoveDuplicatesFromLinkedListUsingLINQ(sampleLinkedList).Last.Value);
     }
+
+    [Fact]
+    public void ReverseAStack_ReverseAStackWithNullParameters_ResultsDefaultReversedStack()
+    {
+        Assert.Equal("Apple", dataStructuresService.ReverseAStack(null).FirstOrDefault());
+        Assert.Equal("Pear", dataStructuresService.ReverseAStack(null).LastOrDefault());
+    }
+
+    [Fact]
+    public void ReverseAStack_ReverseAStackWithValidInputStack_ResultsReversedStack()
+    {
+        string[] sampleArr = new string[] { "Collection", "of", "coding", "exercises" };
+        Stack<string> sampleStack = new Stack<string>(sampleArr);
+
+        var reversedStack = dataStructuresService.ReverseAStack(sampleStack);
+        Assert.Equal("Collection", reversedStack.FirstOrDefault());
+        Assert.Equal("exercises", reversedStack.LastOrDefault());
+    }
 }
