@@ -597,4 +597,102 @@ public class ArraysService : IArraysService
         Console.WriteLine($"There are a total of {freePlaces} available sea loungers, whilst complying to the rule of leaving one empty space in between every visitor.");
         return freePlaces;
     }
+
+    /// <summary>
+    /// Tidbit of information about Sudoku puzzle:
+    /// Sudoku (originally called Number Place) - is a logic-based, combinatorial number-placement puzzle. 
+    /// In classic Sudoku, the objective is to fill a 9 × 9 grid with digits so that each column, each row, and each of the nine 3 × 3 subgrids that compose the grid (also called "boxes", "blocks", or "regions") contain all of the digits from 1 to 9.
+    /// Read more here: https://en.wikipedia.org/wiki/Sudoku
+    /// </summary>
+    public bool IsSudokuSolutionValid(int[,] sudokuGrid)
+    {
+        // If a given solution grid is invalid, we'll instantiate our own. To visualise and see it better - I've added extra space between sections in between 3 rows and columns.
+        sudokuGrid = (sudokuGrid != null && sudokuGrid.GetLength(0) == 9 && sudokuGrid.GetLength(1) == 9) ?
+                              sudokuGrid :
+                              new int[,]
+                              {
+                                  { 1, 5, 2,  4, 8, 9,  3, 7, 6 },
+                                  { 7, 3, 9,  2, 5, 6,  8, 4, 1 },
+                                  { 4, 6, 8,  3, 7, 1,  2, 9, 5 },
+
+                                  { 3, 8, 7,  1, 2, 4,  6, 5, 9 },
+                                  { 5, 9, 1,  7, 6, 3,  4, 2, 8 },
+                                  { 2, 4, 6,  8, 9, 5,  7, 1, 3 },
+
+                                  { 9, 1, 4,  6, 3, 7,  5, 8, 2 },
+                                  { 6, 2, 5,  9, 4, 8,  1, 3, 7 },
+                                  { 8, 7, 3,  5, 1, 2,  9, 6, 4 }
+                              };
+
+        // Just for the sake of visibility in the console, as well as in the code above, I've went an extra mile to format the Sudoku a bit nicer - extra spacing between every 3rd row and column.
+        Console.WriteLine("We're going to determine, whether this Sudoku is solved correctly:");
+        for (int columnIndex = 0; columnIndex < sudokuGrid.GetLength(0); columnIndex++)
+        {
+            for (int rowIndex = 0; rowIndex < sudokuGrid.GetLength(1); rowIndex++)
+            {
+                Console.Write($"{(rowIndex > 0 && rowIndex % 3 == 0 ? "\t" : "")}" + $"{sudokuGrid[columnIndex, rowIndex]}  ");
+            }
+            Console.Write($"{(columnIndex > 0 && (columnIndex + 1) % 3 == 0 ? "\n\n" : "\n")}");
+        }
+
+        // Instantiate a List of integer arrays, where we'll store each set of elements - all rows, all columns, and all individual 9 element small squares.
+        List<int[]> allSudokuSets = new List<int[]>();
+
+        // Iterate over every column, and add all elements of each individual column as a subset into our list of subsets.
+        for (int columnIndex = 0; columnIndex < sudokuGrid.GetLength(0); columnIndex++)
+        {
+            allSudokuSets.Add(Enumerable.Range(0, sudokuGrid.GetLength(0))
+                                        .Select(columnElement => sudokuGrid[columnElement, columnIndex])
+                                        .ToArray());
+        }
+
+        // Iterate over every row, and add all elements of each individual row as a subset into our list of subsets.
+        for (int rowIndex = 0; rowIndex < sudokuGrid.GetLength(1); rowIndex++)
+        {
+            allSudokuSets.Add(Enumerable.Range(0, sudokuGrid.GetLength(1))
+                                        .Select(rowElement => sudokuGrid[rowIndex, rowElement])
+                                        .ToArray());
+        }
+
+        // This is the tricky part, where we must get all individual small squares from our Sudoku. Here's how we do it.
+        // Iterate over each 'big' column. There are three 'big' columns, and each has three small squares inside it.
+        for (int i = 0; i < 9; i += 3)
+        {
+            // Define a list of integers, which will hold a singular square's values.
+            List<int> smallSquare = new List<int>();
+            // Iterate over every single line, inside out 'big' column.
+            for (int rowIndex = 0; rowIndex < sudokuGrid.GetLength(1); rowIndex++)
+            {
+                // Add all elements from i'th position (which starts at 0, next iteration it starts at 3, and last iteration - at 6), and take THREE elements.
+                smallSquare.AddRange(Enumerable.Range(i, 3)
+                           .Select(rowElement => sudokuGrid[rowIndex, rowElement])
+                           .ToList());
+                // Once we reach exactly 9 elements inside out List - that mean we've went over three rows, and gathered all values of a singular small square.
+                // That means we must add it to our list of all subsets, and reset it, which we do by simply calling Clear functon which wipes all data from our list.
+                if (smallSquare.Count == 9)
+                {
+                    allSudokuSets.Add(smallSquare.ToArray());
+                    smallSquare.Clear();
+                }
+            }
+        }
+
+        // Instantiate a boolean variable which will act as a trigger, informing us whether a given subset is NOT valid, which would invalidate the entire solution of Sudoku.
+        bool IsSudokuSolutionValid = true;
+        // Iterate over every single subset in our list of subsets.
+        foreach (var subSet in allSudokuSets)
+        {
+            // If the number of distinct values is NOT equal to total number of values in a given subset,
+            //      That means we have repeating digits, which in turn - invalidates the entire Sudoku solution.
+            //      We switch our boolean to false and break out of the loop, since there's no more need to check other subsets.
+            if (subSet.Distinct().Count() != subSet.Length)
+            {
+                IsSudokuSolutionValid = !IsSudokuSolutionValid;
+                break;
+            }
+        }
+
+        Console.WriteLine($"Our input Sudoku {(IsSudokuSolutionValid ? "is" : "is NOT")} solved correctly!");
+        return IsSudokuSolutionValid;
+    }
 }
