@@ -205,4 +205,16 @@ public class NumbersServiceTests
     {
         Assert.Equal(3, numbersService.KaprekarsConstantProblem(4159));
     }
+
+    [Fact]
+    public void CheckIfNumberIsDisarium_CheckIfNumberIsDisariumWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsDisarium(518));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsDisarium_CheckIfNumberIsDisariumWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsDisarium(516));
+    }
 }

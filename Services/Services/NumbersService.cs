@@ -703,4 +703,36 @@ public class NumbersService : INumbersService
         Console.WriteLine($"It has taken {numberOfSteps} steps, to reach number 6174");
         return numberOfSteps;
     }
+
+    /// <summary>
+    /// A number is said to be Disarium if the sum of its digits raised to their respective positions is the number itself.
+    /// For example if we have a number 518. To determine whether its a Disarium number we do the following calculation:
+    /// (5 ^ 1) + (1 ^ 2) + (8 ^ 3) = 5 + 1 + 512 = 518. Which means, 518 IS a Disarium number!
+    /// </summary>
+    public bool CheckIfNumberIsDisarium(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine($"Picking a random number between 1 and 10000, to determine whether its a Disarium number or not!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(1, 10000) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        Dictionary<int, int> digitAndPositionDictionary = new Dictionary<int, int>();   // Initialize a Dictionary, to hold value of a given digit's position, and its numeric value.
+        var numberAsCharArray = number.ToString().ToCharArray();                        // Convert a given number to char array, so its easier to iterate over it, and populate our Dictionary, which we initialized above.
+
+        // Iterate over every digit in our number (which we converted to char array).
+        // Each entry of our dictionary - KEY is the position of the digit with +1, since we can't define 0'th position and use Disarium rules later on. VALUE is going to be numeric value of a given char.
+        for (int i = 0; i < numberAsCharArray.Length; i++)
+            digitAndPositionDictionary.Add(i + 1, (int)Char.GetNumericValue(numberAsCharArray[i]));
+
+        // Instantiate a variable to hold the sum of digits after Disarium ruleset calculation.
+        double sumOfDigits = 0;
+        foreach (var element in digitAndPositionDictionary)
+            sumOfDigits += Math.Pow(element.Value, element.Key);    // Each digit is raised to the power of its position in the number.
+
+        // If our sum (by Disarium rules) is equal to the input number itself - that mean our input number IS a Disarium number.
+        bool IsNumberDisarium = sumOfDigits == number ? true : false;
+        Console.WriteLine($"Our given input number {(IsNumberDisarium ? "is" : "is NOT")} a Disarium number!");
+
+        return IsNumberDisarium;
+    }
 }

@@ -25,4 +25,5 @@ public interface INumbersService
     public bool? CheckIfNumberHasABreakpoint(int? number);
     public string? LookAndSaySequence(int? number, int? iterations);
     public int? KaprekarsConstantProblem(int? fourDigitNumber);
+    public bool CheckIfNumberIsDisarium(int? number);
 }
