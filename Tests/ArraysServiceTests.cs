@@ -168,4 +168,16 @@ public class ArraysServiceTests
                                   { 8, 7, 3,  5, 1, 2,  9, 6, 1 }
                               }));
     }
+
+    [Fact]
+    public void DoesArrayContainFullPositionCycle_DoesArrayContainFullPositionCycleWithValidParameterValues_ReturnsTrue()
+    {
+        Assert.True(arraysService.DoesArrayContainFullPositionCycle(new int[] { 5, 3, 4, 2, 0, 1 }));
+    }
+
+    [Fact]
+    public void DoesArrayContainFullPositionCycle_DoesArrayContainFullPositionCycleWithValidParameterValues_ReturnsFalse()
+    {
+        Assert.False(arraysService.DoesArrayContainFullPositionCycle(new int[] { 5, 3, 4, 2, 8, 1 }));
+    }
 }
