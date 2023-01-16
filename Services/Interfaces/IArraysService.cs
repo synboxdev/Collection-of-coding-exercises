@@ -21,4 +21,5 @@ public interface IArraysService
     public double[] FindFareySequenceToAGivenOrder(int? order);
     public int? SunLoungerProblem(int[]? array);
     public bool IsSudokuSolutionValid(int[,] sudokuGrid);
+    public bool DoesArrayContainFullPositionCycle(int[]? array);
 }

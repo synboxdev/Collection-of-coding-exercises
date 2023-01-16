@@ -695,4 +695,55 @@ public class ArraysService : IArraysService
         Console.WriteLine($"Our input Sudoku {(IsSudokuSolutionValid ? "is" : "is NOT")} solved correctly!");
         return IsSudokuSolutionValid;
     }
+
+    /// <summary>
+    /// Goal of this exercise is to traverse an array of positive integers starting at the first item and using each value as a pointer of what item to visit next.
+    /// For example, an array [1, 4, 3, 0, 2] would be considered to have a Full Position Cycle,
+    ///     Because starting at position 0, element's value is 1, we traverse the array, following the VALUE of an element, to go to the position of index of that value, meaning - next step would get us to position 1 (value = 4), next step is position 4 (value = 2), etc.
+    /// Array has Full Position Cycle if we start at the very first element, visit all other elements exactly once, and at the end - go back to the very first element.
+    /// </summary>
+    public bool DoesArrayContainFullPositionCycle(int[]? array)
+    {
+        // If a an array isn't provided to the method or is invalid, we create our own - containing positive integers.
+        array = (array == null || array.Count() == 0) ? new int[] { 5, 3, 4, 2, 0, 1 } : array;
+        Console.WriteLine("Here's our input array, which contains only positive integer elements:");
+        array.ToList().ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+
+        // Define a boolean variable, which will act as our indicator and return value.
+        bool ArrayHasFullCycle = true;
+        // Instantiate a list which will hold indexes of the elements in our input array, which we've already visited.
+        List<int> traversedIndexes = new List<int>();
+        // Also - we'll define a starting position of traversal.
+        int indexPosition = 0;
+
+        // Iterate over our input array, until our traversed index list reaches same number of elements as our input array, or a condition is met that indicates that we do NOT have Full Position Cycle, and we cut off iteration.
+        while (traversedIndexes.Count != array.Length)
+        {
+            // Two conditions must be met for an element to be 'traversed' - such element may not already exist in our list of traversed indexes, and its value may not point outside of our input array.
+            // Meaning - if our array contains 5 elements, and one of them has value of 25, which is outside the bounds of the array - that means our array simply does not have a Full Position Cycle
+            if ((indexPosition >= 0 && indexPosition < array.Length) &&
+                !traversedIndexes.Contains(array[indexPosition]))
+            {
+                traversedIndexes.Add(array[indexPosition]);     // Add a given element's value to the array of traversed elements.
+                indexPosition = array[indexPosition];           // Set the next position to the value of current element
+
+                if (traversedIndexes.Count == array.Length &&   // Last condition of our exercise that must be met - last element that we traverse must point back to the beginning of the array, which is exactly position 0
+                    indexPosition != 0)
+                {
+                    ArrayHasFullCycle = !ArrayHasFullCycle;
+                    break;
+                }
+            }
+            // If either condition mentioned above is met - our input array does NOT have a Full Position Cycle - which means we simply inform the user in the console window and break out of the loop.
+            else
+            {
+                ArrayHasFullCycle = !ArrayHasFullCycle;
+                break;
+            }
+        }
+
+        Console.WriteLine($"Our input array {(ArrayHasFullCycle ? "does" : "does NOT")} have a Full Position Cycle");
+        return ArrayHasFullCycle;
+    }
 }
