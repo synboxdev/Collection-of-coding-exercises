@@ -746,4 +746,42 @@ public class ArraysService : IArraysService
         Console.WriteLine($"Our input array {(ArrayHasFullCycle ? "does" : "does NOT")} have a Full Position Cycle");
         return ArrayHasFullCycle;
     }
+
+    /// <summary>
+    /// A rather simple, but an interesting exercise:
+    /// Find the length of the longest sub-sequence of numbers whose difference is 1. 
+    /// </summary>
+    public int? AlmostUniformSequence(int[]? array)
+    {
+        // If a an array isn't provided to the method or is invalid, we create our own.
+        array = (array == null || array.Count() < 2) ? new int[] { 1, -1, 3, 2, 1, 5, 2, 3, 7 } : array;
+        Console.WriteLine("Here's our input array:");
+        array.ToList().ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+
+        // Define a list of sequences lengths, as well as variable to hold a temporary length of a given sequence that fits our condition.
+        List<int> longestSequences = new List<int>();
+        int temporarySequenceLength = 1;
+
+        // Iterate from the first element, to second to last. Since we compare a given element to its next element.
+        for (int i = 0; i < array.Length - 1; i++)
+        {
+            // If current element is NOT same as the next one, and their difference is equal to exactly one - increase our temporary sequence length by one.
+            if (array[i] != array[i + 1] && Math.Abs(array[i] - array[i + 1]) == 1)
+                temporarySequenceLength++;
+            // If condition above is not met - add current temporary sequence length to the list, and reset it back to one.
+            else
+            {
+                longestSequences.Add(temporarySequenceLength);
+                temporarySequenceLength = 1;
+            }
+        }
+        // In case we exist the loop without ever adding the element inside it - we must check whether temporary sequence length is above one - if so - add it the the list.
+        // Such occurence may happen if the entire array is one big sequence, for example [ -1, 0, 1, 0 ] would yield an answer 4.
+        if (temporarySequenceLength > 1)
+            longestSequences.Add(temporarySequenceLength);
+
+        Console.WriteLine($"Length of the longest sub-sequence of numbers whose difference is 1, is equivalent to {longestSequences.Max()}");
+        return longestSequences.Max();
+    }
 }

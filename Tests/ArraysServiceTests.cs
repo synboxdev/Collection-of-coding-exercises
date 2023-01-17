@@ -180,4 +180,10 @@ public class ArraysServiceTests
     {
         Assert.False(arraysService.DoesArrayContainFullPositionCycle(new int[] { 5, 3, 4, 2, 8, 1 }));
     }
+
+    [Fact]
+    public void AlmostUniformSequence_AlmostUniformSequenceWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(4, arraysService.AlmostUniformSequence(new int[] { -1, 0, 1, 0 }));
+    }
 }

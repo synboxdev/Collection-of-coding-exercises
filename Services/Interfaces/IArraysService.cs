@@ -22,4 +22,5 @@ public interface IArraysService
     public int? SunLoungerProblem(int[]? array);
     public bool IsSudokuSolutionValid(int[,] sudokuGrid);
     public bool DoesArrayContainFullPositionCycle(int[]? array);
+    public int? AlmostUniformSequence(int[]? array);
 }
