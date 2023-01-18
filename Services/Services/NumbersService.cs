@@ -735,4 +735,41 @@ public class NumbersService : INumbersService
 
         return IsNumberDisarium;
     }
+
+    /// <summary>
+    /// A slight variation to the standard Fibonacci Series sequence, where we calculate and display the sequence by combining the previous two numbers.
+    /// In this exercise - we're going to define number of elements we want to display the sequence for, as well as, how many previous terms we're going to use, to calculate the next number of the sequence.
+    /// For example, initial 10 elements of the sequence, of the first 3 N-bonacci sequences are as follows:
+    ///     1-bonacci = 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, ...
+    ///     2-bonacci = 0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
+    ///     3-bonacci = 0, 0, 1, 1, 2, 4, 7, 13, 24, 44, ...
+    /// </summary>
+    public int NBonacciNumberSequenceCalculationAndDisplay(int numberOfElements, int numberOfTerms)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine("Picking a random number of elements, to display the Fibonacci sequence for between 5 and 20");
+        numberOfElements = numberOfElements < 5 ? Random.Shared.Next(5, 20) : numberOfElements;
+        Console.WriteLine("Picking a random number of terms, using which we'll calculate the Fibonacci sequence:");
+        numberOfTerms = numberOfTerms < 2 ? Random.Shared.Next(2, 5) : numberOfTerms;
+        Console.WriteLine($"Calculating and displaying Fibonacci series for {numberOfElements + 1} elements, by {numberOfTerms} terms");
+
+        // We initialize the first few values of our Fibonacci sequence, and add them to our list of integer elements.
+        // For the sake of simplicity, we're going to add zeroes for first n-1 number of elements, and last element will be a 1.
+        // So if we generate (or provide into the method, as a paramter) number of terms to be 5, the first four elements are going to be zeroes, and the 5th - one.
+        List<int> fibonacciSequence = new List<int>();
+        for (int i = 0; i < numberOfTerms - 1; i++)
+            fibonacciSequence.Add(0);
+        fibonacciSequence.Add(1);
+
+        // We must iterate until we fill up our list with as many elements, as is provided to the method, or we generated
+        // We start out from the number of elements that is already in our list, all the way until we reach our desired number of elements.
+        for (int i = fibonacciSequence.Count; i <= numberOfElements; i++)
+            fibonacciSequence.Add(fibonacciSequence.TakeLast(numberOfTerms).Sum());     // We utilize an extermely helpful LINQ function - TakeLast, and we input our number of terms into the function, and Sum all these elements.
+
+        // Display our full Fibonacci sequence to console output. Reason for + 1 of elements, is because list indexing starts from zero, so for visual representation, we make sure to start our sequence from 1st number, and not 0'th
+        Console.WriteLine($"Displaying Fibonacci sequence elements for {numberOfElements + 1} elements:");
+        fibonacciSequence.ForEach(element => Console.WriteLine($"#{fibonacciSequence.IndexOf(element) + 1}\t{element}"));
+
+        return fibonacciSequence.Last();    // Return the last element value of our Fibonacci sequence. (For Unit tests)
+    }
 }

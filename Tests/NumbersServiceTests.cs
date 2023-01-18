@@ -217,4 +217,10 @@ public class NumbersServiceTests
     {
         Assert.False(numbersService.CheckIfNumberIsDisarium(516));
     }
+
+    [Fact]
+    public void NBonacciNumberSequenceCalculationAndDisplay_NBonacciNumberSequenceCalculationAndDisplayWithValidParameter_ReturnsValidAnswer()
+    {
+        Assert.Equal(29, numbersService.NBonacciNumberSequenceCalculationAndDisplay(9, 4));
+    }
 }
