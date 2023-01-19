@@ -27,4 +27,5 @@ public interface INumbersService
     public int? KaprekarsConstantProblem(int? fourDigitNumber);
     public bool CheckIfNumberIsDisarium(int? number);
     public int NBonacciNumberSequenceCalculationAndDisplay(int numberOfElements, int numberOfTerms);
+    public bool CheckIfNumberIsGapful(int? number);
 }
