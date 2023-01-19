@@ -772,4 +772,28 @@ public class NumbersService : INumbersService
 
         return fibonacciSequence.Last();    // Return the last element value of our Fibonacci sequence. (For Unit tests)
     }
+
+    /// <summary>
+    /// Tidbit of information about Gapful numbers:
+    /// Gapful Number is a number N of at least 3 digits such that it is divisible by the concatenation of it’s first and last digit.
+    /// </summary>
+    public bool CheckIfNumberIsGapful(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, three digit, positive integer number.
+        Console.WriteLine("Picking a random, three digit number, to determine whether its a Gapful number or not!");
+        number = number == null || number < 100 ? Random.Shared.Next(100, 10000) : number;
+        Console.WriteLine($"Number of our choice is - {number}");
+
+        // Retrieve first, and last digits of our input number, by converting our input number to string, and retrieving the Char values of first and last elements.
+        char firstDigit = number.ToString()[0];
+        char lastDigit = number.ToString()[number.ToString().Length - 1];
+
+        // Our boolean variable, determining whether a given number is Gapful or not is instantly defined and formed by the following:
+        // Utilizing the remainder operator, which returns a remainder AFTER dividing first number (which is our input number), from another number (which is combination of our first and last digits).
+        // If the remainder is 0, which means our input number divides nicely, without any remainder - our input number IS is in fact, a Gapful number!
+        bool IsNumberGapful = number % (Char.GetNumericValue(firstDigit) + Char.GetNumericValue(lastDigit)) == 0;
+        Console.WriteLine($"We have determined, that number {number} {(IsNumberGapful ? "is" : "is NOT")} a Gapful number!");
+
+        return IsNumberGapful;
+    }
 }

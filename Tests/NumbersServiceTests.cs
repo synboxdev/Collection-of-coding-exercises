@@ -223,4 +223,16 @@ public class NumbersServiceTests
     {
         Assert.Equal(29, numbersService.NBonacciNumberSequenceCalculationAndDisplay(9, 4));
     }
+
+    [Fact]
+    public void CheckIfNumberIsGapful_CheckIfNumberIsGapfulWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsGapful(260));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsGapful_CheckIfNumberIsGapfulWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsGapful(1234));
+    }
 }
