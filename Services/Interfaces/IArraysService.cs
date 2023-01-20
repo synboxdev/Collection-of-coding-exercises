@@ -23,4 +23,5 @@ public interface IArraysService
     public bool IsSudokuSolutionValid(int[,] sudokuGrid);
     public bool DoesArrayContainFullPositionCycle(int[]? array);
     public int? AlmostUniformSequence(int[]? array);
+    public string[] PoppingBlocks(string[] array);
 }

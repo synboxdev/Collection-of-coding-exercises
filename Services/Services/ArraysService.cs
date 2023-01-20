@@ -784,4 +784,61 @@ public class ArraysService : IArraysService
         Console.WriteLine($"Length of the longest sub-sequence of numbers whose difference is 1, is equivalent to {longestSequences.Max()}");
         return longestSequences.Max();
     }
+
+    /// <summary>
+    /// 'Popping Blocks' is a rather fun little exercise. Here's how it works and we should approach it:
+    ///     1. When two blocks of the same "type" are adjacent to each other, the entire contiguous block disappears (pops off).
+    ///     2. If this occurs, this can allow previously separated blocks to be in contact with each other, setting off a chain reaction.
+    ///     3. This will continue until each block is surrounded by a different block.
+    ///  For example:
+    ///     1. ["A", "B", "C", "C", "B", "D", "A"]  - The two adjacent Cs pop off
+    ///     2. ["A", "B", "B", "D", "A"]            - Two adjacent Bs pop off
+    ///     3. ["A", "D", "A"]                      - No more blocks pop off, and this is our final result.
+    /// </summary>
+    public string[] PoppingBlocks(string[] array)
+    {
+        // If a an array isn't provided to the method or is invalid, we create our own - containing positive integers.
+        array = (array == null || array.Count() == 0) ? new string[] { "A", "B", "C", "C", "B", "D", "A" } : array;
+        Console.WriteLine("Here's our input array, which we'll use to solve 'Popping Blocks' exercise:");
+        array.ToList().ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+
+        // Initially - we instantiate a List type collection, since its easier to add/remove elements in comparison to an array type collection.
+        List<string>? arrayElements = array.ToList();
+
+        // Iterate over the entire list (all the elements)
+        for (int i = 0; i < arrayElements.Count; i++)
+        {
+            // If the NEXT element is NOT outside the bounds of our collection, AND its equal to our current element - we've found matching blocks.
+            if (i + 1 < arrayElements.Count && arrayElements[i + 1] == arrayElements[i])
+            {
+                // Save the index of our current element, and instantiate a counter variable for all the upcoming elements.
+                int currentElementIndex = i;
+                int nextElementIndex = 1;
+
+                // Iterate, until the next element is NOT outside the bounds of our collection, AND its equivalent to our current element
+                //      If the condition fits - change that element's value to NULL, and increase our counter variable by one.
+                while (currentElementIndex + nextElementIndex < arrayElements.Count &&
+                       arrayElements[currentElementIndex + nextElementIndex] == arrayElements[i])
+                {
+                    arrayElements[currentElementIndex + nextElementIndex] = null;
+                    nextElementIndex++;
+                }
+                // After all the next variables have been iterated over, and if they are equivalent - changed to NULLs, we can change our current element to NULL.
+                arrayElements[currentElementIndex] = null;
+
+                // Reinstantiate the list, by collection all non-null values from our initial list - this will 'pop off' the contiguous block of matching elements. 
+                arrayElements = arrayElements.Where(x => x != null).ToList();
+                // Also - very important - we must restart the initial loop, by setting iterator to 0, since we've removed some elements, and indexes have shifted.
+                i = 0;
+            }
+        }
+
+        // Display the final list of elements to the console window:
+        Console.WriteLine("Here's our array, after 'Popping Blocks' logic:");
+        arrayElements.ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+
+        return arrayElements.ToArray();
+    }
 }

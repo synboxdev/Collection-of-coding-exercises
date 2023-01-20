@@ -186,4 +186,11 @@ public class ArraysServiceTests
     {
         Assert.Equal(4, arraysService.AlmostUniformSequence(new int[] { -1, 0, 1, 0 }));
     }
+
+    [Fact]
+    public void PoppingBlocks_PoppingBlocksWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(new string[] { "A" },
+            arraysService.PoppingBlocks(new string[] { "A", "B", "A", "A", "A", "B", "B" }));
+    }
 }
