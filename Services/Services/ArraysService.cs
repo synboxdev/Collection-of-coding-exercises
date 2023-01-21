@@ -841,4 +841,55 @@ public class ArraysService : IArraysService
 
         return arrayElements.ToArray();
     }
+
+    /// <summary>
+    /// Tidbit of information about The Josephus Problem:
+    /// In computer science and mathematics, the Josephus problem (or Josephus permutation) is a theoretical problem related to a certain counting-out game.
+    ///     Here's the basic ruleset of the problem:
+    ///     1. A number of people are standing in a circle waiting to be executed.
+    ///     2. Counting begins at a specified point in the circle and proceeds around the circle in a specified direction.
+    ///     3. After a specified number of people are skipped, the next person is executed.
+    ///     4. The procedure is repeated with the remaining people, starting with the next person, going in the same direction and skipping the same number of people, until only one person remains, and is freed.
+    /// Read more here: https://en.wikipedia.org/wiki/Josephus_problem
+    /// </summary>
+    public int TheJosephusProblem(int[]? array, int? killIndex)
+    {
+        // If a an array isn't provided to the method or is invalid, we create our own - containing ones (Which indicate an alive person).
+        array = (array == null || array.Count() == 0) ? new int[] { 1, 1, 1, 1, 1, 1, 1, 1 } : array;
+        Console.WriteLine("Here's our input array, which represents a circle of unfortunate people, who are about to be executed, until there's only a single survivor left");
+        array.ToList().ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+        killIndex = killIndex == null || killIndex == 0 ? Random.Shared.Next(1, 5) : killIndex;
+        Console.WriteLine($"Every {killIndex} person will be executed.");
+
+        // Initialize an interger type variable, to keep count alive people, when this number is equivalent to kill index - that person is killed and the counter is reset.
+        int counter = 0;
+
+        // Iterate over the entire array (circle of people). This is reset when we reach the end, because real exit condition is define within the loop itself.
+        for (int i = 0; i < array.Length; i++)
+        {
+            // This is real exit condition of the loop - when the number of Survivors (which are indicated by 1) is equal to 1, meaning - we have a single person left alive - we exit the loop.
+            if (array.Where(x => x == 1).Count() == 1)
+                break;
+
+            // Is the current person alive? If so - increase the counter by one.
+            if (array[i] == 1)
+                counter++;
+
+            // Is the counter (number of counted alive people) equal to kill index? If so - this person is killed, and counter is reset back to zero.
+            if (counter == killIndex)
+            {
+                array[i] = 0;
+                counter = 0;
+            }
+
+            // If next person (next element in the array) is already outside the bounds of the array - reset array iterator i to -1 (Since it will be increased by one in the next iteration).
+            if (i + 1 == array.Length)
+                i = -1;
+        }
+
+        // Last person alive is set free. That means our result is the index (position) of first element equivalent to 1. (Which is the last person alive).
+        Console.WriteLine($"Index (safe position) is equal to {Array.FindIndex(array, x => x == 1)}. That's where the last survivor is.");
+        return Array.FindIndex(array, x => x == 1);
+    }
 }

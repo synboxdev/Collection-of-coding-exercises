@@ -193,4 +193,10 @@ public class ArraysServiceTests
         Assert.Equal(new string[] { "A" },
             arraysService.PoppingBlocks(new string[] { "A", "B", "A", "A", "A", "B", "B" }));
     }
+
+    [Fact]
+    public void TheJosephusProblem_TheJosephusProblemWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(1, arraysService.TheJosephusProblem(new int[] { 1, 1, 1, 1, 1, 1, 1 }, 4));
+    }
 }
