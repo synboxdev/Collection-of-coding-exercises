@@ -14,7 +14,7 @@ public class ArraysService : IArraysService
     {
         // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
         Console.WriteLine("Creating a simple integer array");
-        array = (array == null || array.Count() == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
+        array = (array == null || array.Length == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
         Console.WriteLine("Here's out input array that we will be rotating:");
         array.ToList().ForEach(Console.WriteLine);
         // If rotation amount is not provided, we simply pick a random number.
@@ -56,8 +56,8 @@ public class ArraysService : IArraysService
     public int[]? RotateArrayUsingPlaceholderVariable(int[]? array)
     {
         // For the sake of simplicity, and not inflating this solution like the previous one - we're going to keep it simple:
-        // We're going to rotate the array TWICE to the left side, diplay the results, and then rotate THRICE to the right side, and display the results again.
-        array = (array == null || array.Count() == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
+        // We're going to rotate the array TWICE to the left side, display the results, and then rotate THRICE to the right side, and display the results again.
+        array = (array == null || array.Length == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
         Console.WriteLine("Here's out input array that we will be rotating:");
         array.ToList().ForEach(Console.WriteLine);
 
@@ -97,7 +97,7 @@ public class ArraysService : IArraysService
     public int[]? RotateArrayRightGivenAPivotUsingLoops(int[]? array, int? pivot)
     {
         // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
-        array = (array == null || array.Count() == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
+        array = (array == null || array.Length == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
         Console.WriteLine("Here's out input array that we will be rotating:");
         array.ToList().ForEach(Console.WriteLine);
         pivot = (pivot == null || pivot == 0) ? Random.Shared.Next(1, array.Length - 1) : pivot;
@@ -130,7 +130,7 @@ public class ArraysService : IArraysService
     public int[]? RotateArrayRightGivenAPivotUsingLINQ(int[]? array, int? pivot)
     {
         // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
-        array = (array == null || array.Count() == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
+        array = (array == null || array.Length == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
         Console.WriteLine("Here's out input array that we will be rotating:");
         array.ToList().ForEach(Console.WriteLine);
         pivot = (pivot == null || pivot == 0) ? Random.Shared.Next(1, array.Length - 1) : pivot;
@@ -138,7 +138,7 @@ public class ArraysService : IArraysService
 
         // Here, we simply utilize powerful functionality of LINQ which does the following:
         // We instantiate a new array, and instantly form it by:
-        // Skipping the first PIVOT amount of values (based of pivot), which means we get all remaining value from a given PIVOT point to the end, and then we Concat ('glue') the first PIVOT amount of values, from the start of the input array.
+        // Skipping the first PIVOT amount of values (based of pivot), which means we get all remaining value from a given PIVOT point to the end, and then we Concatenate ('glue') the first PIVOT amount of values, from the start of the input array.
         int[] rotatedArray = array.Skip((int)pivot).Concat(array.Take((int)pivot)).ToArray();
         Console.WriteLine("Here's the result of rotated input array, to the right side, given the pivot:");
         rotatedArray.ToList().ForEach(Console.WriteLine);
@@ -225,9 +225,9 @@ public class ArraysService : IArraysService
     public int[,] Convert1DArrayInto2DArrayRowWise(int[]? array1D, int? rows, int? columns)
     {
         // If a 2D array isn't provided to the method or is invalid, we create a very simple array of integers.
-        array1D = (array1D == null || array1D.Count() == 0) ?
+        array1D = (array1D == null || array1D.Length == 0) ?
             new int[] { 1, 2, 3, 4, 5, 6 } : array1D;
-        // If provided rows and/or columns are invalid, OR their multiplied value isn't equal to length of our 1D array (which means basically means we dont have enough slots in rows and columns, to take up all 1D array values) - We initiate our own values.
+        // If provided rows and/or columns are invalid, OR their multiplied value isn't equal to length of our 1D array (which means basically means we don't have enough slots in rows and columns, to take up all 1D array values) - We initiate our own values.
         rows = (rows == null || rows == 0 || rows * columns < array1D.Length) ? 2 : rows;
         columns = (columns == null || columns == 0 || rows * columns < array1D.Length) ? 3 : columns;
         Console.WriteLine("Here's our input 1D array that we will be converting into 2D array, ROW wise:");
@@ -266,7 +266,7 @@ public class ArraysService : IArraysService
     public int[,] Convert1DArrayInto2DArrayColumnWise(int[]? array1D, int? rows, int? columns)
     {
         // If a 2D array isn't provided to the method or is invalid, we create a very simple array of integers.
-        array1D = (array1D == null || array1D.Count() == 0) ?
+        array1D = (array1D == null || array1D.Length == 0) ?
             new int[] { 1, 2, 3, 4, 5, 6 } : array1D;
         rows = (rows == null || rows == 0 || rows * columns < array1D.Length) ? 2 : rows;
         columns = (columns == null || columns == 0 || rows * columns < array1D.Length) ? 3 : columns;
@@ -305,7 +305,7 @@ public class ArraysService : IArraysService
     public int[]? FindTwoIntegersInArrayThatEqualToAGivenSum(int[]? array, int? sumToFind)
     {
         // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
-        array = (array == null || array.Count() == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
+        array = (array == null || array.Length == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
         sumToFind = (sumToFind == null || sumToFind == 0) ? 6 : sumToFind;  // If sum to find isn't provided either - we set a value to it ourselves.
         Console.WriteLine($"Here's out input array in which we will look for a two integers, that equal to {sumToFind}:");
         array.ToList().ForEach(Console.WriteLine);
@@ -335,7 +335,7 @@ public class ArraysService : IArraysService
     public int[]? FindTwoIntegersInArrayThatEqualToAGivenSumUsingLINQ(int[]? array, int? sumToFind)
     {
         // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
-        array = (array == null || array.Count() == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
+        array = (array == null || array.Length == 0) ? new int[] { 1, 2, 3, 4, 5 } : array;
         sumToFind = (sumToFind == null || sumToFind == 0) ? 6 : sumToFind;  // If sum to find isn't provided either - we set a value to it ourselves.
         Console.WriteLine($"Here's out input array in which we will look for a two integers, that equal to {sumToFind}:");
         array.ToList().ForEach(Console.WriteLine);
@@ -370,7 +370,7 @@ public class ArraysService : IArraysService
     public int[]? MoveZerosToEndOfArray(int[]? array)
     {
         // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
-        array = (array == null || array.Count() == 0) ? new int[] { 12, 0, 0, 24, 32, 14, 54 } : array;
+        array = (array == null || array.Length == 0) ? new int[] { 12, 0, 0, 24, 32, 14, 54 } : array;
         Console.WriteLine("Here's our input array, in which we will move all zeros, to the end of the array:");
         array.ToList().ForEach(x => Console.Write($"{x}\t"));
         Console.WriteLine();
@@ -404,7 +404,7 @@ public class ArraysService : IArraysService
     public int[]? MoveZerosToEndOfArrayUsingLINQ(int[]? array)
     {
         // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
-        array = (array == null || array.Count() == 0) ? new int[] { 12, 0, 0, 24, 32, 14, 54 } : array;
+        array = (array == null || array.Length == 0) ? new int[] { 12, 0, 0, 24, 32, 14, 54 } : array;
         Console.WriteLine("Here's our input array, in which we will move all zeros, to the end of the array:");
         array.ToList().ForEach(x => Console.Write($"{x}\t"));
         Console.WriteLine();
@@ -425,16 +425,16 @@ public class ArraysService : IArraysService
     public int? FindMajorityElementInAnArray(int[]? array)
     {
         // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
-        array = (array == null || array.Count() == 0) ? new int[] { 12, 12, 0, 12, 12, 14, 54 } : array;
+        array = (array == null || array.Length == 0) ? new int[] { 12, 12, 0, 12, 12, 14, 54 } : array;
         Console.WriteLine("Here's our input array, in which we will move all zeros, to the end of the array:");
         array.ToList().ForEach(x => Console.Write($"{x}\t"));
         Console.WriteLine();
 
         int elementAmount = 0;                                          // Simply to NOT use LINQ functions that indicate length/size of a given collection, such as .Count() or .Length, we'll simply have a counter to indicate us with the total amount of elements.
         int? majorityElement = null;                                    // Nullable integer variable which will either remain null, if there is no majority element, or will be equal to the value of majority element, if there is one.
-        Dictionary<int, int> frequencies = new Dictionary<int, int>();  // Dictionary using which we'll keep track of each unique element, and its frequency occurence.
+        Dictionary<int, int> frequencies = new Dictionary<int, int>();  // Dictionary using which we'll keep track of each unique element, and its frequency occurrence.
 
-        // Iterate over every element in a given array - if our dictionary does NOT contain such key - add it to our dictionary, otherwise - simply increase the occurence (Value) by one.
+        // Iterate over every element in a given array - if our dictionary does NOT contain such key - add it to our dictionary, otherwise - simply increase the occurrence (Value) by one.
         foreach (int element in array)
         {
             if (!frequencies.ContainsKey(element))
@@ -445,7 +445,7 @@ public class ArraysService : IArraysService
             elementAmount++;
         }
 
-        // Iterate over every element in our dictionary, and check whether its Value (Number of occurences) is greater than HALF of total of our elements
+        // Iterate over every element in our dictionary, and check whether its Value (Number of occurrences) is greater than HALF of total of our elements
         foreach (var element in frequencies)
         {
             if (element.Value > elementAmount / 2)
@@ -464,13 +464,13 @@ public class ArraysService : IArraysService
     public int? FindMajorityElementInAnArrayUsingLINQ(int[]? array)
     {
         // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
-        array = (array == null || array.Count() == 0) ? new int[] { 12, 0, 0, 12, 12, 14, 54 } : array;
+        array = (array == null || array.Length == 0) ? new int[] { 12, 0, 0, 12, 12, 14, 54 } : array;
         Console.WriteLine("Here's our input array, in which we will move all zeros, to the end of the array:");
         array.ToList().ForEach(x => Console.Write($"{x}\t"));
         Console.WriteLine();
 
         // Instantiate a var type variable, and instantly assign a value to it, which will be a result of our LINQ query:
-        // We're grouping the array by each element, and then returning FirstOrDefault (which means first that meets our condition, or default value if no element meets our condition) element whose .Count(), which is occurence, is greater than HALF of the length of the array.
+        // We're grouping the array by each element, and then returning FirstOrDefault (which means first that meets our condition, or default value if no element meets our condition) element whose .Count(), which is occurrence, is greater than HALF of the length of the array.
         var majorityElement = array.GroupBy(a => a).FirstOrDefault(a => a.Count() > array.Length / 2);
 
         // If we had found a majority element - display it in the console window.
@@ -555,7 +555,7 @@ public class ArraysService : IArraysService
     public int? SunLoungerProblem(int[]? array)
     {
         // If a an array isn't provided to the method or is invalid, we create our own.
-        array = (array == null || array.Count() == 0) ? new int[] { 0, 1, 0, 0, 0, 0, 0, 1 } : array;
+        array = (array == null || array.Length == 0) ? new int[] { 0, 1, 0, 0, 0, 0, 0, 1 } : array;
         Console.WriteLine("Here's our input array, which represents free and occupied seats on sun loungers:");
         array.ToList().ForEach(x => Console.Write($"{x} "));
         Console.WriteLine();
@@ -601,12 +601,12 @@ public class ArraysService : IArraysService
     /// <summary>
     /// Tidbit of information about Sudoku puzzle:
     /// Sudoku (originally called Number Place) - is a logic-based, combinatorial number-placement puzzle. 
-    /// In classic Sudoku, the objective is to fill a 9 × 9 grid with digits so that each column, each row, and each of the nine 3 × 3 subgrids that compose the grid (also called "boxes", "blocks", or "regions") contain all of the digits from 1 to 9.
+    /// In classic Sudoku, the objective is to fill a 9 × 9 grid with digits so that each column, each row, and each of the nine 3 × 3 sub-grids that compose the grid (also called "boxes", "blocks", or "regions") contain all of the digits from 1 to 9.
     /// Read more here: https://en.wikipedia.org/wiki/Sudoku
     /// </summary>
     public bool IsSudokuSolutionValid(int[,] sudokuGrid)
     {
-        // If a given solution grid is invalid, we'll instantiate our own. To visualise and see it better - I've added extra space between sections in between 3 rows and columns.
+        // If a given solution grid is invalid, we'll instantiate our own. To visualize and see it better - I've added extra space between sections in between 3 rows and columns.
         sudokuGrid = (sudokuGrid != null && sudokuGrid.GetLength(0) == 9 && sudokuGrid.GetLength(1) == 9) ?
                               sudokuGrid :
                               new int[,]
@@ -668,7 +668,7 @@ public class ArraysService : IArraysService
                            .Select(rowElement => sudokuGrid[rowIndex, rowElement])
                            .ToList());
                 // Once we reach exactly 9 elements inside out List - that mean we've went over three rows, and gathered all values of a singular small square.
-                // That means we must add it to our list of all subsets, and reset it, which we do by simply calling Clear functon which wipes all data from our list.
+                // That means we must add it to our list of all subsets, and reset it, which we do by simply calling Clear function which wipes all data from our list.
                 if (smallSquare.Count == 9)
                 {
                     allSudokuSets.Add(smallSquare.ToArray());
@@ -705,7 +705,7 @@ public class ArraysService : IArraysService
     public bool DoesArrayContainFullPositionCycle(int[]? array)
     {
         // If a an array isn't provided to the method or is invalid, we create our own - containing positive integers.
-        array = (array == null || array.Count() == 0) ? new int[] { 5, 3, 4, 2, 0, 1 } : array;
+        array = (array == null || array.Length == 0) ? new int[] { 5, 3, 4, 2, 0, 1 } : array;
         Console.WriteLine("Here's our input array, which contains only positive integer elements:");
         array.ToList().ForEach(x => Console.Write($"{x} "));
         Console.WriteLine();
@@ -754,7 +754,7 @@ public class ArraysService : IArraysService
     public int? AlmostUniformSequence(int[]? array)
     {
         // If a an array isn't provided to the method or is invalid, we create our own.
-        array = (array == null || array.Count() < 2) ? new int[] { 1, -1, 3, 2, 1, 5, 2, 3, 7 } : array;
+        array = (array == null || array.Length < 2) ? new int[] { 1, -1, 3, 2, 1, 5, 2, 3, 7 } : array;
         Console.WriteLine("Here's our input array:");
         array.ToList().ForEach(x => Console.Write($"{x} "));
         Console.WriteLine();
@@ -776,8 +776,8 @@ public class ArraysService : IArraysService
                 temporarySequenceLength = 1;
             }
         }
-        // In case we exist the loop without ever adding the element inside it - we must check whether temporary sequence length is above one - if so - add it the the list.
-        // Such occurence may happen if the entire array is one big sequence, for example [ -1, 0, 1, 0 ] would yield an answer 4.
+        // In case we exist the loop without ever adding the element inside it - we must check whether temporary sequence length is above one - if so - add it the list.
+        // Such occurrence may happen if the entire array is one big sequence, for example [ -1, 0, 1, 0 ] would yield an answer 4.
         if (temporarySequenceLength > 1)
             longestSequences.Add(temporarySequenceLength);
 
@@ -798,7 +798,7 @@ public class ArraysService : IArraysService
     public string[] PoppingBlocks(string[] array)
     {
         // If a an array isn't provided to the method or is invalid, we create our own - containing positive integers.
-        array = (array == null || array.Count() == 0) ? new string[] { "A", "B", "C", "C", "B", "D", "A" } : array;
+        array = (array == null || array.Length == 0) ? new string[] { "A", "B", "C", "C", "B", "D", "A" } : array;
         Console.WriteLine("Here's our input array, which we'll use to solve 'Popping Blocks' exercise:");
         array.ToList().ForEach(x => Console.Write($"{x} "));
         Console.WriteLine();
@@ -827,7 +827,7 @@ public class ArraysService : IArraysService
                 // After all the next variables have been iterated over, and if they are equivalent - changed to NULLs, we can change our current element to NULL.
                 arrayElements[currentElementIndex] = null;
 
-                // Reinstantiate the list, by collection all non-null values from our initial list - this will 'pop off' the contiguous block of matching elements. 
+                // Re-instantiate the list, by collection all non-null values from our initial list - this will 'pop off' the contiguous block of matching elements. 
                 arrayElements = arrayElements.Where(x => x != null).ToList();
                 // Also - very important - we must restart the initial loop, by setting iterator to 0, since we've removed some elements, and indexes have shifted.
                 i = 0;
@@ -845,7 +845,7 @@ public class ArraysService : IArraysService
     /// <summary>
     /// Tidbit of information about The Josephus Problem:
     /// In computer science and mathematics, the Josephus problem (or Josephus permutation) is a theoretical problem related to a certain counting-out game.
-    ///     Here's the basic ruleset of the problem:
+    ///     Here's the basic rule-set of the problem:
     ///     1. A number of people are standing in a circle waiting to be executed.
     ///     2. Counting begins at a specified point in the circle and proceeds around the circle in a specified direction.
     ///     3. After a specified number of people are skipped, the next person is executed.
@@ -854,15 +854,15 @@ public class ArraysService : IArraysService
     /// </summary>
     public int TheJosephusProblem(int[]? array, int? killIndex)
     {
-        // If a an array isn't provided to the method or is invalid, we create our own - containing ones (Which indicate an alive person).
-        array = (array == null || array.Count() == 0) ? new int[] { 1, 1, 1, 1, 1, 1, 1, 1 } : array;
+        // If an array isn't provided to the method or is invalid, we create our own - containing some elements '1' (Which indicate an alive person).
+        array = (array == null || array.Length == 0) ? new int[] { 1, 1, 1, 1, 1, 1, 1, 1 } : array;
         Console.WriteLine("Here's our input array, which represents a circle of unfortunate people, who are about to be executed, until there's only a single survivor left");
         array.ToList().ForEach(x => Console.Write($"{x} "));
         Console.WriteLine();
         killIndex = killIndex == null || killIndex == 0 ? Random.Shared.Next(1, 5) : killIndex;
         Console.WriteLine($"Every {killIndex} person will be executed.");
 
-        // Initialize an interger type variable, to keep count alive people, when this number is equivalent to kill index - that person is killed and the counter is reset.
+        // Initialize an integer type variable, to keep count alive people, when this number is equivalent to kill index - that person is killed and the counter is reset.
         int counter = 0;
 
         // Iterate over the entire array (circle of people). This is reset when we reach the end, because real exit condition is define within the loop itself.

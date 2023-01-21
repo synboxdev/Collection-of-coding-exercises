@@ -7,7 +7,7 @@ public class DataStructuresService : IDataStructuresService
 {
     /// <summary>
     /// A very simple generic type helper method, to reduce bloat of each solution method.
-    /// This method simply prints out a given generic type LinkedList, either inline (all nodes in same console line) or new line for each node element. Also takes case of spacing of output data.
+    /// This method simply prints out a given generic type LinkedList, either in-line (all nodes in same console line) or new line for each node element. Also takes case of spacing of output data.
     /// </summary>
     private void ConsoleOutputEnumerableCollection<T>(ConsoleOutputType outputType, IEnumerable<T> collectionToPrint)
     {
@@ -98,7 +98,7 @@ public class DataStructuresService : IDataStructuresService
         Console.WriteLine("Here are nodes of our second Linked List:");
         ConsoleOutputEnumerableCollection(ConsoleOutputType.Inline, linkedListTwo);
 
-        // Probably the most simple and elegant solution to this problem - is to utilize LINQ's Concat (Which is SQL's equivalent of UnionAll) and OrderBy functions
+        // Probably the most simple and elegant solution to this problem - is to utilize LINQ's Concatenate (Which is SQL's equivalent of UnionAll) and OrderBy functions
         LinkedList<int> mergedLinkedList = new LinkedList<int>(linkedListOne.Concat(linkedListTwo).OrderBy(x => x));
         Console.WriteLine("Here's a final, merged and sorted Linked List:");
         ConsoleOutputEnumerableCollection(ConsoleOutputType.Inline, mergedLinkedList);

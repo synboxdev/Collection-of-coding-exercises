@@ -14,7 +14,7 @@ public class NumbersService : INumbersService
         number = (number == null || number <= 0) ? Random.Shared.Next(1, 100) : number;
         Console.WriteLine($"Checking whether number {number} is prime or not");
 
-        // Create a integer iterator variable which we will be using as a incrementing divider, to check whether number and interator division leaves a remainder of zero.
+        // Create a integer iterator variable which we will be using as a incrementing divider, to check whether number and iterator division leaves a remainder of zero.
         int i;
         for (i = 2; i <= number - 1; i++)   // We iterate from starting from 2, since its the first prime number, all the way up to our number minus one, because of conditional check after the loop.
         {
@@ -40,7 +40,7 @@ public class NumbersService : INumbersService
         int sumOfDigits = 0;                    // Variable to hold the total sum of digits.
         while (number != 0)                     // While our number, which we're dividing each iteration is above zero, continue iterating.
         {
-            sumOfDigits += number % 10;         // Add the remaider of number being divided by 10. For example 18 / 10 has remainder of 8. That means we add 8 to our sum of digits.
+            sumOfDigits += number % 10;         // Add the remainder of number being divided by 10. For example 18 / 10 has remainder of 8. That means we add 8 to our sum of digits.
             number /= 10;                       // Divide our remaining number by 10. Because its integer, it rounds up. So 8 / 10 = .8, and after rounding its = 1. Next iteration 1 / 10 = .1, and after rounding its equal to zero, and our loop ends.
         }
 
@@ -106,7 +106,7 @@ public class NumbersService : INumbersService
     public int? FindFactorialOfAPositiveNumberUsingRecursion(int? number, int? factorialValue)
     {
         // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
-        if (number == null || number <= 0)  // Since our method parameters are nullable, we intialize their initial values, and we're sure they wont be null when recursion recalls this method again.
+        if (number == null || number <= 0)  // Since our method parameters are nullable, we initialize their initial values, and we're sure they wont be null when recursion recalls this method again.
         {
             Console.WriteLine("Picking a random number between 1 and 10");
             number = (number == null || number <= 0) ? Random.Shared.Next(1, 10) : number;
@@ -122,7 +122,7 @@ public class NumbersService : INumbersService
             return null;
         }
         else
-            factorialValue *= number;            // If if condition has not been met - multiple our current factorial value, by number subtracted by one.
+            factorialValue *= number;            // If condition has not been met - multiple our current factorial value, by number subtracted by one.
 
         return FindFactorialOfAPositiveNumberUsingRecursion(number, factorialValue);    // Continue calling the same method (itself), until If condition is met and it exits out. Pass our current number and factorial value, since we're continuing the calculation.
     }
@@ -216,7 +216,7 @@ public class NumbersService : INumbersService
             sumOfCubes += n * n * n;                    // Add a cubic multiplication value of the digit to the total sum of cubes. 
         }
 
-        isNumberArmstrong = sumOfCubes == number ? true : false;    // If our sum of cubes (Each digit being raised to the power of three) is equal to the input number value, our input number is, in fact, an Armstong number!
+        isNumberArmstrong = sumOfCubes == number ? true : false;    // If our sum of cubes (Each digit being raised to the power of three) is equal to the input number value, our input number is, in fact, an Armstrong number!
         Console.WriteLine($"Number {number} is{(isNumberArmstrong ? string.Empty : " NOT")} an Armstrong number!");
 
         return isNumberArmstrong;
@@ -234,7 +234,7 @@ public class NumbersService : INumbersService
 
         for (int i = (int)number; i > 0; i /= 10)            // Iteration loop start from our input number, until it reaches zero. Each iteration is divided out of 10.
         {
-            int remainder = i % 10;                          // Remainder, as you might've guessed, is the remaining value after division of 10, of our loop iterator, which start of, being equal to our input number.
+            int remainder = i % 10;                          // Remainder, as you might have guessed, is the remaining value after division of 10, of our loop iterator, which start of, being equal to our input number.
             sumOfCubes += remainder * remainder * remainder; // Add a cubic multiplication value of the digit to the total sum of cubes.
         }
         // So, for example:
@@ -243,7 +243,7 @@ public class NumbersService : INumbersService
         // Next iteration (our last one), 37 / 10 = 3 (Because i is integer type), its remainder after division is 3 (because it cant divide out of 10, the remainder is the entire number 3. 3^3 = 27
         // Sum of cubes is 1 + 343 + 27 = 371, which is exactly our input number.
 
-        isNumberArmstrong = sumOfCubes == number ? true : false;    // If our sum of cubes (Each digit being raised to the power of three) is equal to the input number value, our input number is, in fact, an Armstong number!
+        isNumberArmstrong = sumOfCubes == number ? true : false;    // If our sum of cubes (Each digit being raised to the power of three) is equal to the input number value, our input number is, in fact, an Armstrong number!
         Console.WriteLine($"Number {number} is{(isNumberArmstrong ? string.Empty : " NOT")} an Armstrong number!");
 
         return isNumberArmstrong;
@@ -263,7 +263,7 @@ public class NumbersService : INumbersService
         bool isNumberPalindrome = true;                 // A boolean variable that will be determine whether our input number is a palindrome or not.
 
         for (int i = 0, j = number.ToString().Length - 1; i < number.ToString().Length / 2; i++, j--)   // Iterate using two variables, from start of the word to the end, and from the end to start, simultaneously.
-        {                                                                                               // Explanation of the exit condition - If word has 5 symbols, exit conditon triggers once i reaches 3, because there's no reason to check the exact middle of the string, since there's nothing to compare it to.
+        {                                                                                               // Explanation of the exit condition - If word has 5 symbols, exit condition triggers once i reaches 3, because there's no reason to check the exact middle of the string, since there's nothing to compare it to.
             if (number.ToString()[i] != number.ToString()[j])                                           // Compare each letter from start and the end, all the way to the very middle of the input string. If at least a single comparison is NOT equal, that means a given string is NOT a palindrome.
             {
                 isNumberPalindrome = false;     // If two numbers, both cast as strings, are NOT equal, that means number is NOT a palindrome.
@@ -285,7 +285,7 @@ public class NumbersService : INumbersService
         bool isNumberPalindrome = true;                 // A boolean variable that will be determine whether our input number is a palindrome or not.
         int temporaryNumber = (int)number;              // We define a few variables, that we'll be using during the solution.
         int remainder, reversedNumber = 0;              // temporaryNumber will start out being equal to our input number, which we'll be continuously dividing, to form a reversed number.
-                                                        // remainder variable will be necessary to hold our remainding value after division. Reversed number will be formed during each iteration of the loop, and later on, will be compared to our input number.
+                                                        // remainder variable will be necessary to hold our remaining value after division. Reversed number will be formed during each iteration of the loop, and later on, will be compared to our input number.
 
         while (temporaryNumber > 0)                             // Iterate until our temporaryNumber becomes equal to zero.
         {
@@ -307,7 +307,7 @@ public class NumbersService : INumbersService
         Console.WriteLine("Picking random hour and minutes, to find the angle between the arrows positioned on a clock.");
         hours = hours <= 0 ? Random.Shared.Next(1, 24) : hours;                             // If hour isn't provided, we pick a random number between 1 and 24.
         minutes = minutes <= 0 ? Random.Shared.Next(0, 60) : minutes;                       // If minute isn't provided, we pick a random number between 0 and 60
-        Console.WriteLine($"Finding the angle between arrows, when the time is {hours}:" +  // Based on whether hour is above 12, we indicate whethere a given time is AM or PM
+        Console.WriteLine($"Finding the angle between arrows, when the time is {hours}:" +  // Based on whether hour is above 12, we indicate whether a given time is AM or PM
                             string.Format("{0:00}", minutes) +
                             $"{(hours > 12 ? " PM" : " AM")}");
 
@@ -330,7 +330,7 @@ public class NumbersService : INumbersService
     public List<int>? FindFactorsOfANumber(int? number)
     {
         // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
-        Console.WriteLine("Picking a random positive integer, to find and diplay all of its factors.");
+        Console.WriteLine("Picking a random positive integer, to find and display all of its factors.");
         number = (number == null || number <= 0) ? Random.Shared.Next(1, 100) : number;
         Console.WriteLine($"Finding all factors of number {number}.");
 
@@ -463,16 +463,16 @@ public class NumbersService : INumbersService
         int[] ulamArray = new int[(int)number]; // Initialize an integer type array, size of N. Our N'th element will simply be the last element of this sequence.
         ulamArray[0] = 1;                       // First two element of Ulam Sequence are 1 and 2, so we add them to the array right away.
         ulamArray[1] = 2;
-        int startingPoint = 3;                  // Since we have first two elements of our Ulam Sequence, we pre-define starting point from where we will be looking for next element of the sequence. This is our so-called 'Next Potential Element'
+        int startingPoint = 3;                  // Since we have first two elements of our Ulam Sequence, we define starting point from where we will be looking for next element of the sequence. This is our so-called 'Next Potential Element'
 
-        // Continually interate, until the last element of our array is NOT a zero. (In a newly initialized non-nullable integer array, all element are zero).
+        // Continually iterate, until the last element of our array is NOT a zero. (In a newly initialized non-nullable integer array, all element are zero).
         while (ulamArray[ulamArray.Length - 1] == 0)
         {
-            int count = 0;                      // Placeholder counter which will interate once we find a combination of two unique elements whose summed value is equal to our next potential element's value.
+            int count = 0;                      // Placeholder counter which will iterate once we find a combination of two unique elements whose summed value is equal to our next potential element's value.
             // First loop iterates from 1st element, to second to last element of the first element in the array, whose value is currently 0.
             for (int i = 0; i < Array.IndexOf(ulamArray, ulamArray.FirstOrDefault(x => x == 0)) - 1; i++)
             {
-                // Second llop iterates from 2nd element, to exactly the first element in the array, whose value is currently 0.
+                // Second loop iterates from 2nd element, to exactly the first element in the array, whose value is currently 0.
                 for (int j = i + 1; j < Array.IndexOf(ulamArray, ulamArray.FirstOrDefault(x => x == 0)); j++)
                 {
                     if (ulamArray[i] + ulamArray[j] == startingPoint)
@@ -563,7 +563,7 @@ public class NumbersService : INumbersService
             Console.WriteLine($"Our input number {number} is a Harshad number!");
             return "Harshad";
         }
-        else    // In all other cases - the input number is neither Harsah, nor Moran number.
+        else    // In all other cases - the input number is neither Harshad, nor Moran number.
         {
             Console.WriteLine($"Our input number {number} is neither Harshad, nor Moran number!");
             return "Neither";
@@ -586,7 +586,7 @@ public class NumbersService : INumbersService
         // Iterate over the number, starting from 1st position (2nd digit) all the way to second to last, since we must compare either side, and if one side has no numbers - there's nothing to compare.
         for (int i = 1; i < numberAsString.Length; i++)
         {
-            // Here, we 'chop' the number in half by substringing from 0th position to i'th, and from i'th to the end of the number.
+            // Here, we 'chop' the number in half by sub-stringing from 0th position to i'th, and from i'th to the end of the number.
             var leftSide = numberAsString.Substring(0, i);
             var rightSide = numberAsString.Substring(i);
 
@@ -629,11 +629,11 @@ public class NumbersService : INumbersService
         // Do as many iterations, as we've provided.
         for (int i = 0; i < iterations; i++)
         {
-            // Initialize the base variable for our next element, which initially will be an empty string, and the number of occurences will start at 1.
+            // Initialize the base variable for our next element, which initially will be an empty string, and the number of occurrences will start at 1.
             string nextElement = string.Empty;
             int occurences = 1;
 
-            // In case the number that was intially provided is length of one (A single digit number) - we manually add it as the 2nd element of the sequence.
+            // In case the number that was initially provided is length of one (A single digit number) - we manually add it as the 2nd element of the sequence.
             if (sequenceElements[i].Length == 1)
             {
                 sequenceElements.Add($"1{sequenceElements[i]}");    // Add it to the list, and break out of the loop, since we must move on to the next iteration.
@@ -644,14 +644,14 @@ public class NumbersService : INumbersService
                 // Iterate over the length of the number.
                 for (int j = 0; j < sequenceElements[i].Length; j++)
                 {
-                    // If the NEXT character does NOT exceed the length of number (we dont go outside the bounds of the length of the string), and its value is same as the current characters value - we increase the number of occurences of that number.
+                    // If the NEXT character does NOT exceed the length of number (we don't go outside the bounds of the length of the string), and its value is same as the current characters value - we increase the number of occurrences of that number.
                     if (j + 1 < sequenceElements[i].Length && sequenceElements[i][j] == sequenceElements[i][j + 1])
                         occurences++;
                     // Otherwise - we've either encountered the end of the string (number), or the NEXT character is not the same as our current character - therefor we must start forming next element of our sequence.
                     else
                     {
-                        nextElement += $"{occurences}{sequenceElements[i][j]}";     // Next element is formed by appending it with the Occurence counter and the number (of which we counted occurences).
-                        occurences = 1;                                             // Since our NEXT character is a different number, and we'll be counting it from start - we must restart the occurence counter.
+                        nextElement += $"{occurences}{sequenceElements[i][j]}";     // Next element is formed by appending it with the Occurrence counter and the number (of which we counted occurrences).
+                        occurences = 1;                                             // Since our NEXT character is a different number, and we'll be counting it from start - we must restart the occurrence counter.
                     }
                 }
             }
@@ -724,7 +724,7 @@ public class NumbersService : INumbersService
         for (int i = 0; i < numberAsCharArray.Length; i++)
             digitAndPositionDictionary.Add(i + 1, (int)Char.GetNumericValue(numberAsCharArray[i]));
 
-        // Instantiate a variable to hold the sum of digits after Disarium ruleset calculation.
+        // Instantiate a variable to hold the sum of digits after Disarium rule-set calculation.
         double sumOfDigits = 0;
         foreach (var element in digitAndPositionDictionary)
             sumOfDigits += Math.Pow(element.Value, element.Key);    // Each digit is raised to the power of its position in the number.
@@ -754,8 +754,8 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Calculating and displaying Fibonacci series for {numberOfElements + 1} elements, by {numberOfTerms} terms");
 
         // We initialize the first few values of our Fibonacci sequence, and add them to our list of integer elements.
-        // For the sake of simplicity, we're going to add zeroes for first n-1 number of elements, and last element will be a 1.
-        // So if we generate (or provide into the method, as a paramter) number of terms to be 5, the first four elements are going to be zeroes, and the 5th - one.
+        // For the sake of simplicity, we're going to add zero's for first n-1 number of elements, and last element will be a 1.
+        // So if we generate (or provide into the method, as a parameter) number of terms to be 5, the first four elements are going to be zero's, and the 5th - one.
         List<int> fibonacciSequence = new List<int>();
         for (int i = 0; i < numberOfTerms - 1; i++)
             fibonacciSequence.Add(0);
@@ -764,7 +764,7 @@ public class NumbersService : INumbersService
         // We must iterate until we fill up our list with as many elements, as is provided to the method, or we generated
         // We start out from the number of elements that is already in our list, all the way until we reach our desired number of elements.
         for (int i = fibonacciSequence.Count; i <= numberOfElements; i++)
-            fibonacciSequence.Add(fibonacciSequence.TakeLast(numberOfTerms).Sum());     // We utilize an extermely helpful LINQ function - TakeLast, and we input our number of terms into the function, and Sum all these elements.
+            fibonacciSequence.Add(fibonacciSequence.TakeLast(numberOfTerms).Sum());     // We utilize an extremely helpful LINQ function - TakeLast, and we input our number of terms into the function, and Sum all these elements.
 
         // Display our full Fibonacci sequence to console output. Reason for + 1 of elements, is because list indexing starts from zero, so for visual representation, we make sure to start our sequence from 1st number, and not 0'th
         Console.WriteLine($"Displaying Fibonacci sequence elements for {numberOfElements + 1} elements:");
