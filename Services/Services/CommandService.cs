@@ -53,7 +53,7 @@ public class CommandService : ICommandService
     /// <summary>
     /// Method which continually (until the application is stopped) requests user for input, attempts to parse and execute the user input.
     /// </summary>
-    /// <returns>TRUE if method should be re-called, due to invalid input, or after user input was sucessfully executed. FALSE if application should be stopped.</returns>
+    /// <returns>TRUE if method should be re-called, due to invalid input, or after user input was successfully executed. FALSE if application should be stopped.</returns>
     public bool TryParsingUserInput()
     {
         Console.WriteLine("Provide some input..");
