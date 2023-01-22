@@ -235,4 +235,16 @@ public class NumbersServiceTests
     {
         Assert.False(numbersService.CheckIfNumberIsGapful(1234));
     }
+
+    [Fact]
+    public void CheckIfNumberIsAlternating_CheckIfNumberIsAlternatingWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsAlternating(1234));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsAlternating_CheckIfNumberIsAlternatingWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsAlternating(5466));
+    }
 }

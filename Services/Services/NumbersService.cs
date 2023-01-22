@@ -796,4 +796,38 @@ public class NumbersService : INumbersService
 
         return IsNumberGapful;
     }
+
+    /// <summary>
+    /// In this simple exercise, we must establish whether a given number is Alternating or not.
+    /// To be alternating, number must be positive and every digit in its sequence must have a different parity than its next and its previous digit.
+    /// For example, number 123 is Alternating, because looking at individual digits - 1 is odd, 2 is even, 3 is odd.
+    /// </summary>
+    public bool CheckIfNumberIsAlternating(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine($"Picking a random number between 1 and 10000, to determine whether its Alternating number or not!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(1, 10000) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // Initialize a boolean variable, with default value of True, which will be inverted if necessary, if Alternating conditions are not met when iterating over the digits.
+        bool IsNumberAlternating = true;
+        // Create an array of digits from the input number, to ease the process of iteration.
+        int[] arrayOfDigits = number.ToString().ToCharArray().Select(digit => Convert.ToInt32(Char.GetNumericValue(digit))).ToArray();
+
+        // Iterate over all the digits in our int number and check a single condition, which is:
+        // If the current digits AND the next digit are both Even, or both Odd - that means our condition of alternating digits is NOT met.
+        // We invert the boolean value to false, and break out of the loop, since there's no need to check further elements of the array.
+        for (int i = 0; i < arrayOfDigits.Length - 1; i++)
+        {
+            if ((arrayOfDigits[i] % 2 == 0 && arrayOfDigits[i + 1] % 2 == 0) ||
+                (arrayOfDigits[i] % 2 == 0 && arrayOfDigits[i + 1] % 2 == 0))
+            {
+                IsNumberAlternating = !IsNumberAlternating;
+                break;
+            }
+        }
+
+        Console.WriteLine($"Our given input number {(IsNumberAlternating ? "is" : "is NOT")} an Alternating number!");
+        return IsNumberAlternating;
+    }
 }

@@ -28,4 +28,5 @@ public interface INumbersService
     public bool CheckIfNumberIsDisarium(int? number);
     public int NBonacciNumberSequenceCalculationAndDisplay(int numberOfElements, int numberOfTerms);
     public bool CheckIfNumberIsGapful(int? number);
+    public bool CheckIfNumberIsAlternating(int? number);
 }
