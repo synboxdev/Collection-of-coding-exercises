@@ -256,4 +256,16 @@ public class StringsServiceTests
     {
         Assert.False(stringsService.IsSentenceSmooth("Collection of coding exercises"));
     }
+
+    [Fact]
+    public void FindLongestAbecedarianWord_FindLongestAbecedarianWordValidParameterNoAbecedarianWords_ReturnsStringEmpty()
+    {
+        Assert.Equal(string.Empty, stringsService.FindLongestAbecedarianWord(new string[] { "apple", "pear", "orange" }));
+    }
+
+    [Fact]
+    public void FindLongestAbecedarianWord_FindLongestAbecedarianWordValidParameter_ReturnsCorrectWord()
+    {
+        Assert.Equal("choppy", stringsService.FindLongestAbecedarianWord(new string[] { "forty", "choppy", "ghost" }));
+    }
 }

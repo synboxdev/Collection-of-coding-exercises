@@ -726,4 +726,37 @@ public class StringsService : IStringsService
         Console.WriteLine($"Our input sentence is{(isSentenceSmooth ? "" : " NOT")} a 'smooth' sentence!");
         return isSentenceSmooth;
     }
+
+    /// <summary>
+    /// Tidbit of information about Abecedarian words:
+    /// An abecedarian word is a word where all of its letters are arranged in alphabetical order. For example word 'Empty', 'Forty' and 'Almost' are Abecedarian words.
+    /// Some related information can be found here: https://en.wikipedia.org/wiki/Abecedarium
+    /// </summary>
+    public string FindLongestAbecedarianWord(string[]? inputStrings)
+    {
+        // If provided input string is null, empty or doesn't have any word - we provide our own array of words.
+        inputStrings = (inputStrings == null || inputStrings.Length < 1) ? new string[] { "ace", "spades", "hearts", "clubs" } : inputStrings;
+        Console.WriteLine("Here's a list of provided strings, out of which we will find the longest Abecedarian word:");
+        inputStrings.ToList().ForEach(Console.WriteLine);
+
+        // Instantiate a string type variable and give it value of an empty string. If no word fits the condition to be an Abecedarian word - method will simply return this as is - an empty string.
+        string longestAbecedarian = string.Empty;
+
+        // Iterate over every single string in a given array of words.
+        foreach (var word in inputStrings)
+        {
+            // If a given words remains the same, after it was sorted alphabetically, AND its length is greater than the current longest Abecedarian variable - assign its value to our longestAbecedarian variable.
+            // Otherwise - longestAbecedarian variable retains its original value, which is either last Abecedarian word, or an empty string.
+            longestAbecedarian = word == string.Concat(word.OrderBy(c => c)) && word.Length > longestAbecedarian.Length ?
+                                 word :
+                                 longestAbecedarian;
+        }
+
+        if (!string.IsNullOrEmpty(longestAbecedarian))
+            Console.WriteLine($"Longest Abecedarian word from our input array of words is - '{longestAbecedarian}'");
+        else
+            Console.WriteLine("Our input array of words does not contain a single word that can be considered an Abecedarian word.");
+
+        return longestAbecedarian;
+    }
 }
