@@ -61,7 +61,7 @@ public class StringsService : IStringsService
 
         bool equalityCheck = true;
         for (int i = 0, j = inputString.Length - 1; i < inputString.Length / 2; i++, j--)   // Iterate using two variables, from start of the word to the end, and from the end to start, simultaneously.
-        {                                                                                   // Explanation of the exit condition - If word has 5 symbols, exit conditon triggers once i reaches 3, because there's no reason to check the exact middle of the string, since there's nothing to compare it to.
+        {                                                                                   // Explanation of the exit condition - If word has 5 symbols, exit condition triggers once i reaches 3, because there's no reason to check the exact middle of the string, since there's nothing to compare it to.
             if (inputString[i] != inputString[j])                                           // Compare each letter from start and the end, all the way to the very middle of the input string. If at least a single comparison is NOT equal, that means a given string is NOT a palindrome.
             {
                 equalityCheck = false;
@@ -148,7 +148,7 @@ public class StringsService : IStringsService
     /// </summary>
     public string ReverseEachWordInAString(string? inputString)
     {
-        // If provided input string is null or empty, we pick a string of our choice (Preferably with some extra spaces, to test thouroughly) as our input string.
+        // If provided input string is null or empty, we pick a string of our choice (Preferably with some extra spaces, to test thoroughly) as our input string.
         inputString = string.IsNullOrEmpty(inputString) ? "Collection of   coding exercises" : inputString;
         Console.WriteLine($"Input string: {inputString}");
 
@@ -165,7 +165,7 @@ public class StringsService : IStringsService
                     reversedString.Append(charlist[j]);
 
                 if (i != inputString.Length - 1) reversedString.Append(' ');         // If we're NOT at the very last character of the string - add a space to reverse string, because we've entered conditional if block through it.
-                charlist = new List<char>();                                         // Once a given word was reversed, and extra space was added - reset char list by reinstantiating a new instance of same type list.
+                charlist = new List<char>();                                         // Once a given word was reversed, and extra space was added - reset char list by re-instantiating a new instance of same type list.
             }
             else
                 charlist.Add(inputString[i]);                                        // If we encounter NOT a space and NOT end of the input string, and whatever character we've encountered to char list (which we will reverse)
@@ -177,7 +177,7 @@ public class StringsService : IStringsService
 
     public string ReverseEachWordInAStringUsingSplitAndStringBuilder(string? inputString)
     {
-        // If provided input string is null or empty, we pick a string of our choice (Preferably with some extra spaces, to test thouroughly) as our input string.
+        // If provided input string is null or empty, we pick a string of our choice (Preferably with some extra spaces, to test thoroughly) as our input string.
         inputString = string.IsNullOrEmpty(inputString) ? " Collection   of   exercises  " : inputString;
         Console.WriteLine($"Input string: {inputString}");
 
@@ -201,20 +201,20 @@ public class StringsService : IStringsService
     public string CharacterOccurrencesInString(string? inputString)
     {
         // If provided input string is null or empty, we pick a string of our choice as our input string.
-        inputString = string.IsNullOrEmpty(inputString) ? " Lets count the occurences !" : inputString;
+        inputString = string.IsNullOrEmpty(inputString) ? " Lets count the occurrences !" : inputString;
         Console.WriteLine($"Input string: {inputString}");
 
-        Dictionary<char, int> characterCount = new Dictionary<char, int>();          // We will be using Dictionary to save characters and number of occurences in the input string.
-                                                                                     // Key will be of type char, which will represent individual character, and value will be of type int, which will be total sum of occurences of that character.
+        Dictionary<char, int> characterCount = new Dictionary<char, int>();          // We will be using Dictionary to save characters and number of occurrences in the input string.
+                                                                                     // Key will be of type char, which will represent individual character, and value will be of type int, which will be total sum of occurrences of that character.
         foreach (var character in inputString)                                       // Iterate over every single character, including spaces, in our input string.
         {
             if (!characterCount.ContainsKey(character))                              // If our Dictionary doesn't contain a Key (character) equal to currently 'selected' ...
-                characterCount.Add(character, 1);                                    // We add that character to our Dictionary, and give Value of 1, since its the first occurence we've found.
+                characterCount.Add(character, 1);                                    // We add that character to our Dictionary, and give Value of 1, since its the first occurrence we've found.
             else
-                characterCount[character]++;                                         // If our Dictionary DOES contain such Key (character), increase its Value by one, since we just encountered another occurence of it.
+                characterCount[character]++;                                         // If our Dictionary DOES contain such Key (character), increase its Value by one, since we just encountered another occurrence of it.
         }
 
-        Console.WriteLine("Displaying characters and number of their occurences in the input string:");
+        Console.WriteLine("Displaying characters and number of their occurrences in the input string:");
         foreach (var character in characterCount)
         {
             Console.WriteLine("'{0}' - {1}", character.Key, character.Value);
@@ -225,19 +225,19 @@ public class StringsService : IStringsService
     public string CharacterOccurrencesInStringUsingLINQ(string? inputString)
     {
         // If provided input string is null or empty, we pick a string of our choice as our input string.
-        inputString = string.IsNullOrEmpty(inputString) ? " Lets count the occurences !" : inputString;
+        inputString = string.IsNullOrEmpty(inputString) ? " Lets count the occurrences !" : inputString;
         Console.WriteLine($"Input string: {inputString}");
 
         var characterCount = inputString
                             .GroupBy(character => character)                // Groups our input string by characters which will represent Key values.
-                            .Select(character =>                            // Select each individual character and create a new anonymous type objet, which will hold character value, and count of those characters in a given input string.
+                            .Select(character =>                            // Select each individual character and create a new anonymous type object, which will hold character value, and count of those characters in a given input string.
                                 new
                                 {
                                     Character = character.Key,
                                     OccurenceCount = character.Count()
                                 });
 
-        Console.WriteLine("Displaying characters and number of their occurences in the input string:");
+        Console.WriteLine("Displaying characters and number of their occurrences in the input string:");
         characterCount.ToList()
                       .ForEach(x =>                                         // Iterate over every single element in characterCount IEnumerable, and display its Character and OccurenceCount values.
                         Console.WriteLine("'{0}' - {1}", x.Character, x.OccurenceCount));
@@ -251,17 +251,17 @@ public class StringsService : IStringsService
         inputString = string.IsNullOrEmpty(inputString) ? "Why would you even do this?" : inputString;
         Console.WriteLine($"Input string: {inputString}");
 
-        Dictionary<char, int> characterCount = new Dictionary<char, int>();          // We will be using Dictionary to save characters and number of occurences in the input string.
-        List<char> charList = new List<char>();                                      // Create a separate list of chars that we'll be using as a placeholder to count occurences of characters, and simply store final values to the Dictionary.
+        Dictionary<char, int> characterCount = new Dictionary<char, int>();          // We will be using Dictionary to save characters and number of occurrences in the input string.
+        List<char> charList = new List<char>();                                      // Create a separate list of chars that we'll be using as a placeholder to count occurrences of characters, and simply store final values to the Dictionary.
         charList.AddRange(inputString);
 
         for (int i = 0; charList.Count > 0; i++)                                            // Each iteration, we increase value of i by one, and loop continues indefinitely, until our placeholder list becomes empty.
         {
-            characterCount.Add(charList[0], charList.Where(x => x == charList[0]).Count()); // Every iteration we take the very FIRST character of the input string, and store it as Key to dictionary, and we set Value of that Key equal to the LINQ Count of that character's occurences in our placeholder list of chars.
-            charList = charList.Where(x => x != charList[0]).ToList();                      // Afterwards - we remove ALL occurences of that character, from our placeholder list of characters, by re-creating it with a LINQ .Where condition. So our list becomes shorter, and it's length closer to zero.
+            characterCount.Add(charList[0], charList.Where(x => x == charList[0]).Count()); // Every iteration we take the very FIRST character of the input string, and store it as Key to dictionary, and we set Value of that Key equal to the LINQ Count of that character's occurrences in our placeholder list of chars.
+            charList = charList.Where(x => x != charList[0]).ToList();                      // Afterwards - we remove ALL occurrences of that character, from our placeholder list of characters, by re-creating it with a LINQ .Where condition. So our list becomes shorter, and it's length closer to zero.
         }
 
-        Console.WriteLine("Displaying characters and number of their occurences in the input string:");
+        Console.WriteLine("Displaying characters and number of their occurrences in the input string:");
         foreach (var character in characterCount)
         {
             Console.WriteLine("'{0}' - {1}", character.Key, character.Value);
@@ -299,7 +299,7 @@ public class StringsService : IStringsService
         Console.WriteLine($"Input string: {inputString}");
 
         HashSet<char> characters = new HashSet<char>();                 // We define a HashSet which will hold all non-duplicate character values from our input string. 
-        foreach (var character in inputString)                          // Iterate through the entire input string, and add every character to the HashSet, which will add the characeter ONLY IF its not currently present in the HashSet.
+        foreach (var character in inputString)                          // Iterate through the entire input string, and add every character to the HashSet, which will add the character ONLY IF its not currently present in the HashSet.
             characters.Add(character);
 
         string resultWithoutDuplicates = string.Join("", characters);   // Create a result string, by Joining all characters in HashSet, into a singular string.
@@ -394,18 +394,18 @@ public class StringsService : IStringsService
             }
         }
 
-        // Create a list of frequencies for each word. Reason for this - we must know how many of each character, each word has, to later determine whether they all share same characters, as well as same number of occurences of those characters.
+        // Create a list of frequencies for each word. Reason for this - we must know how many of each character, each word has, to later determine whether they all share same characters, as well as same number of occurrences of those characters.
         List<Dictionary<char, int>> frequenciesList = new List<Dictionary<char, int>>();
         foreach (var word in inputStrings)
         {
-            Dictionary<char, int> frequencies = new Dictionary<char, int>();        // Create a dictionary where KEY will be character itself, and VALUE will be number of occurences of that character in a given word.
+            Dictionary<char, int> frequencies = new Dictionary<char, int>();        // Create a dictionary where KEY will be character itself, and VALUE will be number of occurrences of that character in a given word.
             foreach (var c in word)
             {
                 if (!frequencies.ContainsKey(c))                                    // If dictionary doesn't have a given character - add it.
                 {
                     frequencies.Add(c, 0);
                 }
-                frequencies[c]++;                                                   // Increase the occurence counter of a given character.
+                frequencies[c]++;                                                   // Increase the occurrence counter of a given character.
             }
             frequenciesList.Add(frequencies);                                       // And this 'local' dictionary to our list of frequencies for later logic to be applied.
         }
@@ -415,7 +415,7 @@ public class StringsService : IStringsService
         {
             // One of two conditions will instantly determine whether words are anagrams or not:
             if (!frequenciesList.All(x => x.ContainsKey(key)) ||                    // 1. ALL words must have a given character.
-                !frequenciesList.Any(x => x[key] == frequenciesList[0][key]))       // 2. ALL words must have same number of occurences of that character.
+                !frequenciesList.Any(x => x[key] == frequenciesList[0][key]))       // 2. ALL words must have same number of occurrences of that character.
             {
                 Console.WriteLine("Provided words are NOT anagrams of each other.");
                 return AreWordsAnagrams;                                            // If either condition is met - words are NOT anagrams.
@@ -454,7 +454,7 @@ public class StringsService : IStringsService
         Console.WriteLine("Here's a list of provided strings, to what is longest common ending among them:");
         inputStrings.ToList().ForEach(Console.WriteLine);
 
-        string longestCommonEnding = string.Empty;                              // We'll save the longest commond ending that appears in every word to a single string variable.
+        string longestCommonEnding = string.Empty;                              // We'll save the longest common ending that appears in every word to a single string variable.
         Dictionary<string, int> endingLengths = new Dictionary<string, int>();  // We'll also be using a dictionary, so save every common ending that appears in every word, and its length.
 
         foreach (var word in inputStrings)                                      // Iterate through every word in a provided array or strings.
@@ -471,7 +471,7 @@ public class StringsService : IStringsService
         if (endingLengths.Count > 0)                                            // If our dictionary is not empty, i.e. There's at least one common ending found between all words, we display it and its length.
         {
             longestCommonEnding = endingLengths.MaxBy(x => x.Value).Key;
-            Console.WriteLine($"Longest commond ending among input words is " +
+            Console.WriteLine($"Longest common ending among input words is " +
                 $"'{longestCommonEnding}' with the length of '{longestCommonEnding.Length}'");
         }
         else
@@ -529,7 +529,7 @@ public class StringsService : IStringsService
         foreach (var word in inputStrings)                                  // Iterate through every word.
         {
             HashSet<char> uniqueChars = new HashSet<char>();                // Instantiate a temporary HashSet for every word..
-            word.ToList().ForEach(x => uniqueChars.Add(x));                 // And all all characters of that word, to the HashSet - which inherently will ONLY all characters that are NOT present in it.
+            word.ToList().ForEach(x => uniqueChars.Add(x));                 // And all characters of that word, to the HashSet - which inherently will ONLY all characters that are NOT present in it.
             if (word.Length == uniqueChars.Count)                           // Which in turn means - that if word's length is equal to the length of HashSet, only then it means that the word contains only unique characters.
                 listOfUniqueCharacterWords.Add(word);
         }
@@ -564,7 +564,7 @@ public class StringsService : IStringsService
                     tempSubstring = inputString[j] + tempSubstring;                     // If we found a non-unique character - break out of iteration, so that non-consecutive characters aren't checked/validated.
                 else break;
             }
-            if (!substringLengths.ContainsKey(tempSubstring))                           // If we dont have such substring in our dictionary - add it.
+            if (!substringLengths.ContainsKey(tempSubstring))                           // If we don't have such substring in our dictionary - add it.
                 substringLengths.Add(tempSubstring, tempSubstring.Length);
         }
 
@@ -616,19 +616,19 @@ public class StringsService : IStringsService
         Console.WriteLine($"Input string: {inputString} and its byte count is {Encoding.UTF8.GetByteCount(inputString)}");
         string compressedString = string.Empty;
 
-        int countOfOccurences = 1;                      // Variable to count occurences of a given element.
+        int countOfOccurences = 1;                      // Variable to count occurrences of a given element.
         for (int i = 0; i < inputString.Length; i++)    // Iterate throughout the entire input string
         {
             if ((i != inputString.Length - 1 &&          // If a given characters is NOT last character of the string, and its not the same as the NEXT character in line - means we must continue forming our new, compressed string.
                 inputString[i] != inputString[i + 1]) ||
                 i == inputString.Length - 1)
             {
-                compressedString += inputString[i] +    // Compressed string is being formed by added the current characters and the number of its occurences, cast as string variable. So for example if 'ppp' will be converted to 'p3'
-                                    (countOfOccurences > 1 ? countOfOccurences.ToString() : 1.ToString());  // If number of occurences is greater than one, add that number, otherwise - there was only a single occurence of a given character.
+                compressedString += inputString[i] +    // Compressed string is being formed by added the current characters and the number of its occurrences, cast as string variable. So for example if 'ppp' will be converted to 'p3'
+                                    (countOfOccurences > 1 ? countOfOccurences.ToString() : 1.ToString());  // If number of occurrences is greater than one, add that number, otherwise - there was only a single occurrence of a given character.
                 countOfOccurences = 1;
             }
             else
-                countOfOccurences++;                    // If current character and the NEXT character in line are the same - simply increase count of occurences, and continue iterating over the string.
+                countOfOccurences++;                    // If current character and the NEXT character in line are the same - simply increase count of occurrences, and continue iterating over the string.
         }
 
         Console.WriteLine($"Input string: {compressedString} and its byte count is {Encoding.UTF8.GetByteCount(compressedString)}");
@@ -710,7 +710,7 @@ public class StringsService : IStringsService
         // Loop over every element in out split sentence array, starting from the first element, to the very last one. Reason for starting at index 1, and not zero, is simply because we need to compare current word's first letter, with the previous word's last letter.
         for (int i = 1; i <= sentenceWords.Length - 1; i++)
         {
-            // For the sake of simplicity and ease of undertanding - define which word is our current one, and which one is the previous one.
+            // For the sake of simplicity and ease of understanding - define which word is our current one, and which one is the previous one.
             string previousWord = sentenceWords[i - 1];
             string currentWord = sentenceWords[i];
 
