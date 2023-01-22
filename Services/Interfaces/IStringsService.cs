@@ -30,4 +30,5 @@ public interface IStringsService
     public string FibonacciWord(int? indexOfWord);
     public string TrueAlphabeticalOrder(string? inputString);
     public bool IsSentenceSmooth(string? inputString);
+    public string FindLongestAbecedarianWord(string[]? inputStrings);
 }
