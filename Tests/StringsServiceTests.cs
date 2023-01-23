@@ -268,4 +268,16 @@ public class StringsServiceTests
     {
         Assert.Equal("choppy", stringsService.FindLongestAbecedarianWord(new string[] { "forty", "choppy", "ghost" }));
     }
+
+    [Fact]
+    public void CheckIfStringContainsAdditiveNumberSequence_CheckIfStringContainsAdditiveNumberSequenceWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(stringsService.CheckIfStringContainsAdditiveNumberSequence("11223355"));
+    }
+
+    [Fact]
+    public void CheckIfStringContainsAdditiveNumberSequence_CheckIfStringContainsAdditiveNumberSequenceWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(stringsService.CheckIfStringContainsAdditiveNumberSequence("12345678"));
+    }
 }
