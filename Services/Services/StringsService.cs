@@ -759,4 +759,67 @@ public class StringsService : IStringsService
 
         return longestAbecedarian;
     }
+
+    /// <summary>
+    /// An interesting exercise often called 'Additive number' or 'Additive number sequence'.
+    /// What makes an Additive number sequence? Well here are some pointers:
+    ///     1. A string contains an additive sequence if its digits can make a sequence of numbers in which every number is addition of previous two numbers.
+    ///     2. A valid string should contain at least three digit to make one additive sequence.
+    ///     3. The string will contain only digits 0 ➞ 9
+    ///     4. Numbers in the additive sequence cannot have leading zeros, so sequence 1, 2, 03 or 1, 02, 3 is invalid.
+    ///     5. Sequence will be based off of the first two numbers. Starting from the beginning of the string to the end, left to right.
+    ///     6. If one (or both) first numbers contain multiple of the same digit - that's considered as the same number. 
+    ///         For example, if our sequence starts off like '299101...', that mean our first number is '2', and second number is '99'
+    /// As for most of other exercises, rules are up for interpretation, so you might encounter a different approach or explanation for this exercise - by all means, give it a shot aswell!
+    /// </summary>
+    public bool CheckIfStringContainsAdditiveNumberSequence(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "235813" : inputString;
+        Console.WriteLine($"Out input string is: '{inputString}'. We will check whether it contains an Additive number sequence or not");
+
+        // First - we initialize an integer array, into which we'll store individual numbers after calculating each one by the last two numbers of the sequence, starting off with the first two numbers.
+        // We'll also define the capacity for our List, specifically because only the first two numbers of the sequence will be taken as-is, and all the consecutive will be calculated separately.
+        List<int> numberSequence = new List<int>(2);
+        // Also - we'll create a temporary string type variable, to 'trim' the first two numbers of the sequence from the input string.
+        var temporaryElement = string.Empty;
+
+        // Iterate over the entire string, until second to last element. (Since we check current element with the next one, so we protect ourselves from going out of bounds of the string).
+        for (int i = 0; i < inputString.Length - 1; i++)
+        {
+            // Concatenate current element's value to our temporary string.
+            temporaryElement += inputString[i];
+
+            // If the current element's value is NOT the same as the next element, that means we've reach the end of current number.
+            // Second condition is - to check whether our list has NOT reach the capacity of elements.
+            if (inputString[i] != inputString[i + 1] &&
+                numberSequence.Count != numberSequence.Capacity)
+            {
+                //If both conditions are satisfied - we can freely convert the temporary number to an integer, add it to the list, and reset the temporary variable's value back to an empty string.
+                numberSequence.Add(Convert.ToInt32(temporaryElement));
+                temporaryElement = string.Empty;
+            }
+        }
+
+        // Second part of this solution is to form a separate string, using the first two elements of our list, which are the first two numbers of our sequence.
+        // Initially - our expected sequence string is simply joined elements of our list.
+        string expectedSequence = string.Join("", numberSequence);
+        // Until our expected sequence's length is less than our input string - we'll continue to calculate consecutive numbers, and updating our expected sequence string. 
+        while (expectedSequence.Length < inputString.Length)
+        {
+            // Next element of our sequence is calculated by summing the LAST TWO elements of the sequence. Initially - its the first two elements, next - its sum of the second element and the third element (one that we just calculated), and so on.
+            int nextElement = numberSequence.TakeLast(2).Sum();
+            // Add the next element to the list of integers.
+            numberSequence.Add(nextElement);
+            // Update (Concatenate) our expected sequence string by adding our next element, after casting it to string type.
+            expectedSequence += nextElement.ToString();
+        }
+
+        // If our expected sequence is equivalent to our input string - that means our input string DOES contain an Additive number sequence.
+        bool IsAdditiveSequence = expectedSequence == inputString;
+
+        // Output our solutions' results to the console window.
+        Console.WriteLine($"Our input number {(IsAdditiveSequence ? "DOES" : "DOES NOT")} contain an Additive number sequence!");
+        return IsAdditiveSequence;
+    }
 }

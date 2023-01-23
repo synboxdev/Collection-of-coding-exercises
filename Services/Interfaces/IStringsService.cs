@@ -31,4 +31,5 @@ public interface IStringsService
     public string TrueAlphabeticalOrder(string? inputString);
     public bool IsSentenceSmooth(string? inputString);
     public string FindLongestAbecedarianWord(string[]? inputStrings);
+    public bool CheckIfStringContainsAdditiveNumberSequence(string? inputString);
 }
