@@ -1,4 +1,5 @@
-﻿using Services.Interfaces;
+﻿using Data.Utility;
+using Services.Interfaces;
 
 namespace Services;
 
@@ -829,5 +830,61 @@ public class NumbersService : INumbersService
 
         Console.WriteLine($"Our given input number {(IsNumberAlternating ? "is" : "is NOT")} an Alternating number!");
         return IsNumberAlternating;
+    }
+
+    /// <summary>
+    /// Two exercises combined into one, since they are structurally almost identical.
+    /// The additive persistence of an integer, n, is the number of times you have to replace n with the sum of its digits until n becomes a single digit integer.
+    /// The multiplicative persistence of an integer, n, is the number of times you have to replace n with the product of its digits until n becomes a single digit integer.
+    /// Our goal, is to determine the number of steps it will take for the number to reach a single digit value, when processing it through Additive or Multiplicative persistence pattern.
+    /// </summary>
+    public int NumberPersistenceProblem(NumberPersistence? persistenceType, int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, three digit, positive integer number.
+        Console.WriteLine("Picking a random number, to determine how many steps it will take to reach a single digit");
+        number = number == null || number == 0 ? Random.Shared.Next(10, 100000) : number;
+        Console.WriteLine($"Number of our choice is - {number}");
+
+        // If persistence type is not provided, we're going to pick a random one.
+        persistenceType = (NumberPersistence?)((!persistenceType.HasValue || persistenceType == null) ?
+            Enum.GetValues(typeof(NumberPersistence)).GetValue(Random.Shared.Next(0, Enum.GetValues(typeof(NumberPersistence)).Length)) :
+            persistenceType);
+        Console.WriteLine($"We will be processing the number with {Enum.GetName(typeof(NumberPersistence), persistenceType)} pattern");
+
+        // Create variable to hold number of steps, and a List of digits from the input number, to ease the process of iteration.
+        int numberOfSteps = 0;
+        List<int> listOfDigits = number?.ToString().ToCharArray().Select(digit => Convert.ToInt32(Char.GetNumericValue(digit))).ToList();
+
+        // Based on which persistence type is provided (or randomly selected) - we apply slightly different rule-set pattern.
+        // Here's logic for following Additive pattern:
+        if (persistenceType == NumberPersistence.Additive)
+        {
+            while (listOfDigits.Count > 1)
+            {
+                // Our additive number, is the sum of all individual elements of the list.
+                var additiveNumber = listOfDigits.Sum();
+                // After we've calculated the additive number - we split it into individual digits, and re-assign the new list of digits to our initial list.
+                listOfDigits = additiveNumber.ToString().ToCharArray().Select(digit => Convert.ToInt32(Char.GetNumericValue(digit))).ToList();
+                // Iterate a single step.
+                numberOfSteps++;
+            }
+        }
+
+        // And here's logic for following Multiplicative pattern:
+        if (persistenceType == NumberPersistence.Multiplicative)
+        {
+            while (listOfDigits.Count > 1)
+            {
+                // Our additive number, is the product (multiplication of all individual digits) of our list elements.
+                var multiplicativeNumber = listOfDigits.Aggregate((a, b) => a * b);
+                // After we've calculated the multiplicative number - we split it into individual digits, and re-assign the new list of digits to our initial list.
+                listOfDigits = multiplicativeNumber.ToString().ToCharArray().Select(digit => Convert.ToInt32(Char.GetNumericValue(digit))).ToList();
+                // Iterate a single step.
+                numberOfSteps++;
+            }
+        }
+
+        Console.WriteLine($"It has taken us {numberOfSteps} steps to reach a single digit, following {Enum.GetName(typeof(NumberPersistence), persistenceType)} pattern, from the input number of {number}");
+        return numberOfSteps;
     }
 }

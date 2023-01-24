@@ -1,4 +1,6 @@
-﻿namespace Services.Interfaces;
+﻿using Data.Utility;
+
+namespace Services.Interfaces;
 
 public interface INumbersService
 {
@@ -29,4 +31,5 @@ public interface INumbersService
     public int NBonacciNumberSequenceCalculationAndDisplay(int numberOfElements, int numberOfTerms);
     public bool CheckIfNumberIsGapful(int? number);
     public bool CheckIfNumberIsAlternating(int? number);
+    public int NumberPersistenceProblem(NumberPersistence? persistenceType, int? number);
 }
