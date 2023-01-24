@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using Data.Utility;
+using Services;
 
 namespace Tests;
 
@@ -246,5 +247,17 @@ public class NumbersServiceTests
     public void CheckIfNumberIsAlternating_CheckIfNumberIsAlternatingWithValidParameter_ReturnsFalse()
     {
         Assert.False(numbersService.CheckIfNumberIsAlternating(5466));
+    }
+
+    [Fact]
+    public void NumberPersistenceProblem_NumberPersistenceProblemMultiplicativePersistence_ReturnsValidAnswer()
+    {
+        Assert.Equal(4, numbersService.NumberPersistenceProblem(NumberPersistence.Multiplicative, 77));
+    }
+
+    [Fact]
+    public void NumberPersistenceProblem_NumberPersistenceProblemAdditivePersistence_ReturnsValidAnswer()
+    {
+        Assert.Equal(3, numbersService.NumberPersistenceProblem(NumberPersistence.Additive, 1679583));
     }
 }
