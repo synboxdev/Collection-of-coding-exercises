@@ -32,4 +32,5 @@ public interface INumbersService
     public bool CheckIfNumberIsGapful(int? number);
     public bool CheckIfNumberIsAlternating(int? number);
     public int NumberPersistenceProblem(NumberPersistence? persistenceType, int? number);
+    public bool CheckIfNumberIsPronic(int? number);
 }

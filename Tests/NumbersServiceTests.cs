@@ -260,4 +260,16 @@ public class NumbersServiceTests
     {
         Assert.Equal(3, numbersService.NumberPersistenceProblem(NumberPersistence.Additive, 1679583));
     }
+
+    [Fact]
+    public void CheckIfNumberIsPronic_CheckIfNumberIsPronicWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsPronic(156));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsPronic_CheckIfNumberIsPronicWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsPronic(7));
+    }
 }
