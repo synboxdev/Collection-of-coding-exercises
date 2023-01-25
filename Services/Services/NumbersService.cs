@@ -887,4 +887,28 @@ public class NumbersService : INumbersService
         Console.WriteLine($"It has taken us {numberOfSteps} steps to reach a single digit, following {Enum.GetName(typeof(NumberPersistence), persistenceType)} pattern, from the input number of {number}");
         return numberOfSteps;
     }
+
+    /// <summary>
+    /// Very simple, yet an interesting exercise.
+    /// Tidbit of information about Pronic numbers (also called oblong numbers, heterometric numbers, or rectangular numbers):
+    /// A pronic number is a number that is the product of two consecutive integers, that is, a number of the form n * ( n + 1 ).
+    /// The study of these numbers dates back to Aristotle.
+    /// Read more here: https://en.wikipedia.org/wiki/Pronic_number
+    /// </summary>
+    public bool CheckIfNumberIsPronic(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
+        Console.WriteLine($"Picking a random number between 1 and 10000, to determine whether its Pronic number or not!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(1, 10000) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // Initialize a boolean variable, with default value of False, which will be inverted if necessary, if Pronic number conditions are not met.
+        bool IsNumberPronic = false;
+
+        for (int i = 0; i <= (int)Math.Sqrt((double)number); i++)
+            IsNumberPronic = number == i * (i + 1);
+
+        Console.WriteLine($"Our given input number {(IsNumberPronic ? "is" : "is NOT")} a Pronic number!");
+        return IsNumberPronic;
+    }
 }
