@@ -33,4 +33,6 @@ public interface INumbersService
     public bool CheckIfNumberIsAlternating(int? number);
     public int NumberPersistenceProblem(NumberPersistence? persistenceType, int? number);
     public bool CheckIfNumberIsPronic(int? number);
+    public bool CheckIfNumberIsPandigital(int? number);
+    public bool CheckIfNumberIsPandigitalUsingLINQ(int? number);
 }
