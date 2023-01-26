@@ -911,4 +911,46 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Our given input number {(IsNumberPronic ? "is" : "is NOT")} a Pronic number!");
         return IsNumberPronic;
     }
+
+    /// <summary>
+    /// Tidbit of information about Pandigital number:
+    /// In mathematics, a pandigital number is an integer that in a given base has among its significant digits each digit used in the base at least once.
+    /// In other words - A pandigital number contains all digits (0-9) at least once.
+    /// Our solutions will be under the assumption of a given number being base 10 (digits 0-9).
+    /// Read more here: https://en.wikipedia.org/wiki/Pandigital_number
+    /// </summary>
+    public bool CheckIfNumberIsPandigital(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random integer between double type minimum value and maximum value.
+        Console.WriteLine($"Picking a random number, to determine whether its a Pandigital number or not!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, Int32.MaxValue) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // For this solution we're going to utilize a HashSet.
+        // Reason for it is rather simple - HashSet will store a single occurrence of each individual digit.
+        HashSet<int> digits = new HashSet<int>();
+        foreach (var digit in number.ToString().ToCharArray())
+            digits.Add((int)Char.GetNumericValue(digit));
+
+        // Our input number will be a Pandigital number, if each digits 0 through 9 appears at least once. That means our HashSet must have exactly 10 elements.
+        bool IsNumberPandigital = digits.Count == 10;
+
+        Console.WriteLine($"Our given input number {(IsNumberPandigital ? "is" : "is NOT")} a Pandigital number!");
+        return IsNumberPandigital;
+    }
+
+    public bool CheckIfNumberIsPandigitalUsingLINQ(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random integer between double type minimum value and maximum value.
+        Console.WriteLine($"Picking a random number, to determine whether its a Pandigital number or not!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, Int32.MaxValue) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // Our second solution is essentially a one-liner, which utilizes LINQ functions Distinct and Count.
+        // First we convert the input number to a string type, remove duplicate characters (digits) by using Distinct, and then equating the total Count of digits to 10 (which is how many unique digits our number should have).
+        bool IsNumberPandigital = number?.ToString().Distinct().Count() == 10;
+
+        Console.WriteLine($"Our given input number {(IsNumberPandigital ? "is" : "is NOT")} a Pandigital number!");
+        return IsNumberPandigital;
+    }
 }

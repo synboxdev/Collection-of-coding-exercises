@@ -272,4 +272,28 @@ public class NumbersServiceTests
     {
         Assert.False(numbersService.CheckIfNumberIsPronic(7));
     }
+
+    [Fact]
+    public void CheckIfNumberIsPandigital_CheckIfNumberIsPandigitalWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsPandigital(1023456789));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsPandigital_CheckIfNumberIsPandigitalWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsPandigital(12345111));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsPandigitalUsingLINQ_CheckIfNumberIsPandigitalUsingLINQWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsPandigitalUsingLINQ(1023456789));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsPandigitalUsingLINQ_CheckIfNumberIsPandigitalUsingLINQWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsPandigitalUsingLINQ(55522131));
+    }
 }
