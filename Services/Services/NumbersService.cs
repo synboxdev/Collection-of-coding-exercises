@@ -953,4 +953,32 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Our given input number {(IsNumberPandigital ? "is" : "is NOT")} a Pandigital number!");
         return IsNumberPandigital;
     }
+
+    /// <summary>
+    /// Extremely simple exercise.
+    /// A number is considered slidey if for every digit in the number, the next digit from that has an absolute difference of one.
+    /// </summary>
+    public bool CheckIfNumberIsSlidey(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random integer between double type minimum value and maximum value.
+        Console.WriteLine($"Picking a random number, to determine whether its a Slidey number or not!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, Int32.MaxValue) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // Initialize a boolean variable, with default value of true, which will be inverted if necessary, if Slidey number conditions are not met.
+        bool IsNumberSlidey = true;
+        // Iterate over every single digit in a given number all the way until the second to last one, since we check the current digit, with its neighboring next element.
+        for (int i = 0; i < number.ToString().Length - 1; i++)
+        {
+            // If the absolute value difference between the current digit and the second digits is NOT equal to exactly one - our input number is NOT a Slidey number, we invert the boolean variable and break out of the loop.
+            if (Math.Abs((int)(char.GetNumericValue(number.ToString()[i]) - char.GetNumericValue(number.ToString()[i + 1]))) != 1)
+            {
+                IsNumberSlidey = !IsNumberSlidey;
+                break;
+            }
+        }
+
+        Console.WriteLine($"Our given input number {(IsNumberSlidey ? "is" : "is NOT")} a Slidey number!");
+        return IsNumberSlidey;
+    }
 }
