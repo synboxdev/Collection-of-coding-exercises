@@ -296,4 +296,16 @@ public class NumbersServiceTests
     {
         Assert.False(numbersService.CheckIfNumberIsPandigitalUsingLINQ(55522131));
     }
+
+    [Fact]
+    public void CheckIfNumberIsSlidey_CheckIfNumberIsSlideyWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsSlidey(65454321));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsSlidey_CheckIfNumberIsSlideyWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsSlidey(123476641));
+    }
 }

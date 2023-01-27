@@ -35,4 +35,5 @@ public interface INumbersService
     public bool CheckIfNumberIsPronic(int? number);
     public bool CheckIfNumberIsPandigital(int? number);
     public bool CheckIfNumberIsPandigitalUsingLINQ(int? number);
+    public bool CheckIfNumberIsSlidey(int? number);
 }
