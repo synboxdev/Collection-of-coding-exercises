@@ -892,4 +892,39 @@ public class ArraysService : IArraysService
         Console.WriteLine($"Index (safe position) is equal to {Array.FindIndex(array, x => x == 1)}. That's where the last survivor is.");
         return Array.FindIndex(array, x => x == 1);
     }
+
+    /// <summary>
+    /// An introduction to the exercises:
+    /// A fulcrum of an array is an integer such that all elements to the left of it and all elements to the right of it sum to the same value.
+    /// </summary>
+    public int? FindFulcrumPosition(int[]? array)
+    {
+        // If a an array isn't provided to the method or is invalid, we create our own.
+        array = (array == null || array.Length < 2) ? new int[] { 8, 8, 8, 8 } : array;
+        Console.WriteLine("Here's our input array:");
+        array.ToList().ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+
+        // Initialize a integer variable, with default value of NULL, which will be set to the value of an element, which is a Fulcrum position,
+        // Otherwise - it will remain null, indicating to us, that our array does NOT contain a Fulcrum position element.
+        int? FulcrumPosition = null;
+
+        // Iterate over the array, starting at second element (position 1), all the way to second to last element. Reason for this lies in the underlying condition of Fulcrum number - we must compare sum of left side elements to the sum of right side elements.
+        for (int i = 1; i < array.Length - 1; i++)
+        {
+            // If the sum of left sided elements is equivalent to sum of right sided elements - we have found a Fulcrum positioned element, take its value, and break out of the loop.
+            // Reason for TakeLast being calculated as it is - once we subtract iterator from the length of the array, we get the position of our CURRENT element, that's why we must subtract 1, to get the right sided element FROM our current element.
+            if (array.Take(i).Sum() == array.TakeLast(array.Length - i - 1).Sum())
+            {
+                FulcrumPosition = array[i];
+                break;
+            }
+        }
+
+        // Display the findings of our solution to the console window:
+        Console.WriteLine($"{(FulcrumPosition != null ?
+                          $"Fulcrum position of our array is the element {FulcrumPosition}" :
+                           "Our input array does NOT contain a Fulcrum position element!")}");
+        return FulcrumPosition;
+    }
 }
