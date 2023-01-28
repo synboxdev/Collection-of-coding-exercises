@@ -199,4 +199,16 @@ public class ArraysServiceTests
     {
         Assert.Equal(1, arraysService.TheJosephusProblem(new int[] { 1, 1, 1, 1, 1, 1, 1 }, 4));
     }
+
+    [Fact]
+    public void FindFulcrumPosition_FindFulcrumPositionWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(0, arraysService.FindFulcrumPosition(new int[] { 7, -1, 0, -1, 1, 1, 2, 3 }));
+    }
+
+    [Fact]
+    public void FindFulcrumPosition_FindFulcrumPositionWithValidParameterValues_ReturnsNull()
+    {
+        Assert.Null(arraysService.FindFulcrumPosition(new int[] { 3, 3, 3, 3 }));
+    }
 }

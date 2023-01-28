@@ -25,4 +25,5 @@ public interface IArraysService
     public int? AlmostUniformSequence(int[]? array);
     public string[] PoppingBlocks(string[] array);
     public int TheJosephusProblem(int[]? array, int? killIndex);
+    public int? FindFulcrumPosition(int[]? array);
 }
