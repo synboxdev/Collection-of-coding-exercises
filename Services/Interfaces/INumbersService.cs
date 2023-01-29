@@ -36,4 +36,5 @@ public interface INumbersService
     public bool CheckIfNumberIsPandigital(int? number);
     public bool CheckIfNumberIsPandigitalUsingLINQ(int? number);
     public bool CheckIfNumberIsSlidey(int? number);
+    public int? DigitsBattle(int? number);
 }
