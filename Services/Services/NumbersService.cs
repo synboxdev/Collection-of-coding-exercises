@@ -981,4 +981,44 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Our given input number {(IsNumberSlidey ? "is" : "is NOT")} a Slidey number!");
         return IsNumberSlidey;
     }
+
+    /// <summary>
+    /// A fun exercise/game called 'Digits Battle'.
+    /// Here's how its played:
+    ///     1. Starting from the left side of an integer, adjacent digits pair up in "battle" and the larger digit wins. 
+    ///     2. If two digits are the same, they both lose. 
+    ///     3. A lone digit automatically wins.
+    /// </summary>
+    public int? DigitsBattle(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random integer between double type minimum value and maximum value.
+        Console.WriteLine($"Picking a random number, to play out the 'Digits Battle' exercise");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, Int32.MaxValue) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // First, we initialize a list of integer arrays, into which we'll store pairs of two digits, from the input number.
+        List<int[]> listOfPairs = new List<int[]>();
+        // Convert the input number into an array of digits, that way we can pair them up, and prepare for the game!
+        int[] inputDigits = number.ToString().ToCharArray().Select(x => (int)Char.GetNumericValue(x)).ToArray();
+
+        // Iterate over the digits, initialize an integer array with size of 2, copy two digits from the array of digits, into our temporary pair array, and add that pair of two digits array into our list of digit arrays.
+        for (int i = 0; i < inputDigits.Length; i += 2)
+        {
+            int[] digitPair = new int[2];
+            Array.Copy(inputDigits, i, digitPair, 0, inputDigits.Length - i == 1 ? 1 : 2);      // If the iterator i, subtracted from Length is equal to 1, that means our input array has odd number of elements, so our last pair will simply have a single digit added.
+            listOfPairs.Add(digitPair);
+        }
+
+        // Initialize a string type variable (for now), which will be concatenated when processing all the individual pairs of digits
+        string finalNumber = string.Empty;
+
+        // Iterate over all the digit pairs, and apply the game's rules.
+        foreach (var digitPair in listOfPairs)
+            finalNumber += digitPair.Distinct().Count() != 1 ?  // If the amount of DISTINCT elements is NOT equal to one..
+                           digitPair.Max().ToString() :         // .. that means we must take largest one.
+                           string.Empty;                        // Otherwise - both digits lose, and neither is added to our final number.
+
+        Console.WriteLine($"Our final number, after playing out 'Digits Battle' game is {finalNumber}");
+        return !string.IsNullOrEmpty(finalNumber) ? Convert.ToInt32(finalNumber) : null;
+    }
 }

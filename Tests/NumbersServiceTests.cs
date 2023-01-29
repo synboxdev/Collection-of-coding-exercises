@@ -308,4 +308,16 @@ public class NumbersServiceTests
     {
         Assert.False(numbersService.CheckIfNumberIsSlidey(123476641));
     }
+
+    [Fact]
+    public void DigitsBattle_DigitsBattleWithEquivalentPairs_ReturnsValidAnswer()
+    {
+        Assert.Null(numbersService.DigitsBattle(112233));
+    }
+
+    [Fact]
+    public void DigitsBattle_DigitsBattleWithValidParameter_ReturnsValidAnswer()
+    {
+        Assert.Equal(7925, numbersService.DigitsBattle(578921445));
+    }
 }
