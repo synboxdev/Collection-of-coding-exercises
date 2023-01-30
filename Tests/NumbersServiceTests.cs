@@ -320,4 +320,16 @@ public class NumbersServiceTests
     {
         Assert.Equal(7925, numbersService.DigitsBattle(578921445));
     }
+
+    [Fact]
+    public void CheckIfNumberIsZygodrome_CheckIfNumberIsZygodromeWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsZygodrome(7777333));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsZygodrome_CheckIfNumberIsZygodromeWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsZygodrome(2251153));
+    }
 }

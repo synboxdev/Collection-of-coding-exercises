@@ -921,7 +921,7 @@ public class NumbersService : INumbersService
     /// </summary>
     public bool CheckIfNumberIsPandigital(int? number)
     {
-        // If a number isn't provided to the method or is invalid, we pick a random integer between double type minimum value and maximum value.
+        // If a number isn't provided to the method or is invalid, we pick a random integer between a zero and integer maximum value.
         Console.WriteLine($"Picking a random number, to determine whether its a Pandigital number or not!");
         number = (number == null || number <= 0) ? Random.Shared.Next(0, Int32.MaxValue) : number;
         Console.WriteLine($"Number of our choice is {number}");
@@ -941,7 +941,7 @@ public class NumbersService : INumbersService
 
     public bool CheckIfNumberIsPandigitalUsingLINQ(int? number)
     {
-        // If a number isn't provided to the method or is invalid, we pick a random integer between double type minimum value and maximum value.
+        // If a number isn't provided to the method or is invalid, we pick a random integer between a zero and integer maximum value.
         Console.WriteLine($"Picking a random number, to determine whether its a Pandigital number or not!");
         number = (number == null || number <= 0) ? Random.Shared.Next(0, Int32.MaxValue) : number;
         Console.WriteLine($"Number of our choice is {number}");
@@ -960,7 +960,7 @@ public class NumbersService : INumbersService
     /// </summary>
     public bool CheckIfNumberIsSlidey(int? number)
     {
-        // If a number isn't provided to the method or is invalid, we pick a random integer between double type minimum value and maximum value.
+        // If a number isn't provided to the method or is invalid, we pick a random integer between a zero and integer maximum value.
         Console.WriteLine($"Picking a random number, to determine whether its a Slidey number or not!");
         number = (number == null || number <= 0) ? Random.Shared.Next(0, Int32.MaxValue) : number;
         Console.WriteLine($"Number of our choice is {number}");
@@ -1020,5 +1020,56 @@ public class NumbersService : INumbersService
 
         Console.WriteLine($"Our final number, after playing out 'Digits Battle' game is {finalNumber}");
         return !string.IsNullOrEmpty(finalNumber) ? Convert.ToInt32(finalNumber) : null;
+    }
+
+    /// <summary>
+    /// Tidbit of information about Zygodrome numbers:
+    /// A number is Zygodrome if it can be partitioned into clusters of repeating digits with a length equals or greater than two.
+    ///     As to say that repeating digits need to be placed as an adjacent pair or a greater group, and that no single digits are allowed.
+    /// For example, numbers 112233 or 7777333, would be considered Zygodrome numbers, where 2251153 would NOT fit the conditions of being a Zygodrome number.
+    /// </summary>
+    public bool CheckIfNumberIsZygodrome(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random integer between a zero and integer maximum value.
+        Console.WriteLine($"Picking a number, to determine whether its a Zygodrome number or not!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, Int32.MaxValue) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // Initialize three variable that will help us in this solution:
+        //  A boolean variable to act as a 'flag' for whether a given input number is Zygodrome number or not.
+        //  An occurrence counter variable that will help us keep track of number of occurrences of each individual digit.
+        //  A placeholder char type variable to hold the actual value of a given char, whose occurrences we'll count.
+        bool IsNumberZygodrome = true;
+        int occurrenceCounter = 0;
+        char? placeholderDigit = number.ToString()[0];  // Set the value of this variable to the very first digit of the input number.
+
+        // Iterate over every single element (digit) in our input number.
+        for (int i = 0; i < number.ToString().Length; i++)
+        {
+            // If the current element's value is equivalent to our placeholder digit variable - increase the occurrence counter by one.
+            if (number.ToString()[i] == placeholderDigit)
+                occurrenceCounter++;
+            else
+            {
+                // Otherwise (If current element is NOT equivalent to our placeholder digit variable) - check whether there were at least two occurrences of a given digit.
+                // If not - invert the boolean and break out of the loop, since our number simply does not fit the condition to be a Zygodrome number.
+                if (occurrenceCounter < 2)
+                {
+                    IsNumberZygodrome = !IsNumberZygodrome;
+                    break;
+                }
+                // If there WERE at least two occurrences of the previous digit - we're still good to go, just set the current digit's value to current element, and reset the occurrence counter to one (since we will move on to the next element with next iteration).
+                placeholderDigit = number.ToString()[i];
+                occurrenceCounter = 1;
+            }
+
+            // The very last check that we must do, on the last iteration of the array, is to check the occurrence counter one more time, and set our boolean variable value to correct value.
+            // We must do this, because after we check the last element, and possibly increase the occurrence counter - we exit the loop afterwards.
+            if (i == number.ToString().Length - 1 && occurrenceCounter < 2)
+                IsNumberZygodrome = !IsNumberZygodrome;
+        }
+
+        Console.WriteLine($"Our given input number {(IsNumberZygodrome ? "is" : "is NOT")} a Zygodrome number!");
+        return IsNumberZygodrome;
     }
 }
