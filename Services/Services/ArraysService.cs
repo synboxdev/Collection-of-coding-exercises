@@ -927,4 +927,57 @@ public class ArraysService : IArraysService
                            "Our input array does NOT contain a Fulcrum position element!")}");
         return FulcrumPosition;
     }
+
+    /// <summary>
+    /// Here's an interesting exercise to try out:
+    /// Find the total sum of missing number from a given array of integers.
+    /// Small note - The minimum and maximum value of the given array are the exclusive bounds of the numeric range to consider when searching for missing numbers.
+    ///     Meaning - if our array contains elements 2, 5, 8, missing numbers would be 3 + 4 + 6 + 7.
+    /// </summary>
+    public int? FindSumOfMissingNumbers(int[]? array)
+    {
+        // If a an array isn't provided to the method or is invalid, we create our own with some random integer values.
+        array = (array == null || array.Length < 2) ? new int[] { -5, -3, 2, 1 } : array;
+        Console.WriteLine("Here's our input array, which we'll use to determine the total sum of missing numbers:");
+        array.ToList().ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+
+        // Define an integer variable that will hold the total sum of missing numbers.
+        int? totalSum = 0;
+
+        // Iterate from the lowest number of the array (inclusively), to the very last element (inclusively), and just add ALL element value to the total sum.
+        for (int i = array.Min(); i <= array.Max(); i++)
+            totalSum += i;
+
+        // Iterate over the input array element specifically, and add the inverted value of each element to the same total sum.
+        // Reason for this - is to 're-calculate' the total sum, by excluding the input array element that we not supposed to be summed in the first place.
+        foreach (int arrayElement in array)
+            totalSum += arrayElement * -1;
+
+        // Display the total calculated sum to the console window.
+        Console.WriteLine($"Total sum of missing numbers from our input array is equal to {totalSum}");
+        return totalSum;
+    }
+
+    public int? FindSumOfMissingNumbersUsingHashSet(int[]? array)
+    {
+        // If a an array isn't provided to the method or is invalid, we create our own with some random integer values.
+        array = (array == null || array.Length < 2) ? new int[] { -5, -3, 2, 1 } : array;
+        Console.WriteLine("Here's our input array, which we'll use to determine the total sum of missing numbers:");
+        array.ToList().ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+
+        // Define a HashSet of type integer, into which we immediately store the array - reason for this, is to hold unique numbers which we must NOT sum to the total amount.
+        // And an integer variable that will hold the total sum of missing numbers.
+        HashSet<int> hashsetArray = array.ToHashSet();
+        int? totalSum = 0;
+
+        // Iterate from the lowest numbers of the HashSet + 1 (since we use exclusive bounds on both ends), to the very last element.
+        for (int i = hashsetArray.Min() + 1; i < hashsetArray.Max(); i++)
+            totalSum += !hashsetArray.Contains(i) ? i : 0;                  // If the HashSet does NOT contain such element - add it to the total sum.
+
+        // Display the total calculated sum to the console window.
+        Console.WriteLine($"Total sum of missing numbers from our input array is equal to {totalSum}");
+        return totalSum;
+    }
 }

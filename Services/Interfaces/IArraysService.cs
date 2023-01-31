@@ -26,4 +26,6 @@ public interface IArraysService
     public string[] PoppingBlocks(string[] array);
     public int TheJosephusProblem(int[]? array, int? killIndex);
     public int? FindFulcrumPosition(int[]? array);
+    public int? FindSumOfMissingNumbers(int[]? array);
+    public int? FindSumOfMissingNumbersUsingHashSet(int[]? array);
 }
