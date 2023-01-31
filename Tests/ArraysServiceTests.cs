@@ -211,4 +211,16 @@ public class ArraysServiceTests
     {
         Assert.Null(arraysService.FindFulcrumPosition(new int[] { 3, 3, 3, 3 }));
     }
+
+    [Fact]
+    public void FindSumOfMissingNumbers_FindSumOfMissingNumbersWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(29, arraysService.FindSumOfMissingNumbers(new int[] { 10, 7, 5, 3, 1 }));
+    }
+
+    [Fact]
+    public void FindSumOfMissingNumbersUsingHashSet_FindSumOfMissingNumbersUsingHashSetWithValidParameterValues_ReturnsValidResult()
+    {
+        Assert.Equal(1575, arraysService.FindSumOfMissingNumbersUsingHashSet(new int[] { 10, 20, 30, 40, 50, 60 }));
+    }
 }
