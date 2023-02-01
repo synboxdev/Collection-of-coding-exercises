@@ -32,4 +32,6 @@ public interface IStringsService
     public bool IsSentenceSmooth(string? inputString);
     public string FindLongestAbecedarianWord(string[]? inputStrings);
     public bool CheckIfStringContainsAdditiveNumberSequence(string? inputString);
+    public string GrowingAndShrinkingPotions(string? inputString);
+    public string GrowingAndShrinkingPotionsSimplified(string? inputString);
 }

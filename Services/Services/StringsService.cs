@@ -822,4 +822,107 @@ public class StringsService : IStringsService
         Console.WriteLine($"Our input number {(IsAdditiveSequence ? "DOES" : "DOES NOT")} contain an Additive number sequence!");
         return IsAdditiveSequence;
     }
+
+    /// <summary>
+    /// Fun 'game' playing which you can practice some programming, called 'Growing and Shrinking potions'
+    /// Here's the premise:
+    /// There are two types of potions - growing potions: "A", and shrinking potions: "B".
+    ///     If "A" immediately follows a digit, add 1 to the digit.
+    ///     If "B" immediately follows a digit, subtract 1 from the digit.
+    /// For example, if a given string is '3A78B51' the result will be '47751'
+    /// Because 3 grows to 4, 8 shrinks to 7.
+    /// Some rules:
+    ///     1. Digits that do not have a potion on their immediate right should be left alone.
+    ///     2. Digit will always either be followed by zero or exactly 1 potion. 
+    /// </summary>
+    public string GrowingAndShrinkingPotions(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "55A6B123A3A" : inputString;
+        Console.WriteLine($"Out input string is: '{inputString}'. We will play out 'Growing and Shrinking potions' game.");
+
+        // Define the symbols for both of our potions - 'A' and 'B'
+        char[] potionSymbols = new char[] { 'A', 'B' };
+        // Also - initialize a list of KeyValuePairs, which will hold the numeric value of the section, and the symbol for our potion.
+        List<KeyValuePair<int, char?>> sections = new List<KeyValuePair<int, char?>>();
+
+        // While our input string still has some value in it - iterate over it.
+        while (inputString.Length > 0)
+        {
+            // If there are ANY elements in our input string that equate to either of our potion symbols - we've got ourselves a section.
+            if (inputString.IndexOfAny(potionSymbols) != -1)
+            {
+                // A 'section' will be the numeric part UP TO the potion's symbol, and the symbol itself.
+                var section = inputString.Substring(0, inputString.IndexOfAny(potionSymbols) + 1);
+                // Then, we 'chop off' the section from the beginning of the input string, for the next iteration.
+                inputString = inputString.Substring(section.Length);
+                // Add the section to the List. KEY part will be the numeric value itself, and VALUE part will be the symbol of the potion.
+                // For example if our input string is '55A6B123A3A', our first section will be 55A, and first KeyValuePair will be KEY = 55, VALUE = 'B'
+                sections.Add(new KeyValuePair<int, char?>(Convert.ToInt32(section.Substring(0, section.Length - 1)),
+                                                          section.Last()));
+            }
+            else
+            {
+                // If there are no more occurrences of our potion symbols - that means the remainder of our string (since its still not an empty string) - are simply numbers.
+                // Add the number as the KEY part (as usual), and VALUE part will simply remain a null. Also - break out of the loop, since we've already traversed the entire input string.
+                sections.Add(new KeyValuePair<int, char?>(Convert.ToInt32(inputString), null));
+                break;
+            }
+        }
+
+        // Initialize a string type variable to hold the final string value, which we will form momentarily.
+        string finalString = string.Empty;
+
+        // For each sub-section in our list of sections:
+        // If the VALUE part of the section, actually has a value (All sections, except the numeric ending should have one) - apply the rules of a given potion, which is either subtract one, or add one to the numeric KEY of the section.
+        // And concatenate the newly calculated numeric value of the section to our final string variable.
+        foreach (var section in sections)
+            finalString += section.Value.HasValue ?
+                           $"{section.Key + (section.Value == 'A' ? 1 : -1)}" :
+                           section.Key.ToString();
+
+        // Print out the final string to the console window.
+        Console.WriteLine($"Our result string after playing out the game is '{finalString}'");
+        return finalString;
+    }
+
+    /// <summary>
+    /// A slightly condensed and simplified solution for the same 'Growing and Shrinking potions' game
+    /// </summary>
+    public string GrowingAndShrinkingPotionsSimplified(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "3A78B51" : inputString;
+        Console.WriteLine($"Out input string is: '{inputString}'. We will play out 'Growing and Shrinking potions' game.");
+
+        // Define the symbols for both of our potions - 'A' and 'B', as well as initialize a string variable for our final string.
+        char[] potionSymbols = new char[] { 'A', 'B' };
+        string finalString = string.Empty;
+
+        // Initialize a placeholder variable, to hold the numeric section BEFORE a potion symbol is encountered.
+        string numericSection = string.Empty;
+        // Iterate over the entire input string.
+        for (int i = 0; i < inputString.Length; i++)
+        {
+            // If a given character is a digit - concatenate its character value to our numeric section.
+            if (char.IsDigit(inputString[i]))
+                numericSection += inputString[i];
+            // Otherwise - convert the numeric section to an integer, and apply potion rules based on the current element's value, which will be one of the potion symbols - 'A' or 'B'
+            else
+            {
+                finalString += Convert.ToInt32(numericSection) + (inputString[i] == 'A' ? 1 : -1);
+                // Also - reset the numeric section back to an empty string.
+                numericSection = string.Empty;
+            }
+
+            // One additional check that needs to be done is if we're at the very last character, and our numeric section is NOT empty - that means our input string ENDS with a number.
+            // In this case - we simply must 'glue' the number section, without altering it, to the end of our final string variable.
+            if (i + 1 == inputString.Length && !string.IsNullOrEmpty(numericSection))
+                finalString += numericSection;
+        }
+
+        // Print out the final string to the console window.
+        Console.WriteLine($"Our result string after playing out the game is '{finalString}'");
+        return finalString;
+    }
 }
