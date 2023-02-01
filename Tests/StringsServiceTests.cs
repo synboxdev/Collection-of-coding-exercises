@@ -280,4 +280,16 @@ public class StringsServiceTests
     {
         Assert.False(stringsService.CheckIfStringContainsAdditiveNumberSequence("12345678"));
     }
+
+    [Fact]
+    public void GrowingAndShrinkingPotions_GrowingAndShrinkingPotionsWithValidParameter_ReturnsValidResult()
+    {
+        Assert.Equal("47751", stringsService.GrowingAndShrinkingPotions("3A78B51"));
+    }
+
+    [Fact]
+    public void GrowingAndShrinkingPotionsSimplified_GrowingAndShrinkingPotionsSimplifiedWithValidParameter_ReturnsValidResult()
+    {
+        Assert.Equal("10123", stringsService.GrowingAndShrinkingPotionsSimplified("9A123"));
+    }
 }
