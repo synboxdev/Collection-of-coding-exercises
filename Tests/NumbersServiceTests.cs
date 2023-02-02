@@ -332,4 +332,16 @@ public class NumbersServiceTests
     {
         Assert.False(numbersService.CheckIfNumberIsZygodrome(2251153));
     }
+
+    [Fact]
+    public void CheckIfNumberIsPolydivisible_CheckIfNumberIsPolydivisibleWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsPolydivisible(1232));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsPolydivisible_CheckIfNumberIsPolydivisibleWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsPolydivisible(123220));
+    }
 }
