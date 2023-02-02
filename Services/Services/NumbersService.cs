@@ -1072,4 +1072,36 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Our given input number {(IsNumberZygodrome ? "is" : "is NOT")} a Zygodrome number!");
         return IsNumberZygodrome;
     }
+
+    /// <summary>
+    /// Tidbit of information about Polydivisible numbers:
+    /// In mathematics a polydivisible number (or magic number) is a number in a given number base with digits abcde... that has the following properties:
+    ///     1. Its first digit a is not 0.
+    ///     2. The number formed by its first two digits 'AB' is a multiple of 2.
+    ///     3. The number formed by its first three digits 'ABC' is a multiple of 3.
+    ///     4. The number formed by its first four digits 'ACCD' is a multiple of 4.
+    ///     5.   etc.
+    /// Read more here: https://en.wikipedia.org/wiki/Polydivisible_number
+    /// </summary>
+    public bool CheckIfNumberIsPolydivisible(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random integer between a zero and integer maximum value.
+        Console.WriteLine($"Picking a number, to determine whether its a Polydivisible number or not!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, Int32.MaxValue) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        bool IsNumberPolydivisible = true;
+
+        for (int i = 1; i <= number.ToString().Length; i++)
+        {
+            if (Convert.ToInt32(number.ToString().Substring(0, i)) % i != 0)
+            {
+                IsNumberPolydivisible = !IsNumberPolydivisible;
+                break;
+            }
+        }
+
+        Console.WriteLine($"Our given input number {(IsNumberPolydivisible ? "is" : "is NOT")} a Polydivisible number!");
+        return IsNumberPolydivisible;
+    }
 }

@@ -38,4 +38,5 @@ public interface INumbersService
     public bool CheckIfNumberIsSlidey(int? number);
     public int? DigitsBattle(int? number);
     public bool CheckIfNumberIsZygodrome(int? number);
+    public bool CheckIfNumberIsPolydivisible(int? number);
 }
