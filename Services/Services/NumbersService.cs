@@ -1090,10 +1090,13 @@ public class NumbersService : INumbersService
         number = (number == null || number <= 0) ? Random.Shared.Next(0, Int32.MaxValue) : number;
         Console.WriteLine($"Number of our choice is {number}");
 
+        // Initialize a boolean variable, with default value of True, which will be inverted if necessary, if Polydivisible number conditions are not met.
         bool IsNumberPolydivisible = true;
 
+        // Iterate over every single digit in the given input number, starting from the second digit, all the way to the last one.
         for (int i = 1; i <= number.ToString().Length; i++)
         {
+            // If the first X amount of numbers, 'cutting' them from the start, to the i'th position DO leave a remainder after dividing it from the number of digits - the number is NOT Polydivisible. So invert the bool 'flag' and break out of the loop.
             if (Convert.ToInt32(number.ToString().Substring(0, i)) % i != 0)
             {
                 IsNumberPolydivisible = !IsNumberPolydivisible;
@@ -1101,6 +1104,7 @@ public class NumbersService : INumbersService
             }
         }
 
+        // Display the results to the console window.
         Console.WriteLine($"Our given input number {(IsNumberPolydivisible ? "is" : "is NOT")} a Polydivisible number!");
         return IsNumberPolydivisible;
     }
