@@ -28,4 +28,5 @@ public interface IArraysService
     public int? FindFulcrumPosition(int[]? array);
     public int? FindSumOfMissingNumbers(int[]? array);
     public int? FindSumOfMissingNumbersUsingHashSet(int[]? array);
+    public bool ArrayElementsShareDigits(int[]? array);
 }

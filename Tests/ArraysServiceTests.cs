@@ -223,4 +223,16 @@ public class ArraysServiceTests
     {
         Assert.Equal(1575, arraysService.FindSumOfMissingNumbersUsingHashSet(new int[] { 10, 20, 30, 40, 50, 60 }));
     }
+
+    [Fact]
+    public void ArrayElementsShareDigits_ArrayElementsShareDigitsWithValidParameterValues_ReturnsTrue()
+    {
+        Assert.True(arraysService.ArrayElementsShareDigits(new int[] { 33, 53, 6351, 12, 2242, 44 }));
+    }
+
+    [Fact]
+    public void ArrayElementsShareDigits_ArrayElementsShareDigitsWithValidParameterValues_ReturnsFalse()
+    {
+        Assert.False(arraysService.ArrayElementsShareDigits(new int[] { 33, 44, 55, 66, 77 }));
+    }
 }

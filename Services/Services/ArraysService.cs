@@ -899,7 +899,7 @@ public class ArraysService : IArraysService
     /// </summary>
     public int? FindFulcrumPosition(int[]? array)
     {
-        // If a an array isn't provided to the method or is invalid, we create our own.
+        // If an array isn't provided to the method or is invalid, we create our own.
         array = (array == null || array.Length < 2) ? new int[] { 8, 8, 8, 8 } : array;
         Console.WriteLine("Here's our input array:");
         array.ToList().ForEach(x => Console.Write($"{x} "));
@@ -936,7 +936,7 @@ public class ArraysService : IArraysService
     /// </summary>
     public int? FindSumOfMissingNumbers(int[]? array)
     {
-        // If a an array isn't provided to the method or is invalid, we create our own with some random integer values.
+        // If an array isn't provided to the method or is invalid, we create our own with some random integer values.
         array = (array == null || array.Length < 2) ? new int[] { -5, -3, 2, 1 } : array;
         Console.WriteLine("Here's our input array, which we'll use to determine the total sum of missing numbers:");
         array.ToList().ForEach(x => Console.Write($"{x} "));
@@ -961,7 +961,7 @@ public class ArraysService : IArraysService
 
     public int? FindSumOfMissingNumbersUsingHashSet(int[]? array)
     {
-        // If a an array isn't provided to the method or is invalid, we create our own with some random integer values.
+        // If an array isn't provided to the method or is invalid, we create our own with some random integer values.
         array = (array == null || array.Length < 2) ? new int[] { -5, -3, 2, 1 } : array;
         Console.WriteLine("Here's our input array, which we'll use to determine the total sum of missing numbers:");
         array.ToList().ForEach(x => Console.Write($"{x} "));
@@ -979,5 +979,37 @@ public class ArraysService : IArraysService
         // Display the total calculated sum to the console window.
         Console.WriteLine($"Total sum of missing numbers from our input array is equal to {totalSum}");
         return totalSum;
+    }
+
+    /// <summary>
+    /// Here's the premise of this exercise:
+    /// Create a function that returns true if each pair of adjacent numbers in an array shares at least one digit and false otherwise.
+    /// </summary>
+    public bool ArrayElementsShareDigits(int[]? array)
+    {
+        // If an array isn't provided to the method or is invalid, we create our own with some random integer values.
+        array = (array == null || array.Length < 2) ? new int[] { 1, 11, 12, 13, 14, 15, 16 } : array;
+        Console.WriteLine("Here's our input array:");
+        array.ToList().ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+
+        // Initialize a boolean variable, with default value of True, which will be inverted if necessary, if Polydivisible number conditions are not met.
+        bool ElementsShareDigits = true;
+
+        // Iterate over the entire array, starting from the second element, since we will check current element, with the previous one.
+        for (int i = 1; i < array.Length; i++)
+        {
+            // If NO digits, from the current element, exist in the previous element - that means neighboring elements do NOT share digits. We invert the bool and break out of the loop, since there's no point checking the remaining elements.
+            if (!array[i].ToString().ToCharArray().Any(currentElementDigit =>
+                 array[i - 1].ToString().ToCharArray().Any(previousElementDigit => currentElementDigit == previousElementDigit)))
+            {
+                ElementsShareDigits = !ElementsShareDigits;
+                break;
+            }
+        }
+
+        // Display the results to the console window.
+        Console.WriteLine($"Our given input array elements {(ElementsShareDigits ? "do" : "do NOT")} share digits between each other!");
+        return ElementsShareDigits;
     }
 }
