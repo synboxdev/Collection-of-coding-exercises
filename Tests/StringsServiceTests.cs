@@ -292,4 +292,22 @@ public class StringsServiceTests
     {
         Assert.Equal("10123", stringsService.GrowingAndShrinkingPotionsSimplified("9A123"));
     }
+
+    [Fact]
+    public void CheckIfStringsContainShadowSentences_CheckIfStringsContainShadowSentencesWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(stringsService.CheckIfStringsContainShadowSentences(new string[] { "tea was cold", "buy the wine" }));
+    }
+
+    [Fact]
+    public void CheckIfStringsContainShadowSentences_CheckIfStringsContainShadowSentencesWithValidParameterThreeSentences_ReturnsTrue()
+    {
+        Assert.True(stringsService.CheckIfStringsContainShadowSentences(new string[] { "ab cd ef", "cd ef ab", "ef ab cd" }));
+    }
+
+    [Fact]
+    public void CheckIfStringsContainShadowSentences_CheckIfStringsContainShadowSentencesWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(stringsService.CheckIfStringsContainShadowSentences(new string[] { "saturday the fourth", "sunday the fifth" }));
+    }
 }

@@ -925,4 +925,80 @@ public class StringsService : IStringsService
         Console.WriteLine($"Our result string after playing out the game is '{finalString}'");
         return finalString;
     }
+
+    /// <summary>
+    /// An interesting mix of 'strings' and 'arrays' exercise we can call 'Shadow sentences'. Here's the premise of the exercise:
+    /// Given two or more string sentences, determine whether they are so called 'shadows' of each other. 
+    /// This means that all of the word lengths are the same, but the corresponding words don't share any common letters.
+    /// For the sake of simplicity we're going to follow the following rule for the input of the sentences:
+    ///     All sentences will be given in lowercase, and will have no punctuation or any other symbols other than letter themselves.
+    /// </summary>
+    public bool CheckIfStringsContainShadowSentences(string[]? inputStrings)
+    {
+        // If provided input of string array is null, empty or doesn't have at least two elements (sentences that we can compare) - we provide our own set of sentences.
+        inputStrings = (inputStrings == null || inputStrings.Length < 2) ?
+                        new string[] { "they are round", "fold two times" } : inputStrings;
+        Console.WriteLine("Here's a list of provided strings (sentences), that we will use to determine whether they are 'Shadow sentences' of each other or not");
+        for (int i = 0; i < inputStrings.Length; i++)
+            Console.WriteLine($"#{i + 1} '{inputStrings[i]}'");
+
+        bool AreSentencesShadows = true;
+        // For the given strings (sentences) to be 'shadows' of each other, they must follow three conditions:
+        // They must have same number of individual words, each word must be the same exact length and share NO letters, as the corresponding words from other sentences.
+
+        // First - initialize a List that will hold array of strings as each element. In this case - each array will contain individual words of a given sentence.
+        // And then, iterate over each string from the input array, split it by spaces and add the array of words as an element to the list.
+        List<string[]> wordArrays = new List<string[]>();
+        foreach (var sentenceString in inputStrings)
+            wordArrays.Add(sentenceString.Split(" ").ToArray());
+
+        // Here's our first exit condition - each array must have same number of words. If this condition is not met - we can immediately exit out of the function and return an answer.
+        // We check this condition by utilizing LINQ - Check whether ALL elements (all arrays of words), have the SAME exact number of elements, as the first array of words. Since they all must have same length, this check is valid.
+        if (!wordArrays.All(arrayOfWords => arrayOfWords.Count() == wordArrays[0].Count()))
+        {
+            Console.WriteLine($"Our input string sentences are NOT 'shadows' of each other, since they do NOT even share same number of words!");
+            return !AreSentencesShadows;
+        }
+
+        // Iterate over the amount of words the first sentence has. Since we've check whether all other sentences have the same amount of words, we can proceed with this logic.
+        for (int i = 0; i < wordArrays[0].Length; i++)
+        {
+            // Utilizing LINQ, we check whether i'th word of EVERY other sentence, has the same length, as the i'th word of the first sentence.
+            // For example - if the first word of our first sentence is 'tea', we check whether first word of second, third, etc., sentences are the same length. Next iteration we'll check second word of EVERY sentence, and so on.
+            if (!wordArrays.All(arrayOfWords => arrayOfWords[i].Length == wordArrays[0][i].Length))
+            {
+                Console.WriteLine($"Our input string sentences are NOT 'shadows' of each other, because individual corresponding words are NOT the same length!");
+                return !AreSentencesShadows;
+            }
+
+            // Last condition we must check, is whether corresponding words of each sentences do NOT share same letters.
+            // We'll check this condition by utilizing a HashSet, which inherently holds only unique values and a counter, that will hold total number of letters that are being added.
+            // In that case - if the length of the HashSet is NOT equal to the number of expected unique letters, that means corresponding words DO share letters.
+            HashSet<char> uniqueLetters = new HashSet<char>();
+            int numberOfUniqueLetters = 0;
+
+            // Loop over all sentences in the list of sentences
+            for (int j = 0; j < wordArrays.Count; j++)
+            {
+                // Get all characters from a given word, to an array of char type variables.
+                char[] tempUniqueLetters = wordArrays[j][i].ToCharArray();
+                // Increase our counter by the number of letters that the word contains.
+                numberOfUniqueLetters += tempUniqueLetters.Length;
+                // Attempt to add all the letters into the HashSet of letters.
+                tempUniqueLetters.ToList().ForEach(letter => uniqueLetters.Add(letter));
+            }
+
+            // If the total sum of letters that all corresponding words contain is NOT equal to the amount of unique letters these words have - condition is not met.
+            // For example, lets say we have two words in two separate sentences - 'tea' and 'art'.
+            // Total number of letters will be 6, where as total number of UNIQUE letters, will be 4, since letter 'a' and 't' in the second word 'art' are no longer unique.
+            if (numberOfUniqueLetters != uniqueLetters.Count)
+            {
+                Console.WriteLine($"Our input string sentences are NOT 'shadows' of each other, because individual corresponding words DO share letters!");
+                return !AreSentencesShadows;
+            }
+        }
+
+        Console.WriteLine($"Our input string sentences are 'shadows' of each other!");
+        return AreSentencesShadows;
+    }
 }
