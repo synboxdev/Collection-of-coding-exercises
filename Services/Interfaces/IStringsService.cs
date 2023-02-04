@@ -34,4 +34,5 @@ public interface IStringsService
     public bool CheckIfStringContainsAdditiveNumberSequence(string? inputString);
     public string GrowingAndShrinkingPotions(string? inputString);
     public string GrowingAndShrinkingPotionsSimplified(string? inputString);
+    public bool CheckIfStringsContainShadowSentences(string[]? inputStrings);
 }
