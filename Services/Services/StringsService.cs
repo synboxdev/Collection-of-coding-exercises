@@ -1001,4 +1001,41 @@ public class StringsService : IStringsService
         Console.WriteLine($"Our input string sentences are 'shadows' of each other!");
         return AreSentencesShadows;
     }
+
+    /// <summary>
+    /// Relatively simple exercise, yet it allows us to learn differences between System.String class and String objects, and StringBuilder class.
+    /// If you wish to learn more, read here: https://learn.microsoft.com/en-us/dotnet/standard/base-types/stringbuilder
+    /// </summary>
+    public string ReplaceEveryNthInstanceOfACharacter(string? inputString, int? instanceNumber, char? oldCharacter, char? newCharacter)
+    {
+        // If provided input variables are null or invalid, we'll instantiate our own.
+        inputString = string.IsNullOrEmpty(inputString) ? "The book has a lot of pages!" : inputString;
+        instanceNumber = instanceNumber == null ? 2 : instanceNumber;
+        oldCharacter = string.IsNullOrEmpty(oldCharacter.ToString()) ? 'o' : oldCharacter;
+        newCharacter = string.IsNullOrEmpty(newCharacter.ToString()) ? 'x' : newCharacter;
+        // Given the above variables, the expected output string should be 'The boxk has a lot xf pages!' Since there are total of four o's in the sentence, and every second one is being replaced with an 'x'
+        Console.WriteLine($"Input string: '{inputString}'");
+
+        // Create a counter variable to keep track of number of occurrences of a given character.
+        int occurrenceCounter = 0;
+        // And an instance of StringBuilder object, to have a mutable instance of a String object
+        StringBuilder stringBuilder = new StringBuilder(inputString);
+
+        // Iterate over the length of the input string, that has been converted into an array of char type variables, to be able to easy get hold of individual characters.
+        for (int i = 0; i < inputString.ToCharArray().Length; i++)
+        {
+            // Utilize a ternary operator to increase out occurrence counter by one IF the current character is our 'old' character, that must be replaced every X amount of occurrences.
+            occurrenceCounter += inputString[i] == oldCharacter ? 1 : 0;
+            // If we've reached a given number of occurrences of a given character - replace it's value with a new character and reset the occurrence counter back to zero.
+            if (occurrenceCounter == instanceNumber)
+            {
+                stringBuilder[i] = (char)newCharacter;
+                occurrenceCounter = 0;
+            }
+        }
+
+        // Output the result into the console window.
+        Console.WriteLine($"After replacing every {instanceNumber}'th instance of character '{oldCharacter}' with '{newCharacter}', our final, output string is:\n'{stringBuilder}'");
+        return stringBuilder.ToString();
+    }
 }
