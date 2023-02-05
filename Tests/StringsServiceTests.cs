@@ -310,4 +310,16 @@ public class StringsServiceTests
     {
         Assert.False(stringsService.CheckIfStringsContainShadowSentences(new string[] { "saturday the fourth", "sunday the fifth" }));
     }
+
+    [Fact]
+    public void ReplaceEveryNthInstanceOfACharacter_ReplaceEveryNthInstanceOfACharacterWithValidParameter_ReturnsValidResult()
+    {
+        Assert.Equal("qolleqtion of qoding exerqises", stringsService.ReplaceEveryNthInstanceOfACharacter("collection of coding exercises", 1, 'c', 'q'));
+    }
+
+    [Fact]
+    public void ReplaceEveryNthInstanceOfACharacter_ReplaceEveryNthInstanceOfACharacterWithNullParameter_ReturnsValidResult()
+    {
+        Assert.Equal("The boxk has a lot xf pages!", stringsService.ReplaceEveryNthInstanceOfACharacter(null, null, null, null));
+    }
 }
