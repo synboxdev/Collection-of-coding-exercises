@@ -344,4 +344,10 @@ public class NumbersServiceTests
     {
         Assert.False(numbersService.CheckIfNumberIsPolydivisible(123220));
     }
+
+    [Fact]
+    public void SuperdNumber_SuperdNumberWithValidParameter_ReturnsValidAnswer()
+    {
+        Assert.Equal("Super-4 Number", numbersService.SuperdNumber(1168));
+    }
 }

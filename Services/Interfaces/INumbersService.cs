@@ -39,4 +39,5 @@ public interface INumbersService
     public int? DigitsBattle(int? number);
     public bool CheckIfNumberIsZygodrome(int? number);
     public bool CheckIfNumberIsPolydivisible(int? number);
+    public string SuperdNumber(int? number);
 }

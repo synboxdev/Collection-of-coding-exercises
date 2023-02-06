@@ -1108,4 +1108,68 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Our given input number {(IsNumberPolydivisible ? "is" : "is NOT")} a Polydivisible number!");
         return IsNumberPolydivisible;
     }
+
+    /// <summary>
+    /// 'Super-d Numbers'. Here's the premise of the exercise:
+    /// A number n becomes a super-d number when, for any digit d from 2 up to 9, the result of d * n^d contains d consecutive digits equal to d.
+    /// Given a positive integer n, implement a function that returns:
+    ///     1. "Super-d Number" if n is a super-d number, replacing the letter 'd' with the digit (any from 2 up to 9) that makes it super.
+    ///     2. "Normal Number" if n is not a super-d number.
+    /// For example, given number = 19, result would be "Super-2 Number":
+    ///     2 * 19^2 = 722, because There are two (d) consecutive digits equal to 2 (d)
+    /// If there are multiple digits using which our given input number becomes 'Super' - return the first one.
+    /// </summary>
+    public string SuperdNumber(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random integer between a zero and integer maximum value.
+        Console.WriteLine($"Picking a number, to determine whether its a Zygodrome number or not!");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, 10000) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // Normally, I would name variables with reasonable names, however, this will be an exception for this exercise.
+        int? d = 0;
+        for (int i = 2; i <= 9; i++)
+        {
+            // Result is equivalent to (d * number ^ d)
+            string result = (i * Math.Pow((double)number, i)).ToString();
+            int consecutiveCounter = 1;
+            // Iterate over the result as string, and attempt to count consecutive occurrences of i'th iterator.
+            for (int j = 0; j < result.Length; j++)
+            {
+                for (int k = j + 1; k < result.Length; k++)
+                {
+                    // If the NEXT element is not the same as the current element, check whether consecutive occurrences is exactly equal to i'th iterator - set d to consecutive counter. Also - break out of the loop.
+                    if (result[j] != result[k])
+                    {
+                        if (consecutiveCounter == i)
+                            d = consecutiveCounter;
+
+                        break;
+                    }
+                    // if the CURRENT element is equivalent to i'th iterator - increase the consecutive counter.
+                    else if (result[j].ToString() == i.ToString())
+                        consecutiveCounter++;
+                }
+
+                // If consecutive occurrence counter is exactly equal to i'th iterator - set d to consecutive counter. This might happen if the i'th iterator is the last element in the result string, and it wasn't set and broken out of the loop previously.
+                if (consecutiveCounter == i)
+                {
+                    d = consecutiveCounter;
+                    break;
+                }
+            }
+
+            // If d is equal to i'th iterator, we can break out of the loop entirely, since we've already found the first 'Super' of a given number.
+            if (d == i)
+                break;
+        }
+
+        // If 'd' variable does not remain null or zero, that mean our number can be 'Super'. Regardless - display the results to the console window, and return stringified version of the answer.
+        if (d != null)
+            Console.WriteLine($"Our input number has a 'Super' version! It's a Super-{d} Number!");
+        else
+            Console.WriteLine($"Our input number unfortunately can not become a 'Super' number.");
+
+        return $"Super-{d} Number";
+    }
 }
