@@ -322,4 +322,16 @@ public class StringsServiceTests
     {
         Assert.Equal("The boxk has a lot xf pages!", stringsService.ReplaceEveryNthInstanceOfACharacter(null, null, null, null));
     }
+
+    [Fact]
+    public void FindFirstRecurrenceIndex_FindFirstRecurrenceIndexWithValidParameter_ReturnsValidResult()
+    {
+        Assert.Equal(new string[] { "D", "3", "7" }, stringsService.FindFirstRecurrenceIndex("AREDCBSDERD"));
+    }
+
+    [Fact]
+    public void FindFirstRecurrenceIndex_FindFirstRecurrenceIndexWithNoRecurrenceParameter_ReturnsNull()
+    {
+        Assert.Null(stringsService.FindFirstRecurrenceIndex("ABCD"));
+    }
 }

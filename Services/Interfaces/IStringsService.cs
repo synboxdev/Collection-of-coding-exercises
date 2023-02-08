@@ -36,4 +36,5 @@ public interface IStringsService
     public string GrowingAndShrinkingPotionsSimplified(string? inputString);
     public bool CheckIfStringsContainShadowSentences(string[]? inputStrings);
     public string ReplaceEveryNthInstanceOfACharacter(string? inputString, int? instanceNumber, char? oldCharacter, char? newCharacter);
+    public string[]? FindFirstRecurrenceIndex(string? inputString);
 }
