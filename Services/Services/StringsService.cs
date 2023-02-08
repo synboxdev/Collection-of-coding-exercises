@@ -1038,4 +1038,51 @@ public class StringsService : IStringsService
         Console.WriteLine($"After replacing every {instanceNumber}'th instance of character '{oldCharacter}' with '{newCharacter}', our final, output string is:\n'{stringBuilder}'");
         return stringBuilder.ToString();
     }
+
+    /// <summary>
+    /// Here's an interesting exercise to solve:
+    /// Find the very first element that has recurred in a given string. Our input string may contain any elements - letters, numbers, and even symbols.
+    /// The method should returns the identified item with the index where it first appeared and the very next index where it resurfaced.
+    ///     For example, if our given input string is 'YZTTZMNERXE', solution should return a string array with three elements - {'T', '2', '3' }
+    ///     That's because the very first element that has REAPPEARED is letter T. Initially it appeared in the index 2, and then RESURFACED in the index 3.
+    /// </summary>
+    public string[]? FindFirstRecurrenceIndex(string? inputString)
+    {
+        // If provided input string is null or empty, we pick a string of our choice as our input string.
+        inputString = string.IsNullOrEmpty(inputString) ? "ABCDE" : inputString;
+        Console.WriteLine($"Out input string is: '{inputString}'. We will find the first recurring index of any element.");
+
+        // We'll initialize a dictionary, to hold the unique characters, and the index of their first occurrence.
+        Dictionary<char, int> charFirstOccurrence = new Dictionary<char, int>();
+        // Also - initialize a list of string, into which we'll simply add three elements which will be the results of our solution.
+        List<string>? resultElements = new List<string>();
+
+        // Iterate over the length of our input string.
+        for (int i = 0; i < inputString.Length; i++)
+        {
+            // Utilize a try/catch block, and attempt to add each character and its position index to our Dictionary.
+            try
+            {
+                charFirstOccurrence.Add(inputString[i], i);
+            }
+            // Our catch block will occur specifically when we try to add a character to our dictionary, when such character as a KEY already exists.
+            // We'd normally receive an exception - "An item with the same key has already been added". But since we handle this exception, its actually quite beneficial for us, since we know the first occurrence of a given character, and now we know the second occurrence of it.
+            catch
+            {
+                resultElements.Add(inputString[i].ToString());                       // This gets us the character itself
+                resultElements.Add(charFirstOccurrence
+                    .FirstOrDefault(x => x.Key == inputString[i]).Value.ToString()); // This gets us the index of FIRST occurrence of that characters.
+                resultElements.Add(i.ToString());                                    // And this gets us the RESURFACED index of that same character.
+                break;  // We can break out of the loop, since we've already found the solution to our exercise!
+            }
+        }
+
+        // If our result elements have ANY elements - and this WILL happen when we successfully find a recurrence of any given element from the input string - display the findings to the console window.
+        if (resultElements.Any())
+            Console.WriteLine($"Our input string DOES contain a recurring element! Its element the '{resultElements[0]}' that has first appeared in index {resultElements[1]} and then resurfaced in the index {resultElements[2]}!");
+        else
+            Console.WriteLine("Unfortunately, our input string does not contain a recurring element :(");
+
+        return resultElements.Any() ? resultElements.ToArray() : null;
+    }
 }
