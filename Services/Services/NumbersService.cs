@@ -1172,4 +1172,59 @@ public class NumbersService : INumbersService
 
         return $"Super-{d} Number";
     }
+
+    /// <summary>
+    /// An exercise in which we'll determine whether a given positive integer is a 'Happy' number or not.
+    /// A happy number is a number which yields a 1 by repeatedly summing up the square of its digits.
+    /// If such a process results in an endless cycle of numbers, the number will be considered an unhappy number.
+    /// </summary>
+    public bool CheckIfNumberIsHappy(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random integer between zero and 10000.
+        Console.WriteLine($"Picking a random number, to figure out whether its a 'Happy' number or not");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, 10000) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // Initialize a boolean variable which will remain null until we find the solution to the exercise.
+        bool? IsNumberHappy = null;
+        // We'll initialize a dictionary, to hold the unique characters, and the index of their first occurrence.
+        Dictionary<int, int> uniqueNumberDictionary = new Dictionary<int, int>();
+
+        // Continue looping, while nullable boolean value remains NULL. In other words - proceed, until the solution is found.
+        while (IsNumberHappy == null)
+        {
+            // Convert our input number into a List of individual digits, since we'll need to get each of their squared values.
+            List<int> digits = number.ToString().Select(character => int.Parse(character.ToString())).ToList();
+
+            // Re-calculate the number, by summing the squared values of each individual digit.
+            number = (int)digits.Sum(digit => Math.Pow(digit, 2));
+
+            // If our 'new' number is specifically 1 - that means our input number is a 'Happy' number - we can set the boolean variable to true, and break out of the loop.
+            if (number == 1)
+            {
+                IsNumberHappy = true;
+                break;
+            }
+            else
+            {
+                // Attempt to add the 'new' number into our Dictionary.
+                // If our Dictionary already contains such number - .Add function will throw an exception, saying that the Dictionary already contains an element with such Key,
+                //      which in our case means our input number has started to repeat the sequence, and will continue to loop over X amount of variations, until it reaches the same number AGAIN.
+                // That automatically means that the input number is NOT a 'Happy' number - In this case, we can set boolean variable to 'false' and break out of the loop.
+                try
+                {
+                    uniqueNumberDictionary.Add((int)number, (int)number);    // KEY value will be set to the unique number. VALUE number doesn't really matter for us, so we'll just set it to the number itself as well.
+                }
+                catch
+                {
+                    IsNumberHappy = false;
+                    break;
+                }
+            }
+        }
+
+        // Display the results to the console window.
+        Console.WriteLine($"Our given input number {((bool)IsNumberHappy ? "is" : "is NOT")} a 'Happy' number!");
+        return (bool)IsNumberHappy;
+    }
 }
