@@ -350,4 +350,16 @@ public class NumbersServiceTests
     {
         Assert.Equal("Super-4 Number", numbersService.SuperdNumber(1168));
     }
+
+    [Fact]
+    public void CheckIfNumberIsHappy_CheckIfNumberIsHappyWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsHappy(5659));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsHappy_CheckIfNumberIsHappyWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsHappy(2871));
+    }
 }

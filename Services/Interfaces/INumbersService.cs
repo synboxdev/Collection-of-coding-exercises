@@ -40,4 +40,5 @@ public interface INumbersService
     public bool CheckIfNumberIsZygodrome(int? number);
     public bool CheckIfNumberIsPolydivisible(int? number);
     public string SuperdNumber(int? number);
+    public bool CheckIfNumberIsHappy(int? number);
 }
