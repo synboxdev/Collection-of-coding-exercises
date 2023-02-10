@@ -1227,4 +1227,52 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Our given input number {((bool)IsNumberHappy ? "is" : "is NOT")} a 'Happy' number!");
         return (bool)IsNumberHappy;
     }
+
+    /// <summary>
+    /// An exercise that is a variation to Prime numbers' exercises.
+    /// In this exercise you have to establish if an integer is an Unprimeable number.
+    /// A given number will be considered 'Unprimeable', when a single digit of a composite number is exchanged with any digit from 0 up to 9, the new number obtained must not be a prime.
+    ///     For example - say we have a number 14.
+    ///     Numbers obtained changing the first digit (1):
+    ///     04 (4), 14, 24, 34, 44, 54, 64, 74, 84, 94      (Leading zeros are not considered)
+    ///     Numbers obtained changing the second digit (4):
+    ///     10, 11, 12, 13, 14, 15, 16, 17, 18, 19
+    ///     Among the two series, 11, 13, 17 and 19 are primes. Therefor - our input number 14 is NOT an 'Unprimeable'
+    /// </summary>
+    public bool CheckIfNumberIsUnprimeable(int? number)
+    {
+        // In this exercise, on a rare occasion, we'll be re-using one of our previously solved exercise solution - that is, to check whether a given number is Prime or not.
+
+        // If a number isn't provided to the method or is invalid, we pick a random integer between zero and 10000.
+        Console.WriteLine($"Picking a random number, to figure out whether its an 'Unprimeable' number or not");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, 10000) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // We will utilize a System.IO library to temporarily suppress console window output, because we don't want CheckIfNumberIsPrime method output to be mixed up with this method, since we only use it to get a return boolean value determining whether a given number is PRIME or not.
+        TextWriter tw = Console.Out;
+        Console.SetOut(TextWriter.Null);
+
+        var numberAsDigits = number.ToString().ToCharArray();
+        bool IsNumberUnprimeable = false;
+        for (int i = 0; i < numberAsDigits.Length; i++)     // Iterate over every digit in out input number.
+        {
+            for (int j = 0; j < 10; j++)                    // Each individual digit will be swapped out with a digit from 0 to 9, and then whole number will be checked whether its Prime or not.
+            {
+                var newNumber = numberAsDigits;             // Create a placeholder variable for our newly formed digit.
+                newNumber[i] = Convert.ToChar(j.ToString());// Swap out the i'th digit, with the j'th number (0-9)
+
+                if (CheckIfNumberIsPrime(Convert.ToInt32(new string(newNumber))))   // Call out 'CheckIfNumberIsPrime' method, that will return TRUE if our newly formed number (after being converted to Integer type) is a Prime number or not.
+                {
+                    IsNumberUnprimeable = !IsNumberUnprimeable;         // If our new number IS a prime number - invert the bool, and then break out of the loop.
+                    break;
+                }
+            }
+            numberAsDigits = number.ToString().ToCharArray();           // After each individual digit was swapped out (0-9), we must reset the input number back to its original value, otherwise we'll end up with each digit remaining at the last value, which is 9.
+        }
+        Console.SetOut(tw);
+
+        // Display the results to the console window.
+        Console.WriteLine($"Our given input number {(IsNumberUnprimeable ? "is NOT" : "is")} an 'Unprimeable' number!");
+        return IsNumberUnprimeable;
+    }
 }
