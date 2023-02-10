@@ -41,4 +41,5 @@ public interface INumbersService
     public bool CheckIfNumberIsPolydivisible(int? number);
     public string SuperdNumber(int? number);
     public bool CheckIfNumberIsHappy(int? number);
+    public bool CheckIfNumberIsUnprimeable(int? number);
 }

@@ -362,4 +362,16 @@ public class NumbersServiceTests
     {
         Assert.False(numbersService.CheckIfNumberIsHappy(2871));
     }
+
+    [Fact]
+    public void CheckIfNumberIsUnprimeable_CheckIfNumberIsUnprimeableWithValidParameter_ReturnsTrue()
+    {
+        Assert.True(numbersService.CheckIfNumberIsUnprimeable(970));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsUnprimeable_CheckIfNumberIsUnprimeableWithValidParameter_ReturnsFalse()
+    {
+        Assert.False(numbersService.CheckIfNumberIsUnprimeable(6657));
+    }
 }
