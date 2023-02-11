@@ -29,4 +29,5 @@ public interface IArraysService
     public int? FindSumOfMissingNumbers(int[]? array);
     public int? FindSumOfMissingNumbersUsingHashSet(int[]? array);
     public bool ArrayElementsShareDigits(int[]? array);
+    public bool FixTheBrokenBridge(int[]? bridgeArray, List<int>? listOfPlanks);
 }

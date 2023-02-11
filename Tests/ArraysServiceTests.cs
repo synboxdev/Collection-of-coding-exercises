@@ -235,4 +235,21 @@ public class ArraysServiceTests
     {
         Assert.False(arraysService.ArrayElementsShareDigits(new int[] { 33, 44, 55, 66, 77 }));
     }
+
+    [Fact]
+    public void FixTheBrokenBridge_FixTheBrokenBridgeWithValidParameterValues_ReturnsTrue()
+    {
+        Assert.True(arraysService.FixTheBrokenBridge(
+            new int[] { 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1 },
+            new List<int>() { 1, 3, 2, 5 }));
+    }
+
+    [Fact]
+    public void FixTheBrokenBridge_FixTheBrokenBridgeWithValidParameterValues_ReturnsFalse()
+    {
+        Assert.False(arraysService.FixTheBrokenBridge(
+            new int[] { 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1 },
+            new List<int>() { 1, 6, 2, 5 }));
+    }
+
 }
