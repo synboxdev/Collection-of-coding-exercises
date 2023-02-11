@@ -1012,4 +1012,85 @@ public class ArraysService : IArraysService
         Console.WriteLine($"Our given input array elements {(ElementsShareDigits ? "do" : "do NOT")} share digits between each other!");
         return ElementsShareDigits;
     }
+
+    /// <summary>
+    /// Here's the premise of an exercise we can call 'Broken bridge':
+    ///     1. A broken bridge can be represented by 1s and 0s, where contiguous 0s represent holes.
+    ///     2. You can walk across a bridge with a hole with a maximum width of 1, but any holes bigger than that you must fix first.
+    ///     3. Individual planks may NOT be combined to form a longer plank, leftover planks are okay.
+    ///     4. Bridge may be defined with 0's and 1's, and planks must be positive integers, with value of 1 or above.
+    /// For example, the bridge defined below, is walkable:
+    ///     [1, 1, 1, 1, 1, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 0, 1]
+    /// And this bridge, is NOT walkable (Since we can NOT step over a hole that is two wide):
+    ///     [1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+    /// However, we are given a few planks, each being N width. A plank that has N width, can fill cover over a hole that is N wide, or thinner.
+    /// </summary>
+    public bool FixTheBrokenBridge(int[]? bridgeArray, List<int>? listOfPlanks)
+    {
+        // If a bridge array isn't provided to the method or is invalid, we create our own.
+        bridgeArray = bridgeArray == null || bridgeArray.Length < 5 ? new int[] { 1, 1, 0, 0, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1 } : bridgeArray;
+        // If planks aren't provided, we'll generate some of our own as well. Each element is an individual plank.
+        listOfPlanks = listOfPlanks == null || !listOfPlanks.Any() ? new List<int>() { 3, 1, 2, 6 } : listOfPlanks;
+
+        Console.WriteLine("Here's our bridge, where zeros represent holes which can either be stepped over, or must be covered:");
+        bridgeArray.ToList().ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine("\nHere's an array of planks, where value of each element is equal to the width of a given plank:");
+        listOfPlanks.ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+
+        // Let's initialize a boolean variable, which will determine whether a given bridge can we usable - that means, either with or without fixing it, it can be walked over.
+        bool CanBeUsable = true;
+        List<int> holeWidths = new List<int>();
+
+        // Iterate over the length of the bridge.
+        for (int i = 0; i < bridgeArray.Length; i++)
+        {
+            if (bridgeArray[i] == 0)
+            {
+                int holeWidth = 1;
+                for (int j = i; j < bridgeArray.Length; j++)
+                {
+                    if (bridgeArray[j + 1] == 0)
+                        holeWidth++;
+                    else
+                        break;
+                }
+
+                // Since we can step over holes that are width of 1, we don't need to care about them, and only recognize and add holes with width of 2 or above to the list.
+                if (holeWidth > 1)
+                    holeWidths.Add(holeWidth);
+
+                // We must increase the value of iterator i, by the width of the hole that we traversed, since these array element we already accounted for, and we must avoid re-iterating over the same elements.
+                i += holeWidth;
+            }
+        }
+
+        // Once we've 'looked' over the bridge, and accounted for all holes that must be fixed, now we must check whether we have planks that could fix the bridge and make it usable.
+        foreach (var holeWidth in holeWidths)
+        {
+            // Ideally, we should use planks that are 1 width thinner than the hole, since we can step over remaining hole that will have width of 1.
+            var thinPlank = listOfPlanks.FirstOrDefault(plankWidth => plankWidth + 1 == holeWidth);
+            if (thinPlank != 0)
+            {
+                listOfPlanks.Remove(thinPlank);
+                continue;
+            }
+
+            // Otherwise - we try to find a plank that is exact same width as the hole.
+            var exactWidthPlank = listOfPlanks.FirstOrDefault(plankWidth => plankWidth == holeWidth);
+            if (exactWidthPlank != 0)
+            {
+                listOfPlanks.Remove(exactWidthPlank);
+                continue;
+            }
+
+            // If no fitting plank can be found - that means we can NOT fix and use the bridge. In that case - invert the boolean value, and break out of the loop.
+            CanBeUsable = !CanBeUsable;
+            break;
+        }
+
+        // Display the results to the console window.
+        Console.WriteLine($"Our given Broken Bridge {(CanBeUsable ? "can" : "can NOT")} be fixed up, and used!");
+        return CanBeUsable;
+    }
 }
