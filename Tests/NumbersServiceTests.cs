@@ -398,4 +398,16 @@ public class NumbersServiceTests
     {
         Assert.Equal("Neutral Evil", numbersService.GoodEvilOrNeutralNumber(7));
     }
+
+    [Fact]
+    public void CheckIfNumberIsApocalyptic_CheckIfNumberIsApocalypticWithValidParameter_ReturnsValidAnswer()
+    {
+        Assert.Equal(9, numbersService.CheckIfNumberIsApocalyptic(157));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsApocalyptic_CheckIfNumberIsApocalypticWithValidParameter_ReturnsNull()
+    {
+        Assert.Null(numbersService.CheckIfNumberIsApocalyptic(109));
+    }
 }
