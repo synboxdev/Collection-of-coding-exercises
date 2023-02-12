@@ -15,13 +15,13 @@ public class NumbersServiceTests
     [Fact]
     public void CheckIfNumberIsPrime_CheckIfNumberIsPrimeWithNOTPrimeNumber_ReturnsFalse()
     {
-        Assert.False(numbersService.CheckIfNumberIsPrime(6));
+        Assert.False(numbersService.CheckIfNumberIsPrime(6, true));
     }
 
     [Fact]
     public void CheckIfNumberIsPrime_CheckIfNumberIsPrimeWithAPrimeNumber_ReturnsTrue()
     {
-        Assert.True(numbersService.CheckIfNumberIsPrime(29));
+        Assert.True(numbersService.CheckIfNumberIsPrime(29, true));
     }
 
     [Fact]
@@ -373,5 +373,29 @@ public class NumbersServiceTests
     public void CheckIfNumberIsUnprimeable_CheckIfNumberIsUnprimeableWithValidParameter_ReturnsFalse()
     {
         Assert.False(numbersService.CheckIfNumberIsUnprimeable(6657));
+    }
+
+    [Fact]
+    public void GoodEvilOrNeutralNumber_GoodEvilOrNeutralNumberWithValidParameter_ReturnsGood()
+    {
+        Assert.Equal("Good", numbersService.GoodEvilOrNeutralNumber(3252));
+    }
+
+    [Fact]
+    public void GoodEvilOrNeutralNumber_GoodEvilOrNeutralNumberWithValidParameter_ReturnsEvil()
+    {
+        Assert.Equal("Evil", numbersService.GoodEvilOrNeutralNumber(2013));
+    }
+
+    [Fact]
+    public void GoodEvilOrNeutralNumber_GoodEvilOrNeutralNumberWithValidParameter_ReturnsNeutralGood()
+    {
+        Assert.Equal("Neutral Good", numbersService.GoodEvilOrNeutralNumber(17));
+    }
+
+    [Fact]
+    public void GoodEvilOrNeutralNumber_GoodEvilOrNeutralNumberWithValidParameter_ReturnsNeutralEvil()
+    {
+        Assert.Equal("Neutral Evil", numbersService.GoodEvilOrNeutralNumber(7));
     }
 }

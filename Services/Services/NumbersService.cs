@@ -8,8 +8,13 @@ public class NumbersService : INumbersService
     /// <summary>
     /// A prime number (or a prime) is a natural number greater than 1 that is not a product (result of multiplication) of two smaller natural numbers.
     /// </summary>
-    public bool CheckIfNumberIsPrime(int? number)
+    public bool CheckIfNumberIsPrime(int? number, bool muteConsoleOutput)
     {
+        // Since this method is sometimes utilized by other solutions, I've modified it, to accept a boolean variable that will mute the Console output, when all we need is simply the boolean output of the method.
+        TextWriter tw = Console.Out;
+        if (muteConsoleOutput)
+            Console.SetOut(TextWriter.Null);
+
         // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
         Console.WriteLine("Picking a random number between 1 and 100");
         number = (number == null || number <= 0) ? Random.Shared.Next(1, 100) : number;
@@ -17,18 +22,18 @@ public class NumbersService : INumbersService
 
         // Create a integer iterator variable which we will be using as a incrementing divider, to check whether number and iterator division leaves a remainder of zero.
         int i;
+        bool IsNumberPrime = false;
         for (i = 2; i <= number - 1; i++)   // We iterate from starting from 2, since its the first prime number, all the way up to our number minus one, because of conditional check after the loop.
         {
             if (number % i == 0)            // If the remainder of the division of our number, and the iterator is equal to zero, be break out of the loop, since that mean number is divisible by some other variable besides 1 and itself.
                 break;
         }
         if (i == number)                    // If iterator and our number are equal, that means the numbers is indeed a prime number. Meaning - we've iterated over every single number from 2 up to our numbers minus one, and haven't found a single iterator that would divide our number leaving a remainder of zero.
-        {
-            Console.WriteLine($"Number {number} is a prime number!");
-            return true;
-        }
-        Console.WriteLine($"Number {number} is NOT a prime number!");
-        return false;
+            IsNumberPrime = !IsNumberPrime;
+
+        Console.WriteLine($"Our input number {(IsNumberPrime ? "is" : "is NOT")} a Prime number!");
+        Console.SetOut(tw);                 // 'Unmute' the Console window output.
+        return IsNumberPrime;
     }
 
     public int FindSumOfDigitsOfAPositiveNumber(int number)
@@ -386,12 +391,9 @@ public class NumbersService : INumbersService
         number = (number == null || number <= 0) ? Random.Shared.Next(10, 200) : number;
         Console.WriteLine($"Will be determining strength of our selected number {number}");
 
-        // We will utilize a System.IO library to temporarily suppress console window output, because we don't want CheckIfNumberIsPrime method output to be mixed up with this method, since we only use it to get a return boolean value determining whether a given number is PRIME or not.
-        TextWriter tw = Console.Out;
-        Console.SetOut(TextWriter.Null);
-        if (!CheckIfNumberIsPrime(number))  // Utilize our previously created solution to get a boolean value whether a given variable is PRIME or not.
+        // Utilize our previously created solution to get a boolean value whether a given variable is PRIME or not.
+        if (!CheckIfNumberIsPrime(number, true))
         {
-            Console.SetOut(tw);
             Console.WriteLine("Randomly selected number happens to NOT be PRIME number itself, therefor we can't determine its strength");
             return null;
         }
@@ -401,7 +403,7 @@ public class NumbersService : INumbersService
         int closestPreviousPrime = (int)number;
         for (int i = closestPreviousPrime - 1; i >= 2; i--)     // Iterate from our input number, to 2, check whether a given iterator i happens to be a PRIME number or not - if so, assign its value to our closestPreviousPrime variable, and break out of the loop.
         {
-            if (!CheckIfNumberIsPrime(i))
+            if (!CheckIfNumberIsPrime(i, true))
                 continue;
             else
             {
@@ -409,7 +411,6 @@ public class NumbersService : INumbersService
                 break;
             }
         }
-        Console.SetOut(tw); // Remove the suppression of Console output, since we will not be using our CheckIfNumberIsPrime method anymore.
         Console.WriteLine($"Closest previous prime to our number is {closestPreviousPrime}");
 
         // Next loop - we will be determining the next, closest prime number, starting from our current prime number.
@@ -548,11 +549,8 @@ public class NumbersService : INumbersService
 
         int? resultNumber = number / sumOfDigits;
 
-        // We will utilize a System.IO library to temporarily suppress console window output, because we don't want CheckIfNumberIsPrime method output to be mixed up with this method, since we only use it to get a return boolean value determining whether a given number is PRIME or not.
-        TextWriter tw = Console.Out;
-        Console.SetOut(TextWriter.Null);
-        bool IsResultAPrimeNumber = CheckIfNumberIsPrime(resultNumber);
-        Console.SetOut(tw); // Remove the suppression of Console output, since we will not be using our CheckIfNumberIsPrime method anymore.
+        // Utilize our previously created solution to get a boolean value whether a given variable is PRIME or not.
+        bool IsResultAPrimeNumber = CheckIfNumberIsPrime(resultNumber, true);
 
         if (number % sumOfDigits == 0 && IsResultAPrimeNumber)  // If the division of our number and sum of digits leaves not remainder AND the result of the division is a prime number - we've out ourselves a Moran number!
         {
@@ -1248,20 +1246,17 @@ public class NumbersService : INumbersService
         number = (number == null || number <= 0) ? Random.Shared.Next(0, 10000) : number;
         Console.WriteLine($"Number of our choice is {number}");
 
-        // We will utilize a System.IO library to temporarily suppress console window output, because we don't want CheckIfNumberIsPrime method output to be mixed up with this method, since we only use it to get a return boolean value determining whether a given number is PRIME or not.
-        TextWriter tw = Console.Out;
-        Console.SetOut(TextWriter.Null);
-
+        // Utilize our previously created solution to get a boolean value whether a given variable is PRIME or not.
         var numberAsDigits = number.ToString().ToCharArray();
         bool IsNumberUnprimeable = false;
-        for (int i = 0; i < numberAsDigits.Length; i++)     // Iterate over every digit in out input number.
+        for (int i = 0; i < numberAsDigits.Length; i++)         // Iterate over every digit in out input number.
         {
-            for (int j = 0; j < 10; j++)                    // Each individual digit will be swapped out with a digit from 0 to 9, and then whole number will be checked whether its Prime or not.
+            for (int j = 0; j < 10; j++)                        // Each individual digit will be swapped out with a digit from 0 to 9, and then whole number will be checked whether its Prime or not.
             {
-                var newNumber = numberAsDigits;             // Create a placeholder variable for our newly formed digit.
-                newNumber[i] = Convert.ToChar(j.ToString());// Swap out the i'th digit, with the j'th number (0-9)
+                var newNumber = numberAsDigits;                 // Create a placeholder variable for our newly formed digit.
+                newNumber[i] = Convert.ToChar(j.ToString());    // Swap out the i'th digit, with the j'th number (0-9)
 
-                if (CheckIfNumberIsPrime(Convert.ToInt32(new string(newNumber))))   // Call out 'CheckIfNumberIsPrime' method, that will return TRUE if our newly formed number (after being converted to Integer type) is a Prime number or not.
+                if (CheckIfNumberIsPrime(Convert.ToInt32(new string(newNumber)), true))   // Call out 'CheckIfNumberIsPrime' method, that will return TRUE if our newly formed number (after being converted to Integer type) is a Prime number or not.
                 {
                     IsNumberUnprimeable = !IsNumberUnprimeable;         // If our new number IS a prime number - invert the bool, and then break out of the loop.
                     break;
@@ -1269,10 +1264,50 @@ public class NumbersService : INumbersService
             }
             numberAsDigits = number.ToString().ToCharArray();           // After each individual digit was swapped out (0-9), we must reset the input number back to its original value, otherwise we'll end up with each digit remaining at the last value, which is 9.
         }
-        Console.SetOut(tw);
 
         // Display the results to the console window.
         Console.WriteLine($"Our given input number {(IsNumberUnprimeable ? "is NOT" : "is")} an 'Unprimeable' number!");
         return IsNumberUnprimeable;
+    }
+
+    /// <summary>
+    /// Here's the premise of an exercise we can call 'Good, Evil & Neutral numbers':
+    ///     A positive number's 'population' is the sum of 1's in its binary representation
+    ///     1. The input number is considered 'Good' if it has an even numbered population.
+    ///     2. The input number is considered 'Evil' if it has an odd numbered population.
+    ///     3. The input number is considered 'Neutral' if its population is a prime number. This can occur at the same time as the other two options.
+    /// The input number will be a positive integer number, and the result should be a string - either "Good", "Evil" or "Neutral"
+    /// </summary>
+    public string GoodEvilOrNeutralNumber(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random integer between zero and 10000.
+        Console.WriteLine($"Picking a random number, to figure out whether its 'Good', 'Evil' or 'Neutral'.");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, 10000) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // In order to get a binary representation of our integer, we must Convert it to string type and specify to what base. 
+        string binaryRepresentation = Convert.ToString((int)number, 2);
+
+        // Define a variable to hold the 'population' of our number.
+        int population = 0;
+        // Iterate over the binary representation string, and if a given character is '1', then increase the population by one.
+        for (int i = 0; i < binaryRepresentation.Length; i++)
+            population += binaryRepresentation[i] == '1' ? 1 : 0;
+
+        string numberType = string.Empty;
+        if (population % 2 == 0)            // If number has an even numbered population - its considered to be 'Good'
+        {
+            numberType = CheckIfNumberIsPrime(population, true) ? "Neutral Good" : "Good";
+            Console.WriteLine($"Our input number is a '{numberType}' number, " +
+                              $"since it has population if {population}, which is an even number{(CheckIfNumberIsPrime(population, true) ? " and its a Prime number" : "")}!");
+        }
+        else if (population % 2 != 0)       // If number has an odd numbered population - its considered to be 'Evil'
+        {
+            numberType = CheckIfNumberIsPrime(population, true) ? "Neutral Evil" : "Evil";
+            Console.WriteLine($"Our input number is a '{numberType}' number, " +
+                              $"since it has population if {population}, which is an even number{(CheckIfNumberIsPrime(population, true) ? " and its a Prime number" : "")}!");
+        }
+
+        return numberType;
     }
 }
