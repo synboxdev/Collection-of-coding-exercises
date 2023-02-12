@@ -1310,4 +1310,37 @@ public class NumbersService : INumbersService
 
         return numberType;
     }
+
+    /// <summary>
+    /// Here's the premise of an exercise we can call 'Apocalyptic number':
+    ///     A number n is apocalyptic if 2^n contains a string of 3 consecutive 6s (666 being the presumptive "number of the beast").
+    ///     Our solution must determine whether a given positive integer is an 'Apocalyptic number or not.
+    ///     If the number is NOT an 'Apocalyptic' number, our solution should return 'null' and inform the user about the result.
+    ///     If the number IS an 'Apocalyptic' number, our solution should return the index of the first occurrence of 6, which forms an exact consecutive '666', and inform the user about the result.
+    /// If you wish to read more about this so-called 'Number of the beast', read here: https://en.wikipedia.org/wiki/Number_of_the_beast
+    /// </summary>
+    public int? CheckIfNumberIsApocalyptic(double? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random integer between zero and 500. Higher numbers might cause overflow.
+        Console.WriteLine($"Picking a random number, to figure out whether its an 'Apocalyptic' number or not");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, 500) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // Define a nullable integer that will (potentially) hold value of the index for the consecutive '666'
+        int? indexOfNumberOfTheBeast = null;
+        // Attempt to calculate the 'Apocalyptic' number by raising 2 by the power of our number. We utilize fixed-point format specifier for our ToString function, to get the 'full' number, without exponent or decimal values.
+
+        string? numberPowered = Math.Pow(2, (double)number).ToString("F0");
+
+        // We must ensure that our 'powered' number is not null, an empty string, or an 'infinity'.
+        // Since double type, just as well as all other data type have numeric limitations, this function MAY return the infinity or '∞' symbol as the result.
+        if (!string.IsNullOrEmpty(numberPowered) || numberPowered != "∞")
+            // All we need to check for, is whether our powered number (as string), contains '666', if so - take its index, otherwise, our index of number of the beast remains a null.
+            indexOfNumberOfTheBeast = numberPowered.IndexOf("666") != -1 ?
+                                      numberPowered.IndexOf("666") : null;
+
+        // Display the results to the console window.
+        Console.WriteLine($"Our given input number {(indexOfNumberOfTheBeast != null ? "is" : "is NOT")} an 'Apocalyptic' number!");
+        return indexOfNumberOfTheBeast;
+    }
 }

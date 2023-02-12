@@ -43,4 +43,5 @@ public interface INumbersService
     public bool CheckIfNumberIsHappy(int? number);
     public bool CheckIfNumberIsUnprimeable(int? number);
     public string GoodEvilOrNeutralNumber(int? number);
+    public int? CheckIfNumberIsApocalyptic(double? number);
 }
