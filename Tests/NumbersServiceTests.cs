@@ -410,4 +410,10 @@ public class NumbersServiceTests
     {
         Assert.Null(numbersService.CheckIfNumberIsApocalyptic(109));
     }
+
+    [Fact]
+    public void HoleNumberSequenceSum_HoleNumberSequenceSumWithValidParameter_ReturnsValidAnswer()
+    {
+        Assert.Equal(16534, numbersService.HoleNumberSequenceSum(9053));
+    }
 }
