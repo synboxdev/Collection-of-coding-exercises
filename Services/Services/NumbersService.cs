@@ -1343,4 +1343,36 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Our given input number {(indexOfNumberOfTheBeast != null ? "is" : "is NOT")} an 'Apocalyptic' number!");
         return indexOfNumberOfTheBeast;
     }
+
+    /// <summary>
+    /// Here's the premise of an exercise we can call 'Hole number sequence':
+    ///     Hole numbers are numbers with holes in their shapes (8 is special in that it contains two holes)
+    ///     For example - 14 is a hole number with one hole. 88 is a hole number with four holes.
+    ///     Our goal for this exercise is to count the sum of the holes for the integers n in the range of range 0 < n <= N.
+    ///     For example - Sum of holes for N = 14 would be equal to 5, because there are 5 holes in 4, 6, 8, 9, 10 and 14
+    ///     One imporant thing to note is that we're going to interpret 'holes' for the default font of Visual Studio 2022, without any font-altering extensions or third-party variations. In this case - only number 6, 8, 9 and 0 have holes. Note - number 8 has two holes.
+    /// </summary>
+    public int? HoleNumberSequenceSum(int? number)
+    {
+        // If a number isn't provided to the method or is invalid, we pick a random integer between zero and 10000.
+        Console.WriteLine($"Picking a random positive integer and counting holes from zero to our selected number.");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, 10000) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        int? numberOfHoles = 0;
+
+        // Iterate from zero to our input number, and count number of 'holes' in each individual number, and add it to the total sum of 'holes'.
+        for (int i = 0; i <= number; i++)
+        {
+            // An interesting thing we utilize is 'pattern matching' where we utilize keywords 'is' and 'or' for evaluating each character
+            var sumOfSingleHoles = i.ToString().Count(character => character is '6' or '9' or '0');
+            var sumOfDoubleHoles = i.ToString().Count(character => character is '8');
+
+            numberOfHoles += sumOfSingleHoles + (sumOfDoubleHoles * 2);
+        }
+
+        // Display the results to the console window.
+        Console.WriteLine($"Starting from zero to {number}, there are total of {numberOfHoles} holes, in all of the numbers!");
+        return numberOfHoles;
+    }
 }
