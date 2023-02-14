@@ -4,7 +4,7 @@ namespace Services.Interfaces;
 
 public interface IArraysService
 {
-    public int[]? RotateArray(int[]? array, int? rotationAmount, RotationDirection? rotationDirection);
+    public int[]? RotateArray(int[]? array, int? rotationAmount, Direction? rotationDirection);
     public int[]? RotateArrayUsingPlaceholderVariable(int[]? array);
     public int[]? RotateArrayRightGivenAPivotUsingLoops(int[]? array, int? pivot);
     public int[]? RotateArrayRightGivenAPivotUsingLINQ(int[]? array, int? pivot);
@@ -30,4 +30,5 @@ public interface IArraysService
     public int? FindSumOfMissingNumbersUsingHashSet(int[]? array);
     public bool ArrayElementsShareDigits(int[]? array);
     public bool FixTheBrokenBridge(int[]? bridgeArray, List<int>? listOfPlanks);
+    public int[] TileGame2048(int[]? array, Direction? slideDirection);
 }

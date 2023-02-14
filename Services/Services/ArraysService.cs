@@ -10,7 +10,7 @@ public class ArraysService : IArraysService
     /// Another thing to note - this method facilitates multiple rotations as well as rotation to either side (left or right)
     /// Also - this solution utilized Tuples feature, more about which you can read here: https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/builtin-types/value-tuples
     /// </summary>
-    public int[]? RotateArray(int[]? array, int? rotationAmount, RotationDirection? rotationDirection)
+    public int[]? RotateArray(int[]? array, int? rotationAmount, Direction? rotationDirection)
     {
         // If a an array isn't provided to the method or is invalid, we create a very simple array of integers.
         Console.WriteLine("Creating a simple integer array");
@@ -20,14 +20,14 @@ public class ArraysService : IArraysService
         // If rotation amount is not provided, we simply pick a random number.
         // If direction is not provided, we will also pick a direction.
         rotationAmount = (rotationAmount == null || rotationAmount == 0) ? Random.Shared.Next(1, 5) : rotationAmount;
-        rotationDirection = (RotationDirection?)((!rotationDirection.HasValue || rotationDirection == null) ?
-            Enum.GetValues(typeof(RotationDirection)).GetValue(Random.Shared.Next(0, Enum.GetValues(typeof(RotationDirection)).Length)) :
+        rotationDirection = (Direction?)((!rotationDirection.HasValue || rotationDirection == null) ?
+            Enum.GetValues(typeof(Direction)).GetValue(Random.Shared.Next(0, Enum.GetValues(typeof(Direction)).Length)) :
             rotationDirection);
-        Console.WriteLine($"We will be rotating the array {rotationAmount} times, to the {Enum.GetName(typeof(RotationDirection), rotationDirection).ToUpper()} side.");
+        Console.WriteLine($"We will be rotating the array {rotationAmount} times, to the {Enum.GetName(typeof(Direction), rotationDirection).ToUpper()} side.");
 
         // When rotating the array to the left side, we iterate from last element, all the way to the element of index 1 (which is second element of the array),
         // And we reposition the last element, with 2nd to last, and then next iteration - last with 3rd to last, and so on, until we reach the element, index of 1.
-        if (rotationDirection == RotationDirection.Left)
+        if (rotationDirection == Direction.Left)
         {
             for (int i = 0; i < rotationAmount; i++)
             {
@@ -38,7 +38,7 @@ public class ArraysService : IArraysService
 
         // When rotating the array to the left side, we iterate from the 1st element (0th), all the way to the second to last of the array.
         // And we reposition 1st element, with the 2nd, and then next iteration - 1st with 3rd, and so on, until we reach the 2nd to last.
-        if (rotationDirection == RotationDirection.Right)
+        if (rotationDirection == Direction.Right)
         {
             for (int i = 0; i < rotationAmount; i++)
             {
@@ -1092,5 +1092,86 @@ public class ArraysService : IArraysService
         // Display the results to the console window.
         Console.WriteLine($"Our given Broken Bridge {(CanBeUsable ? "can" : "can NOT")} be fixed up, and used!");
         return CanBeUsable;
+    }
+
+    /// <summary>
+    /// Here's the premise of the game '2048':
+    /// 2048 is a game where you need to slide numbered tiles (natural powers of 2) up, down, left or right on a square grid to combine them in a tile with the number 2048.
+    /// Basic rules of the game and tile sliding:
+    ///     1. Tiles slide as far as possible in the chosen direction until they are stopped by either another tile or the edge of the grid.
+    ///     2. If two tiles of the same number collide while moving, they will merge into a tile with the total value of the two tiles that collided.
+    ///     3. Tile cannot merge with another tile more than one time.
+    /// Our exercise should accept an array of positive integers, that contains only natural powers of 2 and 0 for empty tiles, as well as the direction into which we are sliding.
+    /// The output, should display the same array, after rule-set was applied into a given direction. Trailing zeros should remain.
+    /// Read more here: https://en.wikipedia.org/wiki/2048_(video_game)
+    /// </summary>
+    public int[] TileGame2048(int[]? array, Direction? slideDirection)
+    {
+        // If an array isn't provided to the method or is invalid, we create our own with some random integers that are powers of 2.
+        array = array == null || !array.Any() ? new int[] { 2, 2, 4, 4, 8, 8 } : array;
+        slideDirection = (Direction?)((!slideDirection.HasValue || slideDirection == null) ?
+                          Enum.GetValues(typeof(Direction)).GetValue(Random.Shared.Next(0, Enum.GetValues(typeof(Direction)).Length)) :
+                          slideDirection);
+        Console.WriteLine("Here's our input array, which we'll use to determine the total sum of missing numbers:");
+        array.ToList().ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+
+        // First of all, re-instantiate the array, by utilizing LINQ's Where function, to parse out zeros, since they are irrelevant for our solution. Trailing zeros will be added back into our array, after game's logic is applied.
+        array = array.Where(x => x > 0).ToArray();
+        // Also - create a list of integers, into which we'll place summed up numbers, that will later replace the original values of the input array.
+        List<int> combinedNumbers = new List<int>();
+
+        // Logic for LEFT side and RIGHT slide are slightly different, but the idea is more or less the same.
+        if (slideDirection == Direction.Left)
+        {
+            // Iterate over the length of the array, starting from zero, going all the way to the end.
+            for (int i = 0; i < array.Length; i++)
+            {
+                // Two checks to make - make sure that i + 1 does NOT exceed the bounds of our array, and if so - check whether current element and the next neighboring element are the same.
+                if (i + 1 <= array.Length - 1 && array[i] == array[i + 1])
+                {
+                    // If above conditions are met - add the sum of current and next neighboring elements' value as a new element of our combined numbers list.
+                    combinedNumbers.Add(array[i] + array[i + 1]);
+                    i++;    // Also - skip over one iteration, since we've already checked, and combined current and next neighboring elements
+                }
+                else
+                    combinedNumbers.Add(array[i]);  // If above conditions are not met (If current and next neighboring elements are different and can NOT be combined, because they are different values) just add it as-is to the list
+            }
+
+            // Iterate over the input array one more time, this time - replacing existing values with combined list values, and if they are null (combined list will have less values than the original, if any values were combined) - add trailing zeros.
+            for (int i = 0; i < array.Length; i++)
+                array[i] = i < combinedNumbers.Count && combinedNumbers[i] != null ? combinedNumbers[i] : 0;
+        }
+
+        // Logic for RIGHT slide is slightly different, since we need to make sure the order of our numbers is maintained correctly.
+        if (slideDirection == Direction.Right)
+        {
+            // Iterate over our input array BACKWARDS, starting from the end, going backwards all the way to the first element (0'th position)
+            for (int i = array.Length - 1; i >= 0; i--)
+            {
+                // Do the same comparison as for the LEFT slide - make sure two elements that we're comparing are NOT outside the bounds of the array, and check whether they are the same.
+                if (i - 1 >= 0 && array[i] == array[i - 1])
+                {
+                    // If above condition is met - INSERT the combined element into the 0'th position of our list. This will achieve the correct order of elements, by PUSHING the existing elements towards the back.
+                    combinedNumbers.Insert(0, array[i] + array[i - 1]);
+                    i--;    // Just as in LEFT slide - skip over one iteration, since we've already compared current, and the previous neighboring elements.
+                }
+                else
+                    combinedNumbers.Insert(0, array[i]);    // If above conditions are not met (If current and previous neighboring elements are different and can NOT be combined, because they are different values) just add it as-is to the list
+            }
+
+            // The way we achieve the act of adding trailing zeros is very simple - we INSERT an empty array of integers (which will have default value of 0), into the 0'th position of the list.
+            // Our empty array will have as many elements, and there is difference between total elements of the input array, minus the elements in the combined numbers list.
+            // So, if our original array had 6 elements ( For example array elements were [2, 2, 4, 4, 8, 8] ),
+            //      and combined list now has elements [4, 8, 16], we will INSERT in an array [0, 0, 0] at the 0'th position, we will end up with [0, 0, 0, 4, 8, 16], which is a correct solution for a single RIGHT slide.
+            combinedNumbers.InsertRange(0, new int[array.Length - combinedNumbers.Count]);
+            array = combinedNumbers.ToArray();
+        }
+
+        // Display the results to the console window.
+        Console.WriteLine($"Here's the result of our input array, after it was slid to '{Enum.GetName(typeof(Direction), slideDirection).ToUpper()}':");
+        array.ToList().ForEach(x => Console.Write($"{x} "));
+        Console.WriteLine();
+        return array;
     }
 }

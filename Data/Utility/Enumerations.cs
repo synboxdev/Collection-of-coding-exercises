@@ -1,6 +1,6 @@
 ﻿namespace Data.Utility;
 
-public enum RotationDirection
+public enum Direction
 {
     Left = 0,
     Right = 1
