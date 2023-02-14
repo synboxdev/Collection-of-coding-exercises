@@ -1,4 +1,5 @@
-﻿using Services;
+﻿using Data.Utility;
+using Services;
 
 namespace Tests;
 
@@ -15,7 +16,7 @@ public class ArraysServiceTests
     public void RotateArray_RotateArrayWithValidParameterValues_ReturnsValidResult()
     {
         Assert.Equal(new int[] { 7, 8, 4, 5, 6 },
-            arraysService.RotateArray(new int[] { 4, 5, 6, 7, 8 }, 2, Data.Utility.RotationDirection.Right));
+            arraysService.RotateArray(new int[] { 4, 5, 6, 7, 8 }, 2, Data.Utility.Direction.Right));
     }
 
     [Fact]
@@ -252,4 +253,17 @@ public class ArraysServiceTests
             new List<int>() { 1, 6, 2, 5 }));
     }
 
+    [Fact]
+    public void TileGame2048_TileGame2048WithValidParameterValuesSlideLeft_ReturnsValidResult()
+    {
+        Assert.Equal(new int[] { 4, 8, 8, 2, 8, 0, 0 },
+            arraysService.TileGame2048(new int[] { 2, 2, 4, 4, 8, 2, 8 }, Direction.Left));
+    }
+
+    [Fact]
+    public void TileGame2048_TileGame2048WithValidParameterValuesSlideRight_ReturnsValidResult()
+    {
+        Assert.Equal(new int[] { 0, 0, 4, 8, 8, 2, 8 },
+            arraysService.TileGame2048(new int[] { 2, 2, 4, 4, 8, 2, 8 }, Direction.Right));
+    }
 }
