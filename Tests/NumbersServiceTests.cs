@@ -416,4 +416,28 @@ public class NumbersServiceTests
     {
         Assert.Equal(16534, numbersService.HoleNumberSequenceSum(9053));
     }
+
+    [Fact]
+    public void CheckIfNumberIsTruncatablePrime_CheckIfNumberIsTruncatablePrimeWithValidParameter_ReturnsLeft()
+    {
+        Assert.Equal("Left", numbersService.CheckIfNumberIsTruncatablePrime(9137));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsTruncatablePrime_CheckIfNumberIsTruncatablePrimeWithValidParameter_ReturnsRight()
+    {
+        Assert.Equal("Right", numbersService.CheckIfNumberIsTruncatablePrime(5939));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsTruncatablePrime_CheckIfNumberIsTruncatablePrimeWithValidParameter_ReturnsBoth()
+    {
+        Assert.Equal("Both", numbersService.CheckIfNumberIsTruncatablePrime(317));
+    }
+
+    [Fact]
+    public void CheckIfNumberIsTruncatablePrime_CheckIfNumberIsTruncatablePrimeWithValidParameter_ReturnsNull()
+    {
+        Assert.Null(numbersService.CheckIfNumberIsTruncatablePrime(103));
+    }
 }

@@ -45,4 +45,5 @@ public interface INumbersService
     public string GoodEvilOrNeutralNumber(int? number);
     public int? CheckIfNumberIsApocalyptic(double? number);
     public int? HoleNumberSequenceSum(int? number);
+    public string? CheckIfNumberIsTruncatablePrime(int number);
 }
