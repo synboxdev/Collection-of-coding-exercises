@@ -1375,4 +1375,72 @@ public class NumbersService : INumbersService
         Console.WriteLine($"Starting from zero to {number}, there are total of {numberOfHoles} holes, in all of the numbers!");
         return numberOfHoles;
     }
+
+    /// <summary>
+    /// This exercise is an interesting variation of prime numbers. We can call this exercise - 'Truncatable Primes'. Here's the premise:
+    /// A number can be considered a 'Truncatable prime' if that number contains no 0 digits and, when the first (or last) digit is successively removed, the result is always prime.
+    ///     1. A left-truncatable prime is a prime number that contains no 0 digits and, when the first digit is successively removed, the result is always prime.
+    ///     2. A right-truncatable prime is a prime number that contains no 0 digits and, when the last digit is successively removed, the result is always prime.
+    /// If a given integer:
+    ///     1. Only a left-truncatable prime, we must return 'Left' as a result of our solution.
+    ///     2. Only a right-truncatable prime, we must return 'Right' as a result of our solution.
+    ///     3. Is both LEFT and RIGHT - we return 'Both'
+    ///     4. Is neither LEFT or RIGHT - we return a null value.
+    /// Here's few examples:
+    ///     Given an integer 5939, its considered to be RIGHT 'Truncatable prime', because 5939, 593, 59 and 5 are all prime
+    ///     Given an integer 317, its considered to be BOTH 'Truncatable prime', because 317, 17 and 7 are all prime (Successively taken from the left) and 317, 31 and 3 (Successively taken from the right) are all prime.
+    /// </summary>
+    public string? CheckIfNumberIsTruncatablePrime(int number)
+    {
+        // For this exercise, we'll be reusing our beloved 'CheckIfNumberIsPrime' solution, to simplify the process of solving this exercise, and not having to repeat ourselves by re-writing the same logic.
+        // If a number isn't provided to the method or is invalid, we pick a random integer between zero and 10000.
+        Console.WriteLine($"Picking a random positive integer to determine whether its a 'Truncatable' prime or not.");
+        number = (number == null || number <= 0) ? Random.Shared.Next(0, 10000) : number;
+        Console.WriteLine($"Number of our choice is {number}");
+
+        // First condition that we must check, before any other logic - is whether our input number contains zeros or not. If it does - it automatically is not compatible for further logic, and we must return null value.
+        if (number.ToString().Contains('0'))
+        {
+            Console.WriteLine($"Unfortunately, our input number {number} contains zeros");
+            return null;
+        }
+
+        // Initialize two Lists of type integer, to store numbers successively removing one-by-one from the left, and from the right
+        List<int> numbersFromLeft = new List<int>();
+        List<int> numbersFromRight = new List<int>();
+
+        // Run two separate loops, one that substrings the number from i'th position, all the way to the end, this way we get all successive numbers from the left.
+        for (int i = 0; i < number.ToString().Length; i++)
+            numbersFromLeft.Add(Convert.ToInt32(number.ToString().Substring(i)));
+
+        // Second loop simply substrings the number from 0'th position, by length of i. This way we get all successive numbers from the right.
+        for (int i = 1; i <= number.ToString().Length; i++)
+            numbersFromRight.Add(Convert.ToInt32(number.ToString().Substring(0, i)));
+
+        // Then - utilize a combination of LINQ .All function to determine whether ALL elements in each list ARE primes or not. This will yield us the result we want for our exercise.
+        bool IsNumberLeftTruncatable = numbersFromLeft.All(number => CheckIfNumberIsPrime(number, true));
+        bool IsNumberRightTruncatable = numbersFromRight.All(number => CheckIfNumberIsPrime(number, true));
+
+        // Once we've determined the solutions for our exercise - display the results to the console window, and return a valid answer.
+        if (IsNumberLeftTruncatable && IsNumberRightTruncatable)
+        {
+            Console.WriteLine($"Our input number {number} is both LEFT and RIGHT 'Truncatable' number!");
+            return "Both";
+        }
+        else if (IsNumberLeftTruncatable)
+        {
+            Console.WriteLine($"Our input number {number} is only LEFT 'Truncatable' number!");
+            return "Left";
+        }
+        else if (IsNumberRightTruncatable)
+        {
+            Console.WriteLine($"Our input number {number} is only RIGHT 'Truncatable' number!");
+            return "Right";
+        }
+        else
+        {
+            Console.WriteLine($"Unfortunately, our input number {number} is not a prime number at all.");
+            return null;
+        }
+    }
 }
