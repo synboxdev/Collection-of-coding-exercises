@@ -109,9 +109,9 @@ As mentioned in the introductory description of the project, this is inherently 
 * #### [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) / [Visual Studio Code](https://code.visualstudio.com/)
 * #### [Git](https://learn.microsoft.com/en-us/devops/develop/git/what-is-git) / [Sourcetree](https://www.sourcetreeapp.com/)
 
-Project, more specifically - solutions for the exercises thus far has been built, and will continue to be built, using only [standard framework libraries](https://learn.microsoft.com/en-us/dotnet/standard/framework-libraries), with the exception of unit tests, which are utilizing [Moq Framework](https://learn.microsoft.com/en-us/shows/visual-studio-toolbox/unit-testing-moq-framework) and [xUnit.net](https://xunit.net/) tools for input and output testing of our solutions.
+Project, more specifically - solutions for the exercises thus far have been built, and will continue to be built, using only [standard framework libraries](https://learn.microsoft.com/en-us/dotnet/standard/framework-libraries), with the exception of unit tests, which utilize [Moq Framework](https://learn.microsoft.com/en-us/shows/visual-studio-toolbox/unit-testing-moq-framework) and [xUnit.net](https://xunit.net/) tools for input/output testing of our solutions.
 
-Reasoning for this is relatively simple - main focus of the project is to solve variety of exercises and programming problems, using the standard set of tools available right out of the box using the .NET framework, and not rely on some third party libraries, extensions or tools.
+Reasoning for this is simple - main focus of the project is to solve a variety of exercises and programming problems, using the standard set of tools available right out of the box using the .NET framework, and not rely on third party libraries, extensions or tools.
 
 ---
 
