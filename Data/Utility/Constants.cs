@@ -15,4 +15,5 @@ public class CategoryName
     public const string Numbers = "numbers";
     public const string Arrays = "arrays";
     public const string DataStructures = "datastructures";
+    public const string Euler = "euler";
 }
