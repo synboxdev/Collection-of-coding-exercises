@@ -6,6 +6,7 @@
 * [Getting started](#getting-started)
     * [Downloading the repository](#downloading-the-repository)
     * [Starting the project](#starting-the-project)
+* [Project Euler](#project-euler)
 * [Technology stack](#technology-stack)
 * [Contributing](#Contributing)
 * [Code of Conduct](#code-of-conduct)
@@ -17,6 +18,8 @@
 Motive is to provide an accessible, nicely structured and documented project, that would be easy to navigate, and would provide users with well-written, functional and tested solutions, with necessary comments and explanations.
 
 Functionality, readability and simplicity are, and should be, the main focus of solutions to any and all exercises. Performance and efficiency are also important, but realistically speaking those are non-factors to these one-off, isolated problems and exercises that are being solved. However, suggestions or solutions that specifically focus on performance are always welcome.
+
+Additionally, this project also contains solutions for 'Project Euler'. I saw the need to mention it separately, since its not 'regular' type of problems and solutions per-se. See more in section [Project Euler](#project-euler)
 
 ---
 
@@ -96,6 +99,29 @@ dotnet run
 1. Open up the project's .sln file, which is navigated in <b>~\Collection-of-coding-exercises\Core</b> (File > Open > Project/Solution), or simply navigate to the directory yourself, and double-click <b>Collection of coding exercises.sln</b> which should open up in <b>Visual Studio</b>
 2. Make sure that <b>Core</b> project is selected as Startup Project - Open Solution Explorer (View > Solution Explorer), right-click on <b>Core</b> and select option 'Set and Startup Project'.
 3. Start the project (Debug > Start Without Debugging)
+
+---
+
+## Project Euler
+
+### What is Project Euler?
+
+Project Euler is a series of challenging mathematical/computer programming problems that will require more than just mathematical insights to solve. Although mathematics will help you arrive at elegant and efficient methods, the use of a computer and programming skills will be required to solve most problems.
+
+The motivation for starting Project Euler, and its continuation, is to provide a platform for the inquiring mind to delve into unfamiliar areas and learn new concepts in a fun and recreational context.
+
+### Who are the problems aimed at?
+
+The intended audience include students for whom the basic curriculum is not feeding their hunger to learn, adults whose background was not primarily mathematics but had an interest in things mathematical, and professionals who want to keep their problem solving and mathematics on the cutting edge.
+
+### Can anyone solve the problems?
+
+The problems range in difficulty and for many the experience is inductive chain learning. That is, by solving one problem it will expose you to a new concept that allows you to undertake a previously inaccessible problem. So the determined participant will slowly but surely work his/her way through every problem.
+
+### Credit & Copyright
+
+ * As mentioned above, all credit for these exercises goes to <b>https://projecteuler.net/about</b>. 
+ * The problem content on the site is licensed under a Creative Commons (CC) License. More details here: <b>https://projecteuler.net/copyright</b> 
 
 ---
 
