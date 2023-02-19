@@ -44,4 +44,37 @@ public class EulerService : IEulerService
         Console.WriteLine($"Total sum of multiples of 3 and 5, below 1000 is equal to {totalSum}");
         return totalSum;
     }
+
+    /// <summary>
+    /// By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
+    /// Read more here: https://projecteuler.net/problem=2
+    /// </summary>
+    public int EvenFibonacciNumbers()
+    {
+        // We will largely re-use our previously solved solution's logic from 'Numbers' category - 'FibonacciSeriesCalculationAndDisplay'
+        Console.WriteLine("We will be calculating the sum of even-valued Fibonacci sequence elements, whose values do not exceed four million");
+
+        // We initialize the first two values of our Fibonacci sequence which will be 2 and 4 (Since these are first even-valued values from zero), and add them to our list of integer elements.
+        int firstNumber = 2;
+        int secondNumber = 4;
+        List<int> fibonacciSequence = new List<int> { firstNumber, secondNumber };
+
+        // The exit condition with 'break' keyword is defined inside the loop itself.
+        while (true)
+        {
+            var nextNumber = firstNumber + secondNumber;        // Value of the next element in the sequence, is the addition of previous two.
+            firstNumber = secondNumber;                         // Then - our first number gets value of the second one..
+            secondNumber = nextNumber;                          // .. and our second number gets value of next number's (the one that was just calculated) value.
+
+            if (nextNumber <= 4000000 && nextNumber % 2 == 0)   // If the next number is below four million AND it happens to be an even-valued number - add it the list.
+                fibonacciSequence.Add(nextNumber);
+            else if (nextNumber <= 4000000)                     // If the next number is simply below four million (and is NOT even-valued) - continue iterating and re-calculating the next number.
+                continue;
+            else break;                                         // If our number is above four million - regardless whether its odd or even, we exit out of the loop.
+        }
+
+        int totalSum = fibonacciSequence.Sum();                 // Our total sum will simple be equal to the sum of all elements in the list. Since we've already ensued that it only contains even-valued Fibonacci sequence elements, whose values do not exceed four million.
+        Console.WriteLine($"Sum of even-valued Fibonacci sequence elements, whose values do not exceed four million is equal to {totalSum}");
+        return totalSum;
+    }
 }

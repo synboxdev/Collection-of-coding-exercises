@@ -22,4 +22,10 @@ public class EulerServiceTests
     {
         Assert.Equal(233168, eulerService.MultiplesOf3And5UsingLINQ());
     }
+
+    [Fact]
+    public void EvenFibonacciNumbers_EvenFibonacciNumbers_ReturnsValidResult()
+    {
+        Assert.Equal(7049152, eulerService.EvenFibonacciNumbers());
+    }
 }
