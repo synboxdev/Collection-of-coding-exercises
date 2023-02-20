@@ -8,7 +8,7 @@ public class NumbersService : INumbersService
     /// <summary>
     /// A prime number (or a prime) is a natural number greater than 1 that is not a product (result of multiplication) of two smaller natural numbers.
     /// </summary>
-    public bool CheckIfNumberIsPrime(int? number, bool muteConsoleOutput)
+    public bool CheckIfNumberIsPrime(double? number, bool muteConsoleOutput)
     {
         // Since this method is sometimes utilized by other solutions, I've modified it, to accept a boolean variable that will mute the Console output, when all we need is simply the boolean output of the method.
         TextWriter tw = Console.Out;

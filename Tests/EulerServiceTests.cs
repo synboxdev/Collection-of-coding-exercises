@@ -1,14 +1,17 @@
 ﻿using Services;
+using Services.Interfaces;
 
 namespace Tests;
 
 public class EulerServiceTests
 {
+    private readonly INumbersService numbersService;
     private readonly EulerService eulerService;
 
     public EulerServiceTests()
     {
-        eulerService = new EulerService();
+        numbersService = new NumbersService();
+        eulerService = new EulerService(numbersService);
     }
 
     [Fact]
@@ -27,5 +30,11 @@ public class EulerServiceTests
     public void EvenFibonacciNumbers_EvenFibonacciNumbers_ReturnsValidResult()
     {
         Assert.Equal(7049152, eulerService.EvenFibonacciNumbers());
+    }
+
+    [Fact]
+    public void LargestPrimeFactor_LargestPrimeFactor_ReturnsValidResult()
+    {
+        Assert.Equal(6857, eulerService.LargestPrimeFactor());
     }
 }

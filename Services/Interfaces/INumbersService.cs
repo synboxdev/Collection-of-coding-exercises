@@ -4,7 +4,7 @@ namespace Services.Interfaces;
 
 public interface INumbersService
 {
-    public bool CheckIfNumberIsPrime(int? number, bool muteConsoleOutput);
+    public bool CheckIfNumberIsPrime(double? number, bool muteConsoleOutput);
     public int FindSumOfDigitsOfAPositiveNumber(int number);
     public int FindSumOfDigitsOfAPositiveNumberParsingThroughEveryDigit(int number);
     public int FindSumOfDigitsOfAPositiveNumberUsingLINQ(int number);
