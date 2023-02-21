@@ -6,4 +6,6 @@ public interface IEulerService
     public int MultiplesOf3And5UsingLINQ();
     public int EvenFibonacciNumbers();
     public int LargestPrimeFactor();
+    public int LargestPalindromeProduct();
+    public int LargestPalindromeProductUsingLINQ();
 }

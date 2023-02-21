@@ -37,4 +37,16 @@ public class EulerServiceTests
     {
         Assert.Equal(6857, eulerService.LargestPrimeFactor());
     }
+
+    [Fact]
+    public void LargestPalindromeProduct_LargestPalindromeProduct_ReturnsValidResult()
+    {
+        Assert.Equal(906609, eulerService.LargestPalindromeProduct());
+    }
+
+    [Fact]
+    public void LargestPalindromeProductUsingLINQQuery_LargestPalindromeProductUsingLINQQuery_ReturnsValidResult()
+    {
+        Assert.Equal(906609, eulerService.LargestPalindromeProductUsingLINQ());
+    }
 }
