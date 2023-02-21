@@ -122,4 +122,56 @@ public class EulerService : IEulerService
                           $"Number {inputNumber} does NOT even have a single valid prime factor")}");
         return largestPrimeFactor;
     }
+
+    /// <summary>
+    /// Find the largest palindrome made from the product of two 3-digit numbers
+    /// Read more here: https://projecteuler.net/problem=4
+    /// </summary>
+    public int LargestPalindromeProduct()
+    {
+        Console.WriteLine($"We will be looking for largest palindrome made from the product of two 3-digit numbers");
+
+        // Define a variable to hold the highest valued palindrome.
+        int largestPalindromeProduct = 0;
+
+        // Utilize two for loops, each starting from 100, all the way to 999 (including 999).
+        // When iterating over these loops, two conditions must be met:
+        // 1. Product of multiplication, converted into a string, is equivalent to itself, when it is reversed.
+        // 2. Resulting value of multiplication (as a numeric value) is higher than our currently saved 'largestPalindromeProduct'.
+        // If both conditions are met - override our current 'largestPalindromeProduct' with current multiplication result. Otherwise, 'largestPalindromeProduct' value remains the same.
+        for (int i = 100; i <= 999; i++)
+            for (int j = 100; j <= 999; j++)
+                largestPalindromeProduct = (i * j).ToString().SequenceEqual((i * j).ToString().Reverse()) && i * j > largestPalindromeProduct ?
+                                            i * j :
+                                            largestPalindromeProduct;
+
+        // Display the result to the console window
+        Console.WriteLine($"Largest palindrome made from the product of two 3-digit numbers is equal to {largestPalindromeProduct}");
+        return largestPalindromeProduct;
+    }
+
+    public int LargestPalindromeProductUsingLINQ()
+    {
+        Console.WriteLine($"We will be looking for largest palindrome made from the product of two 3-digit numbers");
+
+        // Define a variable to hold the highest valued palindrome.
+        int largestPalindromeProduct = 0;
+
+        // Create an Enumerable collection of all three digit numbers. Starting from 100, all the way to 999.
+        var threeDigitNumbers = Enumerable.Range(100, 900);
+
+        // Create a LINQ Query that will technically join our three digit numbers' enumerable collection with itself, and determine whether the product of multiplication is a palindromic string.
+        var query = from first in threeDigitNumbers
+                    from second in threeDigitNumbers
+                    let product = first * second
+                    where product.ToString().SequenceEqual(product.ToString().Reverse())
+                    select product;
+
+        // Once the query is formed and all palindromes are extracted from the three digit numbers' enumerable collection - retrieve the highest valued element, and that is going to be our solution to the exercise.
+        largestPalindromeProduct = query.Max();
+
+        // Display the result to the console window
+        Console.WriteLine($"Largest palindrome made from the product of two 3-digit numbers is equal to {largestPalindromeProduct}");
+        return largestPalindromeProduct;
+    }
 }
