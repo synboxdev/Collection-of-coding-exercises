@@ -8,4 +8,5 @@ public interface IEulerService
     public int LargestPrimeFactor();
     public int LargestPalindromeProduct();
     public int LargestPalindromeProductUsingLINQ();
+    public int SmallestMultiple();
 }

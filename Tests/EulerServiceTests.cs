@@ -45,8 +45,14 @@ public class EulerServiceTests
     }
 
     [Fact]
-    public void LargestPalindromeProductUsingLINQQuery_LargestPalindromeProductUsingLINQQuery_ReturnsValidResult()
+    public void LargestPalindromeProductUsingLINQ_LargestPalindromeProductUsingLINQ_ReturnsValidResult()
     {
         Assert.Equal(906609, eulerService.LargestPalindromeProductUsingLINQ());
+    }
+
+    [Fact]
+    public void SmallestMultiple_SmallestMultiple_ReturnsValidResult()
+    {
+        Assert.Equal(232792560, eulerService.SmallestMultiple());
     }
 }

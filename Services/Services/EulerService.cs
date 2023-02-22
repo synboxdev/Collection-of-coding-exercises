@@ -174,4 +174,42 @@ public class EulerService : IEulerService
         Console.WriteLine($"Largest palindrome made from the product of two 3-digit numbers is equal to {largestPalindromeProduct}");
         return largestPalindromeProduct;
     }
+
+    /// <summary>
+    /// Find the smallest positive number that is evenly divisible by all of the numbers from 1 to 20
+    /// Read more here: https://projecteuler.net/problem=5
+    /// </summary>
+    public int SmallestMultiple()
+    {
+        // Probably one of the most simple solutions to this exercise.
+        // With very rough estimations, using Stopwatch class if we were to start smallestMultiple from 1, and increase it by one each iteration, solution is found in ~3.6 - 3.7 seconds. However, starting from 20, and increasing it by 20 each iteration, improves our solution time down to 0.3 seconds, which is quite nice.
+        Console.WriteLine($"We will be looking for smallest positive number that is evenly divisible by all of the numbers from 1 to 20");
+
+        // Define two variables before iterating to find the solutions. Default starting value for our smallest multiple, starting from 20, and a boolean variable to act as a 'trigger' using which we can break out of the loop, when the solution is found.
+        int smallestMultiple = 20;
+        bool isDivisibleByAll = false;
+
+        // Loop, until the solution is found, and boolean variable is false.
+        while (!isDivisibleByAll)
+        {
+            // Each iteration, we do internal loop, from 1 to 20 (inclusively), and check whether a given 'smallest multiple' variable is divisible without remainder from each iterator value.
+            // If its not - we can instantly break out of the looping, since there's no point in checking other divisions.
+            for (int i = 1; i <= 20; i++)
+            {
+                isDivisibleByAll = smallestMultiple % i == 0;
+                if (!isDivisibleByAll) break;
+            }
+
+            // If the boolean variable holds TRUE, when division WITHOUT remainder was check for all numbers 1-20, that mean the current 'smallest multiple' variable IS the solution to our exercise - we can fully break out of the loop.
+            if (isDivisibleByAll)
+                break;
+
+            // If the solution is yet to be found - we increase our current 'smallest multiple' variable by 20.
+            // This is more efficient than increasing it by one each iteration, since our number must be divisible out of 20 anyway, so might as well increase it by the maximum number that it must be divisible out of.
+            smallestMultiple += 20;
+        }
+
+        Console.WriteLine($"Smallest positive number that is evenly divisible by all of the numbers from 1 to 20 is equal to {smallestMultiple}");
+        return smallestMultiple;
+    }
 }
