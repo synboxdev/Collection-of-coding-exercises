@@ -212,4 +212,33 @@ public class EulerService : IEulerService
         Console.WriteLine($"Smallest positive number that is evenly divisible by all of the numbers from 1 to 20 is equal to {smallestMultiple}");
         return smallestMultiple;
     }
+
+    /// <summary>
+    /// Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum
+    /// Read more here: https://projecteuler.net/problem=6
+    /// </summary>
+    public int SumSquareDifference()
+    {
+        // This is a rather simple, yet functional and easily understandable solution to this exercise, without using mathematical derivations that would require an extensive further explanations, but instead - utilizing simple functionalities that we're provided with.
+        Console.WriteLine($"We will be looking for difference between the sum of the squares of the first one hundred natural numbers and the square of the sum");
+
+        int sumOfSquares = 0;       // This is sum of squares of each element. For examples 1^2 + 2^2 + 3^2 ... = ...
+        int sumOfNumbers = 0;       // This will be needed to calculate the square of the sum.
+
+        // We can utilize a single loop, to make all the necessary calculation, for both of our variables. Iterate starting from 1, all the way to 100 (inclusively)
+        for (int i = 1; i <= 100; i++)
+        {
+            sumOfSquares += (int)Math.Pow(i, 2);
+            sumOfNumbers += i;
+        }
+
+        // This is square of COMBINED sum of elements in a range. For example (1 + 2 + 3)^2 = ...
+        // Once we've calculated the sum of numbers, we can raise it to the power of two, and get the square of the sum.
+        int squareOfTheSum = (int)Math.Pow(sumOfNumbers, 2);
+
+        // Calculate the difference between square of the sum of numbers, minus sum of squares, and display the results to the console window
+        int difference = squareOfTheSum - sumOfSquares;
+        Console.WriteLine($"Difference between the sum of the squares of the first one hundred natural numbers and the square of the sum is equal to {difference}");
+        return difference;
+    }
 }
