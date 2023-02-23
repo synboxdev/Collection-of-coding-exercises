@@ -9,4 +9,5 @@ public interface IEulerService
     public int LargestPalindromeProduct();
     public int LargestPalindromeProductUsingLINQ();
     public int SmallestMultiple();
+    public int SumSquareDifference();
 }

@@ -55,4 +55,10 @@ public class EulerServiceTests
     {
         Assert.Equal(232792560, eulerService.SmallestMultiple());
     }
+
+    [Fact]
+    public void SumSquareDifference_SumSquareDifference_ReturnsValidResult()
+    {
+        Assert.Equal(25164150, eulerService.SumSquareDifference());
+    }
 }
