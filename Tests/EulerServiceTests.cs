@@ -61,4 +61,10 @@ public class EulerServiceTests
     {
         Assert.Equal(25164150, eulerService.SumSquareDifference());
     }
+
+    [Fact]
+    public void Get10001stPrime_Get10001stPrime_ReturnsValidResult()
+    {
+        Assert.Equal(104743, eulerService.Get10001stPrime());
+    }
 }

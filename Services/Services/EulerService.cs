@@ -19,6 +19,7 @@ public class EulerService : IEulerService
     }
 
     /// <summary>
+    /// Problem #1
     /// Find the sum of all the multiples of 3 or 5 below 1000.
     /// Read more here: https://projecteuler.net/problem=1
     /// </summary>
@@ -52,6 +53,7 @@ public class EulerService : IEulerService
     }
 
     /// <summary>
+    /// Problem #2
     /// By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
     /// Read more here: https://projecteuler.net/problem=2
     /// </summary>
@@ -85,6 +87,7 @@ public class EulerService : IEulerService
     }
 
     /// <summary>
+    /// Problem #3
     /// Find the largest prime factor of the number 600851475143
     /// Read more here: https://projecteuler.net/problem=3
     /// </summary>
@@ -124,6 +127,7 @@ public class EulerService : IEulerService
     }
 
     /// <summary>
+    /// Problem #4
     /// Find the largest palindrome made from the product of two 3-digit numbers
     /// Read more here: https://projecteuler.net/problem=4
     /// </summary>
@@ -176,6 +180,7 @@ public class EulerService : IEulerService
     }
 
     /// <summary>
+    /// Problem #5
     /// Find the smallest positive number that is evenly divisible by all of the numbers from 1 to 20
     /// Read more here: https://projecteuler.net/problem=5
     /// </summary>
@@ -214,6 +219,7 @@ public class EulerService : IEulerService
     }
 
     /// <summary>
+    /// Problem #6
     /// Find the difference between the sum of the squares of the first one hundred natural numbers and the square of the sum
     /// Read more here: https://projecteuler.net/problem=6
     /// </summary>
@@ -240,5 +246,38 @@ public class EulerService : IEulerService
         int difference = squareOfTheSum - sumOfSquares;
         Console.WriteLine($"Difference between the sum of the squares of the first one hundred natural numbers and the square of the sum is equal to {difference}");
         return difference;
+    }
+
+    /// <summary>
+    /// Problem #7
+    /// Find the value of 10001st prime number
+    /// Read more here: https://projecteuler.net/problem=7
+    /// </summary>
+    public int Get10001stPrime()
+    {
+        // Simple, easy to understand, rather elegant, but by far not the most efficient solution for the exercise.
+        Console.WriteLine($"We will be looking for the value of 10001st prime number");
+
+        // Initialize the variable to hold the number of primes we've iterated over, and hold the value of the current number. We start out from 2 since its the first prime number.
+        int primeCounter = 0;
+        int currentNumber = 2;
+
+        // Iterate until we've found 10001 primes.
+        while (primeCounter < 10001)
+        {
+            // If the current number IS a prime number - increase our prime number counter by one. Otherwise - it remains its value.
+            primeCounter = _numbersService.CheckIfNumberIsPrime(currentNumber, true) ? primeCounter + 1 : primeCounter;
+
+            // If we've found 10001 prime numbers - break out of the loop.
+            if (primeCounter == 10001)
+                break;
+            // Otherwise - increase our current number by one, and continue with the next iteration of the loop.
+            else
+                currentNumber++;
+        }
+
+        // Display our results into the console window
+        Console.WriteLine($"10001st prime number is equal to {currentNumber}");
+        return currentNumber;
     }
 }
