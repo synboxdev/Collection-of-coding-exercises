@@ -10,4 +10,5 @@ public interface IEulerService
     public int LargestPalindromeProductUsingLINQ();
     public int SmallestMultiple();
     public int SumSquareDifference();
+    public int Get10001stPrime();
 }
