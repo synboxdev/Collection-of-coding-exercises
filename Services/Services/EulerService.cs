@@ -280,4 +280,50 @@ public class EulerService : IEulerService
         Console.WriteLine($"10001st prime number is equal to {currentNumber}");
         return currentNumber;
     }
+
+    /// <summary>
+    /// Problem #8
+    /// Find the thirteen adjacent digits in the 1000-digit number that have the greatest product.
+    /// Read more here: https://projecteuler.net/problem=8
+    /// </summary>
+    public int[] LargestProductInASeries()
+    {
+        // This is one thousand digits that are provided by the exercise. I've put it in a single, long string.
+        string oneThousandDigits = "7316717653133062491922511967442657474235534919493496983520312774506326239578318016984801869478851843858615607891129494954595017379583319528532088055111254069874715852386305071569329096329522744304355766896648950445244523161731856403098711121722383113622298934233803081353362766142828064444866452387493035890729629049156044077239071381051585930796086670172427121883998797908792274921901699720888093776657273330010533678812202354218097512545405947522435258490771167055601360483958644670632441572215539753697817977846174064955149290862569321978468622482839722413756570560574902614079729686524145351004748216637048440319989000889524345065854122758866688116427171479924442928230863465674813919123162824586178664583591245665294765456828489128831426076900422421902267105562632111110937054421750694165896040807198403850962455444362981230987879927244284909188845801561660979191338754992005240636899125607176060588611646710940507754100225698315520005593572972571636269561882670428252483600823257530420752963450";
+        Console.WriteLine($"We will be looking for the thirteen adjacent digits in the 1000-digit number that have the greatest product");
+        Console.WriteLine($"One thousand digits in question are the following: {oneThousandDigits}");
+
+        // Define a few temporary variables that we'll need to find the solutions:
+        // The number of adjacent numbers that we're looking the product of, a variable to hold the value of their multiplication, and an integer array, to hold the values of the digits themselves.
+        int adjacentRange = 13;
+        double greatestProduct = 0;
+        int[] subsetOfElements = new int[adjacentRange];
+
+        // Iterate over the input string of digits, all the way to 986'th position. That's 1000 - 13 - 1.
+        // We subtract the number of the elements that we're looking for, plus an extra one, since we're staring iteration from the 0'th position element.
+        for (int i = 0; i < oneThousandDigits.Length - adjacentRange - 1; i++)
+        {
+            // Get an array of adjacent number. We do that by calling Substring function from LINQ library, and retrieving the numeric value of each char type element.
+            var adjacentNumbers = oneThousandDigits.Substring(i, adjacentRange).Select(number => Char.GetNumericValue(number)).ToArray();
+
+            // Initialize a temporary variable to hold the value of the product of multiplication of our digits. Give it initial value of 1, since if we multiple our element with zero - we'll end up with zero.
+            double productOfMultiplication = 1;
+            foreach (var number in adjacentNumbers)
+                productOfMultiplication *= number;
+
+            // If the product of multiplication is greater than previously saved - that means we've found thirteen adjacent digits, whose product is a greater value.
+            if (productOfMultiplication > greatestProduct)
+            {
+                // Replace the value of previously saved greatest product with a new value.
+                greatestProduct = productOfMultiplication;
+                // And save those adjacent digits into our 'subset of elements' variable.
+                subsetOfElements = adjacentNumbers.Select(number => Convert.ToInt32(number)).ToArray();
+            }
+        }
+
+        // Once the loop above is finished, we'll end up with a solution to our exercise. Display the results to the console window.
+        Console.WriteLine($"Greatest product of {adjacentRange} adjacent digits in the given 1000 digits is equal to {greatestProduct}. And the digits themselves are the following:");
+        subsetOfElements.ToList().ForEach(x => Console.Write($"{x} "));
+        return subsetOfElements;
+    }
 }

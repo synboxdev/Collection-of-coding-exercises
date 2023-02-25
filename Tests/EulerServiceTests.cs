@@ -67,4 +67,11 @@ public class EulerServiceTests
     {
         Assert.Equal(104743, eulerService.Get10001stPrime());
     }
+
+    [Fact]
+    public void LargestProductInASeries_LargestProductInASeries_ReturnsValidResult()
+    {
+        Assert.Equal(new int[] { 5, 5, 7, 6, 6, 8, 9, 6, 6, 4, 8, 9, 5 },
+            eulerService.LargestProductInASeries());
+    }
 }

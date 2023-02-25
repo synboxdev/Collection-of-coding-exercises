@@ -11,4 +11,5 @@ public interface IEulerService
     public int SmallestMultiple();
     public int SumSquareDifference();
     public int Get10001stPrime();
+    public int[] LargestProductInASeries();
 }
