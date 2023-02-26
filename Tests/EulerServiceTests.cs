@@ -74,4 +74,10 @@ public class EulerServiceTests
         Assert.Equal(new int[] { 5, 5, 7, 6, 6, 8, 9, 6, 6, 4, 8, 9, 5 },
             eulerService.LargestProductInASeries());
     }
+
+    [Fact]
+    public void SpecialPythagoreanTriplet_SpecialPythagoreanTriplet_ReturnsValidResult()
+    {
+        Assert.Equal(31875000, eulerService.SpecialPythagoreanTriplet());
+    }
 }
