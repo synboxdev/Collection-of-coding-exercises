@@ -12,4 +12,5 @@ public interface IEulerService
     public int SumSquareDifference();
     public int Get10001stPrime();
     public int[] LargestProductInASeries();
+    public int SpecialPythagoreanTriplet();
 }

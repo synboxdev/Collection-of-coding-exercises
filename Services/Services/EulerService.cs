@@ -326,4 +326,51 @@ public class EulerService : IEulerService
         subsetOfElements.ToList().ForEach(x => Console.Write($"{x} "));
         return subsetOfElements;
     }
+
+    /// <summary>
+    /// Problem #9
+    /// A Pythagorean triplet is a set of three natural numbers, a < b < c, for which, a^2 + b^2 = c^2.
+    /// There exists exactly one Pythagorean triplet for which a + b + c = 1000.
+    /// Find the product a*b*c
+    /// Read more here: https://projecteuler.net/problem=9
+    /// </summary>
+    public int SpecialPythagoreanTriplet()
+    {
+        // Define the sum, to which variables a, b and c should sum to.
+        int sumOfTriplet = 1000;
+        Console.WriteLine($"We will be looking for a product of Pythagorean triplet for which the sum of three numbers is equal to {sumOfTriplet}");
+
+        // Here's equations the we must keep in mind, when looking for a solution
+        // 1. a < b < c
+        // 2. a^2 + b^2 = c^2
+        // 3. c = 1000 - a - b      This means, that variable c is directly dependent on values of a and b. 
+
+        // Define a variable to hold the product of the Pythagorean triplet for which the sum of three numbers is equal to 1000. 
+        int? finalProduct = null;
+
+        int b = 0;                              // Define the iterator 'b' before the loop.
+        while (b <= sumOfTriplet / 2)           // Iteration for 'b' will loop until its value is equal or less than HALF of total sum of triplet.
+        {
+            int a = 0;                          // Define the iterator 'a' before the loop.
+            while (a < b)                       // Iteration for 'a' will loop until its less than 'b'. Since we must follow equation '1' (See above).
+            {
+                int c = sumOfTriplet - a - b;   // Value of 'c' is equal to sum of triplets, minus 'a' and minus 'a'. See equation '3' above.
+
+                if (a * a + b * b == c * c)     // If the number fits the rule-set of Pythagorean triplet - save the product of multiplication to our 'final product' variable, and break out of the loop.
+                {
+                    finalProduct = a * b * c;
+                    break;
+                }
+
+                a++;                            // Once an iteration has passed, increase iterator 'a' by one.
+            }
+            if (finalProduct != null)           // If our 'final product' has gained a value, i.e. is no longer a null - we can break out of the 'b' loop as well, since we've already found the solution to the exercise.
+                break;
+
+            b++;                                // Once an iteration has passed, increase iterator 'b' by one.
+        }
+
+        Console.WriteLine($"A product of the Pythagorean triplet, whose numbers sum to 1000, is equal to {finalProduct}");
+        return (int)finalProduct;
+    }
 }
