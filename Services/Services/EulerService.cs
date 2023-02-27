@@ -1,4 +1,5 @@
 ﻿using Services.Interfaces;
+using System.Collections;
 
 namespace Services;
 
@@ -372,5 +373,52 @@ public class EulerService : IEulerService
 
         Console.WriteLine($"A product of the Pythagorean triplet, whose numbers sum to 1000, is equal to {finalProduct}");
         return (int)finalProduct;
+    }
+
+    /// <summary>
+    /// Problem #10
+    /// Find the sum of all the primes below two million
+    /// Read more here: https://projecteuler.net/problem=10
+    /// We'll be implementing a simplified version of 'Sieve of Eratosthenes' algorithm.
+    /// Read more here: https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
+    /// </summary>
+    public double SummationOfPrimes()
+    {
+        Console.WriteLine($"We will be looking for the sum of all the primes below two million");
+
+        // Define a variable to hold the total sum of primes, below two million, as well as the upper limit of our exercise, which is two million.
+        double totalSum = 0;
+        int maxValue = 2000000;
+
+        // Initialize a variable equivalent to the square root of our maximum value to reduce the amount of prime calculations that needs to be done.
+        var sqrtOfMaxValue = (int)Math.Sqrt(maxValue);
+        // Initialize a BitArray, which you can consider as a more compact and more efficient variation of a boolean array.
+        // Consider this as a list of 'flags' which equate to TRUE if a given number is NOT a prime number, and FALSE is a number IS a prime number.
+        // Prior to further explanation - reason for this seemingly 'inverted' flagging, is because default value of BitArray elements is false. So we simply INVERT the value for numbers that are NOT primes.
+        BitArray composites = new BitArray(maxValue);
+
+        // First loop start at two (which is the very first prime), all the way to square root of our maximum value.
+        for (int i = 2; i <= sqrtOfMaxValue; ++i)
+        {
+            // If a given number's equivalent 'flag' is TRUE - its NOT a prime number, we skip over it.
+            if (composites[i]) continue;
+
+            // Otherwise - we will iterate over ALL the multiples of a given number, and set their 'flag' to TRUE, meaning - all those numbers are NOT primes.
+            // For example, we start from 2 (which is the first prime). This method will start from 4, then go to 6, 8, 10, etc., and 'flag' all those numbers as NOT primes
+            // Next example - number 3. This method will flag 9, 12, 15... as NOT primes. Next example - number 5. This method will flag 16, 20, 24... as NOT primes.
+            for (int j = i * i; j < maxValue; j += i)
+                composites[j] = true;
+
+            // Finally - add our current iterator number i to the total sum. If it WAS NOT a prime, it would've been skipped at the start of this loop.
+            totalSum += i;
+        }
+
+        // After all primes that are below the square root of our max value have been added to the total sum, and ALL multiples of them have been flagged, we must add the remaining primes to the total sum.
+        for (int i = sqrtOfMaxValue + 1; i < maxValue; ++i)
+            // If a given number has 'FALSE' flag, which mean it IS a prime number, add its value to the total sum.
+            totalSum += !composites[i] ? i : 0;
+
+        Console.WriteLine($"Total sum, of all prime numbers below two million is equal to {totalSum}");
+        return totalSum;
     }
 }

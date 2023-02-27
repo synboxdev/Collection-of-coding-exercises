@@ -13,4 +13,5 @@ public interface IEulerService
     public int Get10001stPrime();
     public int[] LargestProductInASeries();
     public int SpecialPythagoreanTriplet();
+    public double SummationOfPrimes();
 }
