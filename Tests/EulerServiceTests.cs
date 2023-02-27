@@ -80,4 +80,10 @@ public class EulerServiceTests
     {
         Assert.Equal(31875000, eulerService.SpecialPythagoreanTriplet());
     }
+
+    [Fact]
+    public void SummationOfPrimes_SummationOfPrimes_ReturnsValidResult()
+    {
+        Assert.Equal(142913828922, eulerService.SummationOfPrimes());
+    }
 }
