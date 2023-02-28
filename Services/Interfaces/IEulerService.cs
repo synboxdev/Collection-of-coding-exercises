@@ -14,4 +14,5 @@ public interface IEulerService
     public int[] LargestProductInASeries();
     public int SpecialPythagoreanTriplet();
     public double SummationOfPrimes();
+    public int LargestProductInAGrid();
 }

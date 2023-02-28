@@ -86,4 +86,10 @@ public class EulerServiceTests
     {
         Assert.Equal(142913828922, eulerService.SummationOfPrimes());
     }
+
+    [Fact]
+    public void LargestProductInAGrid_LargestProductInAGrid_ReturnsValidResult()
+    {
+        Assert.Equal(70600674, eulerService.LargestProductInAGrid());
+    }
 }
