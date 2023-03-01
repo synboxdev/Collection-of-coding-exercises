@@ -547,4 +547,61 @@ public class EulerService : IEulerService
         Console.WriteLine($"Greatest product of four adjacent elements in our grid is equal to {greatestProduct}");
         return greatestProduct;
     }
+
+    /// <summary>
+    /// Problem #12
+    /// Find the value of the first triangle number to have over five hundred divisors
+    /// Read more here: https://projecteuler.net/problem=12
+    /// </summary>
+    public int HighlyDivisibleTriangularNumber()
+    {
+        // Far from the most optimized solution, but its rather simple, readable, and performs decently (Finds solution in around half a second).
+        // To slightly optimize the solution, we'll re-use Prime checking solution from 'Numbers' category. As far as i tested, without it, solution is found in ~3.5s, with it, in about ~0.7s
+        Console.WriteLine($"We will be looking for the value of the first triangle number to have over five hundred divisors");
+
+        // Define a few variables that will be needed to find the solution.
+        int number = 1;             // Number that will be increased by one, in each iteration.
+        int currentNumber = 1;      // Current number will be the cumulative sum, of all previous natural numbers. 
+        int numberOfDivisors = 500; // This is our solution's end goal - to find a number, that will have OVER 500 divisors.
+        int divisorCounter = 0;     // And this is a temporary counter, to hold number of divisors the current number has. It will be reset after each iteration.
+
+        // While the current number has less than 500 divisors - continue iterating and looking for a solution.
+        while (divisorCounter <= numberOfDivisors)
+        {
+            // If a given number is Prime - it already falls out. Simply iterate our number variable and cumulative current number, and proceed to the next iteration.
+            if (_numbersService.CheckIfNumberIsPrime((int)Math.Sqrt(currentNumber), true))
+            {
+                number++;
+                currentNumber += number;
+                continue;
+            }
+
+            // Iterate from one, to the rounded square of our current number. Reason for this is that square root is a factor to the 'full number', and that vastly reduces the amount of variable we must check.
+            for (int i = 1; i <= (int)Math.Sqrt(currentNumber); i++)
+            {
+                // If the current number is divisible without remainder from iterator i - increase the divisor count by two.
+                // Here's an example - Lets say our current number is 400. Its square root is 20.
+                // If we start from 1, then 20 / 1 = 20 (No remainder), but so is 400 / 1 = 400 (No remainder)
+                // Next iteration, i = 2, then 20 / 2 = 10 (No remainder), but so is 400 / 2 = 200 (No remainder)
+                // So in other words - we're hitting two birds with one stone, by significantly reducing the amount of iterations needed, and still getting the correct number of divisors for a given number.
+                if (currentNumber % i == 0)
+                    divisorCounter += 2;
+            }
+
+            // Once we've counter how many divisors our current number has - check if its more than the desired amount. If so - exit the loop entirely.
+            if (divisorCounter > numberOfDivisors)
+                break;
+            // Otherwise - increase our number by one, and add its value to the cumulative sum of our current number. Also - reset the number of divisors of the current number, so it starts at zero for the next iteration.
+            else
+            {
+                number++;
+                currentNumber += number;
+                divisorCounter = 0;
+            }
+        }
+
+        // Display the results to the console window
+        Console.WriteLine($"First triangle number to have over five hundred divisors is equal to {currentNumber}");
+        return currentNumber;
+    }
 }

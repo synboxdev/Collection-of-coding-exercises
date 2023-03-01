@@ -15,4 +15,5 @@ public interface IEulerService
     public int SpecialPythagoreanTriplet();
     public double SummationOfPrimes();
     public int LargestProductInAGrid();
+    public int HighlyDivisibleTriangularNumber();
 }

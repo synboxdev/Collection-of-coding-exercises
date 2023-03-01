@@ -92,4 +92,10 @@ public class EulerServiceTests
     {
         Assert.Equal(70600674, eulerService.LargestProductInAGrid());
     }
+
+    [Fact]
+    public void HighlyDivisibleTriangularNumber_HighlyDivisibleTriangularNumber_ReturnsValidResult()
+    {
+        Assert.Equal(76576500, eulerService.HighlyDivisibleTriangularNumber());
+    }
 }
