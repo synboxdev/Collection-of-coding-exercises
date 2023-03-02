@@ -16,4 +16,5 @@ public interface IEulerService
     public double SummationOfPrimes();
     public int LargestProductInAGrid();
     public int HighlyDivisibleTriangularNumber();
+    public string LargeSum();
 }

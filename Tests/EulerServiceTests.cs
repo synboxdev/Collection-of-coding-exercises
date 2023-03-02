@@ -98,4 +98,10 @@ public class EulerServiceTests
     {
         Assert.Equal(76576500, eulerService.HighlyDivisibleTriangularNumber());
     }
+
+    [Fact]
+    public void LargeSum_LargeSum_ReturnsValidResult()
+    {
+        Assert.Equal("5537376230", eulerService.LargeSum());
+    }
 }
