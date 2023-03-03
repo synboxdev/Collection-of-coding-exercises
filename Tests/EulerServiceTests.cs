@@ -104,4 +104,10 @@ public class EulerServiceTests
     {
         Assert.Equal("5537376230", eulerService.LargeSum());
     }
+
+    [Fact]
+    public void LongestCollatzSequence_LongestCollatzSequence_ReturnsValidResult()
+    {
+        Assert.Equal(837799, eulerService.LongestCollatzSequence());
+    }
 }

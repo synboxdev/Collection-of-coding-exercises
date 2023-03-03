@@ -17,4 +17,5 @@ public interface IEulerService
     public int LargestProductInAGrid();
     public int HighlyDivisibleTriangularNumber();
     public string LargeSum();
+    public int LongestCollatzSequence();
 }
