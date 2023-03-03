@@ -729,4 +729,47 @@ public class EulerService : IEulerService
         Console.WriteLine($"The first ten digits of the sum of all these numbers is equal to {firstTenDigits}");
         return firstTenDigits;
     }
+
+    /// <summary>
+    /// Problem #14
+    /// Find which starting number, under one million, produces the longest chain
+    /// Read more here: https://projecteuler.net/problem=14
+    /// </summary>
+    public int LongestCollatzSequence()
+    {
+        Console.WriteLine($"We will determine which starting number, under one million, produces the longest chain");
+
+        // Initialize a variable that will hold the final value of a number, which will produce the longest Collatz's sequence.
+        KeyValuePair<int, int> numberWithLongestSequence = new KeyValuePair<int, int>(1, 1);
+
+        // Loop from one to one million.
+        for (int i = 1; i < 1000000; i++)
+        {
+            // Define placeholder variable for our starting number, and a variable to hold length of its Collatz sequence.
+            double startingNumber = i;
+            int lengthOfSequence = 1;
+
+            // While the current starting number's value is not equal to one - continue applying Collatz's sequence logic.
+            while (startingNumber != 1)
+            {
+                // Re-calculate the next value for the current number.
+                startingNumber = startingNumber % 2 == 0 ?  // Our number's next value will be based on whether its Odd or Even.
+                                 (startingNumber / 2) :     // If its even - divide it in half.
+                                 (startingNumber * 3) + 1;  // If its odd - multiply by 3 and add one.
+
+                // Increase length of its sequence by one.
+                lengthOfSequence++;
+                continue;
+            }
+
+            // If the length of the current number's sequence is greater than the length of previously saved number's - save it to our KeyValuePair variable, otherwise - it retains its value.
+            numberWithLongestSequence = lengthOfSequence > numberWithLongestSequence.Value ?
+                                        new KeyValuePair<int, int>(i, lengthOfSequence) :
+                                        numberWithLongestSequence;
+        }
+
+        // Display the results to the console window
+        Console.WriteLine($"Number, under one million, produces the longest chain of Collatz's sequence is equal to {numberWithLongestSequence.Key}, it's Collatz's sequence length is equal to {numberWithLongestSequence.Value}");
+        return numberWithLongestSequence.Key;
+    }
 }
