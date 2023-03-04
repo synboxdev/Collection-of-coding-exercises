@@ -18,4 +18,5 @@ public interface IEulerService
     public int HighlyDivisibleTriangularNumber();
     public string LargeSum();
     public int LongestCollatzSequence();
+    public double LatticePaths();
 }

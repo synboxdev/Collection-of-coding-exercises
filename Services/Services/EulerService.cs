@@ -772,4 +772,48 @@ public class EulerService : IEulerService
         Console.WriteLine($"Number, under one million, produces the longest chain of Collatz's sequence is equal to {numberWithLongestSequence.Key}, it's Collatz's sequence length is equal to {numberWithLongestSequence.Value}");
         return numberWithLongestSequence.Key;
     }
+
+    /// <summary>
+    /// Problem #15
+    /// Starting in the top left corner of a 20×20 grid, and only being able to move to the right and down, find how many possible route there are to reach the bottom right corner.
+    /// Read more here: https://projecteuler.net/problem=15
+    /// </summary>
+    public double LatticePaths()
+    {
+        // Solution for this exercise will be heavily based on math, following few topics - Factorials, combinatorics and Binomial_coefficient.
+        // Application of these topics, in basic form will be explained in the solution, but if you wish to read more, by all means - https://en.wikipedia.org/wiki/Factorial, https://en.wikipedia.org/wiki/Combinatorics, https://en.wikipedia.org/wiki/Binomial_coefficient#Factorial_formula
+        // We will also be re-using one of solutions from 'Numbers' category, to get factorial value of a given number.
+        Console.WriteLine($"Given a 20x20 grid, starting in top left corner, and only being able to move to the right and down, we will find how many possible route there are to reach the bottom right corner");
+
+        // Here's an explanation:
+        // First of all, lets establish a few things we know from the problem:
+        //      1. We may ONLY go right, or down.
+        //      2. Regardless on our path, there are 40 steps that we must make, to reach the bottom right corner.
+        //         That means, we must take at some point we must make 20 steps downwards, and 20 steps to the right.
+        //         One we step downwards, we automatically lose one possibility to choose from the step to the right, since there are now one less 'row' to step downwards from.
+        //      Think of 20 floor building, with an elevator (Us stepping downwards), and flight of stairs on each floor (which equals to us stepping to right).
+        //      If we take elevator from 20th to 19th floor, we lose 1 flight of stairs to choose from, since we can't go up (by rules of exercise).
+
+        // Rules and explanations leaves us with the following:
+        // How many different ways can you choose 20 elements out of a set of 40 elements. Meaning 20 choices of going down or right, to complete 40 steps to the finish.
+
+        // Here's where we apply Binomial coefficient - factorial formula, where n = 40, k = 20.
+        // That equates to 40!/((20!)(40-20)!), which simplifies to 40!/(20!)^2, and after canceling out one 20! with part of 40! leaves us with the following:
+        // (40 * 39 * 38 * ..... * 21) / 20!
+        // Meaning - 40 steps to take, 20 steps to either right or downwards.
+
+        // Now, we simply define variable to hold the value of calculation
+        double numberOfPossibleRoutes = 0;
+
+        // Apply the math defined above, and utilize 'FindFactorialOfAPositiveNumber' solution from 'Numbers' category.
+        // We apply the following:
+        //      40!/(20!)^2
+        numberOfPossibleRoutes =
+            Math.Floor          // I've utilized Math Floor to round the number, because doing calculation with big numbers seem to have left small decimal places.
+            (_numbersService.FindFactorialOfAPositiveNumber(40) /
+             Math.Pow(_numbersService.FindFactorialOfAPositiveNumber(20), 2));
+
+        Console.WriteLine($"Number of possible routes to reach the finish is equal to {numberOfPossibleRoutes}");
+        return numberOfPossibleRoutes;
+    }
 }

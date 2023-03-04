@@ -89,14 +89,14 @@ public class NumbersService : INumbersService
     /// Factorial of a non-negative integer n, denoted by n!, is the product of all positive integers less than or equal to n
     /// For example: 5! = 5 * 4! = 5 * 4 * 3 * 2 * 1
     /// </summary>
-    public int FindFactorialOfAPositiveNumber(int number)
+    public double FindFactorialOfAPositiveNumber(int number)
     {
         // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
         Console.WriteLine("Picking a random number between 1 and 10");
         number = number <= 0 ? Random.Shared.Next(1, 10) : number;
         Console.WriteLine($"Finding the factorial value of {number}");
 
-        int factorialValue = number;            // Starting value of our factorial will be equal to the provided input integer.
+        double factorialValue = number;         // Starting value of our factorial will be equal to the provided input integer.
         for (int i = number - 1; i >= 1; i--)   // Iterate from the starting input integer value, all the way down to 1.
             factorialValue *= i;                // Multiply our compounding factorial value variable by the loop iterator.
 
