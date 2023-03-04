@@ -110,4 +110,10 @@ public class EulerServiceTests
     {
         Assert.Equal(837799, eulerService.LongestCollatzSequence());
     }
+
+    [Fact]
+    public void LatticePaths_LatticePaths_ReturnsValidResult()
+    {
+        Assert.Equal(137846528820, eulerService.LatticePaths());
+    }
 }
