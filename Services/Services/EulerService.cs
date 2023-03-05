@@ -816,4 +816,27 @@ public class EulerService : IEulerService
         Console.WriteLine($"Number of possible routes to reach the finish is equal to {numberOfPossibleRoutes}");
         return numberOfPossibleRoutes;
     }
+
+    /// <summary>
+    /// Problem #16
+    /// Find the sum of the digits of the number 2^1000
+    /// Read more here: https://projecteuler.net/problem=16
+    /// </summary>
+    public int PowerDigitSum()
+    {
+        Console.WriteLine($"We will be calculating the sum of the digits of the number 2^1000");
+
+        // Calculate the full number of 2 raised to the power of 1000
+        double fullNumber = Math.Pow(2, 1000);
+
+        // Convert our number, into an array of individual digits.
+        // Also we utilize fixed-point format specifier for our ToString function, to get the 'full' number, without exponent or decimal values.
+        int[] arrayOfDigits = fullNumber.ToString("F0").ToCharArray().Select(digit => Convert.ToInt32(Char.GetNumericValue(digit))).ToArray();
+
+        // Calculate the sum of individual digits.
+        int sumOfDigits = arrayOfDigits.Aggregate((a, b) => a + b);
+
+        Console.WriteLine($"Sum of digits, of the number 2^1000, is equal to {sumOfDigits}");
+        return sumOfDigits;
+    }
 }
