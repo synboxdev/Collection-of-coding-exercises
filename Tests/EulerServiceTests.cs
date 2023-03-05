@@ -116,4 +116,10 @@ public class EulerServiceTests
     {
         Assert.Equal(137846528820, eulerService.LatticePaths());
     }
+
+    [Fact]
+    public void PowerDigitSum_PowerDigitSum_ReturnsValidResult()
+    {
+        Assert.Equal(1366, eulerService.PowerDigitSum());
+    }
 }
