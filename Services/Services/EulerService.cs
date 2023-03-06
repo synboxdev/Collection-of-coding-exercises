@@ -839,4 +839,126 @@ public class EulerService : IEulerService
         Console.WriteLine($"Sum of digits, of the number 2^1000, is equal to {sumOfDigits}");
         return sumOfDigits;
     }
+
+    /// <summary>
+    /// Problem #17
+    /// Find how many letters would be used, if all the numbers from 1 to 1000 (one thousand) inclusive were written out in words
+    /// Read more here: https://projecteuler.net/problem=17
+    /// </summary>
+    public int NumberLetterCounts()
+    {
+        Console.WriteLine($"We will find out how many letters would be used, if all the numbers from 1 to 1000 (one thousand) inclusive were written out in words");
+
+        // Define a few arrays that will hold spelled out value of single digits, values between 10 and 20, since they are spelled out differently, and flat tens (20, 30, .. etc.)
+        string[] singleDigit = new string[]
+        {
+            "",
+            "one",
+            "two",
+            "three",
+            "four",
+            "five",
+            "six",
+            "seven",
+            "eight",
+            "nine"
+        };
+
+        string[] tenToTwenty = new string[]
+        {
+            "ten",
+            "eleven",
+            "twelve",
+            "thirteen",
+            "fourteen",
+            "fifteen",
+            "sixteen",
+            "seventeen",
+            "eighteen",
+            "nineteen"
+        };
+
+        string[] tenFlat = new string[]
+        {
+            "",
+            "",
+            "twenty",
+            "thirty",
+            "forty",
+            "fifty",
+            "sixty",
+            "seventy",
+            "eighty",
+            "ninety"
+        };
+
+        // Initialize a variable to hold the total sum of letters used.
+        int lettersUsed = 0;
+
+        // Iterate from 1 to 1000 (inclusive)
+        for (int i = 1; i <= 1000; i++)
+        {
+            // Our 'current number' will be iterator i, converted into a string.
+            string currentNumber = i.ToString();
+
+            // Initialize variables to hold spelled out variations of thousands, hundreds, tens and single digits.
+            string thousands = string.Empty;
+            string hundreds = string.Empty;
+            string tens = string.Empty;
+            string ones = string.Empty;
+
+            // If a digit has length of 4, that's simply 'One thousand', since that's the extent to which our exercise goes, so we can hard code the value.
+            if (currentNumber.Length == 4)
+            {
+                thousands = "onethousand";
+            }
+            // If a digit has length of 3, that means its hundreds value.
+            // We take its 1'st element (at position 0), take the corresponding index at 'Single digit' array and then cut that element from the string.
+            // So for example we have digit '154' we take '1', get its corresponding value in 'Single digit' array, which would be second element (at position 1), which is equal to 'one'
+            //      And then we cut it out of the string, we we're continuing with '54' to the next conditional statement.
+            if (currentNumber.Length == 3)
+            {
+                hundreds = $"{singleDigit[Convert.ToInt32(currentNumber.Substring(0, 1))]}hundred";
+                currentNumber = currentNumber.Substring(1);
+            }
+            // If the digit has length of 2, that means we're in the tens.
+            // If the number is between 10 and 20, we take its 2nd element, and get its corresponding element at 'ten to twenty' array.
+            // For example we have number '18', we take '8' and get element at position 8 from 'ten to twenty' array which is 'eight'
+            // If the number is ABOVE 20, then we take its 1st element's value from 'ten flat' array, and its 2nd element's value from 'single digit' array.
+            if (currentNumber.Length == 2)
+            {
+                if (Convert.ToInt32(currentNumber) >= 10 &&
+                    Convert.ToInt32(currentNumber) < 20)
+                {
+                    tens += $"{tenToTwenty[Convert.ToInt32(currentNumber.Substring(1, 1))]}";
+                }
+                else
+                {
+                    tens += $"{tenFlat[Convert.ToInt32(currentNumber.Substring(0, 1))]}";
+                    ones += $"{singleDigit[Convert.ToInt32(currentNumber.Substring(1))]}";
+                }
+            }
+            // If our digit has length of 1, we simply get its corresponding element at 'single digits' array
+            if (currentNumber.Length == 1)
+            {
+                ones += $"{singleDigit[Convert.ToInt32(currentNumber)]}";
+            }
+
+            // Once all variables have been filled out accordingly, we will form the final string of the number.
+            // If a number has thousands OR hundreds value, we must add 'and' between them, and tens or ones (The use of "and" when writing out numbers is in compliance with British usage.)
+            // Other than that - we simply 'glue' all variables that hold spelled out variations together, into one single string, that has no spaces, hyphens or any other symbols.
+            string numberSpelledOut = $"{thousands}{hundreds}" +
+                                      $"{((!string.IsNullOrEmpty(thousands) || !string.IsNullOrEmpty(hundreds)) &&
+                                          (!string.IsNullOrEmpty(tens) || !string.IsNullOrEmpty(ones)) ? "and" : "")}" +
+                                      $"{(!string.IsNullOrEmpty(tens) ? $"{tens}" : "")}" +
+                                      $"{(!string.IsNullOrEmpty(ones) ? $"{ones}" : "")}";
+
+            // Add the length of our 'glued' together string, to the total amount of letters used.
+            lettersUsed += numberSpelledOut.Length;
+        }
+
+        // Display the results to the console window
+        Console.WriteLine($"Total of {lettersUsed} letters would be used, to spell out all numbers from 1 to 1000");
+        return lettersUsed;
+    }
 }
