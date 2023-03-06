@@ -122,4 +122,10 @@ public class EulerServiceTests
     {
         Assert.Equal(1366, eulerService.PowerDigitSum());
     }
+
+    [Fact]
+    public void NumberLetterCounts_NumberLetterCounts_ReturnsValidResult()
+    {
+        Assert.Equal(21124, eulerService.NumberLetterCounts());
+    }
 }

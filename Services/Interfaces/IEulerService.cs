@@ -20,4 +20,5 @@ public interface IEulerService
     public int LongestCollatzSequence();
     public double LatticePaths();
     public int PowerDigitSum();
+    public int NumberLetterCounts();
 }
