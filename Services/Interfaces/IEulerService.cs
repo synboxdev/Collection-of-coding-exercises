@@ -21,4 +21,5 @@ public interface IEulerService
     public double LatticePaths();
     public int PowerDigitSum();
     public int NumberLetterCounts();
+    public int MaximumPathSumI();
 }
