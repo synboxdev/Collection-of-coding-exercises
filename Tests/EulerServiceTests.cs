@@ -128,4 +128,10 @@ public class EulerServiceTests
     {
         Assert.Equal(21124, eulerService.NumberLetterCounts());
     }
+
+    [Fact]
+    public void MaximumPathSumI_MaximumPathSumI_ReturnsValidResult()
+    {
+        Assert.Equal(1074, eulerService.MaximumPathSumI());
+    }
 }

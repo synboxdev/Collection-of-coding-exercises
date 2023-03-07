@@ -961,4 +961,58 @@ public class EulerService : IEulerService
         Console.WriteLine($"Total of {lettersUsed} letters would be used, to spell out all numbers from 1 to 1000");
         return lettersUsed;
     }
+
+    /// <summary>
+    /// Problem #18
+    /// By starting at the top of the triangle below and moving to adjacent numbers on the row below, find the maximum total from top to bottom.
+    /// Read more here: https://projecteuler.net/problem=18
+    /// </summary>
+    public int MaximumPathSumI()
+    {
+        Console.WriteLine($"We will be calculating the maximum total moving from top to bottom, for the following triangle: ");
+        // Initialize the triangle that is given by the exercise.
+        var triangle =
+            "75\n" +
+            "95 64\n" +
+            "17 47 82\n" +
+            "18 35 87 10\n" +
+            "20 04 82 47 65\n" +
+            "19 01 23 75 03 34\n" +
+            "88 02 77 73 07 63 67\n" +
+            "99 65 04 28 06 16 70 92\n" +
+            "41 41 26 56 83 40 80 70 33\n" +
+            "41 48 72 33 47 32 37 16 94 29\n" +
+            "53 71 44 65 25 43 91 52 97 51 14\n" +
+            "70 11 33 28 77 73 17 78 39 68 17 57\n" +
+            "91 71 52 38 17 14 91 43 58 50 27 29 48\n" +
+            "63 66 04 68 89 53 67 30 73 16 69 87 40 31\n" +
+            "04 62 98 27 23 09 70 98 73 93 38 53 60 04 23";
+        Console.WriteLine(triangle);
+
+        // Initialize an array of string type elements, into which we pass the input triangle, by splitting it by new line (\n) symbol.
+        string[] rows = triangle.Split('\n').ToArray();
+
+        // We will be implementing 'Bottoms up' algorithm, where we calculate current row, by adding the higher of the two elements from the row BELOW the current on.
+        // Iterate over all the rows, starting from second to last, all the way to the top row.
+        for (int i = rows.Length - 2; i >= 0; i--)
+        {
+            // Get integer type arrays from both current, and the row below.
+            // We do that by taking each row (which is a string), splitting it by spaces, converting each element to integer type and adding them to an array.
+            int[] currentRowDigits = rows[i].Split(' ').Select(c => Convert.ToInt32(c)).ToArray();
+            int[] rowBelowDigits = rows[i + 1].Split(' ').Select(c => Convert.ToInt32(c)).ToArray();
+
+            // Iterate over the current row, and ADD the maximum of the two elements from the row BELOW.
+            // So for example, our current rows', current element is equal to 63. Two element BELOW it are 4 and 62. That means we'll add 62 to the current element 63, and end up with 125.
+            for (int j = 0; j < currentRowDigits.Length; j++)
+                currentRowDigits[j] += Math.Max(rowBelowDigits[j], rowBelowDigits[j + 1]);
+
+            // After the current row has been re-calculated, we re-insert it back into same place, inside our array of rows.
+            rows[i] = string.Join(" ", currentRowDigits);
+        }
+
+        // Our maximum total is the single element, at the very top of the pyramid, which is the sole element in the very first row.
+        int maximumTotal = Convert.ToInt32(rows[0]);
+        Console.WriteLine($"Maximum total from top to bottom is equal to {maximumTotal}");
+        return maximumTotal;
+    }
 }
