@@ -22,4 +22,5 @@ public interface IEulerService
     public int PowerDigitSum();
     public int NumberLetterCounts();
     public int MaximumPathSumI();
+    public int CountingSundays();
 }

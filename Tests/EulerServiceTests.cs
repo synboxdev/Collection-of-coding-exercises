@@ -134,4 +134,10 @@ public class EulerServiceTests
     {
         Assert.Equal(1074, eulerService.MaximumPathSumI());
     }
+
+    [Fact]
+    public void CountingSundays_CountingSundays_ReturnsValidResult()
+    {
+        Assert.Equal(171, eulerService.CountingSundays());
+    }
 }
