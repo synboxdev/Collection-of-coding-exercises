@@ -1015,4 +1015,35 @@ public class EulerService : IEulerService
         Console.WriteLine($"Maximum total from top to bottom is equal to {maximumTotal}");
         return maximumTotal;
     }
+
+    /// <summary>
+    /// Problem #19
+    /// Find out how many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000
+    /// Read more here: https://projecteuler.net/problem=19
+    /// </summary>
+    public int CountingSundays()
+    {
+        Console.WriteLine($"We will count how many Sundays fell on the first of the month during the twentieth century (1 Jan 1901 to 31 Dec 2000");
+
+        // Initialize our start and end dates which are provided by the exercise.
+        DateTime startDate = new DateTime(1901, 1, 1);
+        DateTime endDate = new DateTime(2000, 12, 31);
+
+        // Initialize a variable to hold the total count of sundays that fall on the first day of the month
+        int numberOfSundays = 0;
+
+        // Iterate until our start date, reaches our end date.
+        while (startDate <= endDate)
+        {
+            // By the rules of our exercise, our variable 'Number of sundays' increase by one if a given day is a Sunday, and it happens to be the very first day of the month.
+            numberOfSundays += startDate.DayOfWeek == DayOfWeek.Sunday && startDate.Day == 1 ? 1 : 0;
+
+            // At the end of each iteration - increase our 'Start' date by one singular day.
+            startDate = startDate.AddDays(1);
+        }
+
+        // Display the results to the console window.
+        Console.WriteLine($"During the twentieth century (1 Jan 1901 to 31 Dec 2000) a total of {numberOfSundays} sundays have fell exactly on the first day of the month!");
+        return numberOfSundays;
+    }
 }
