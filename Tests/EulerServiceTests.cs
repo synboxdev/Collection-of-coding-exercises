@@ -140,4 +140,10 @@ public class EulerServiceTests
     {
         Assert.Equal(171, eulerService.CountingSundays());
     }
+
+    [Fact]
+    public void FactorialDigitSum_FactorialDigitSum_ReturnsValidResult()
+    {
+        Assert.Equal(648, eulerService.FactorialDigitSum());
+    }
 }

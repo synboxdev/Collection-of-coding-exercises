@@ -1,5 +1,6 @@
 ﻿using Data.Utility;
 using Services.Interfaces;
+using System.Numerics;
 
 namespace Services;
 
@@ -89,18 +90,24 @@ public class NumbersService : INumbersService
     /// Factorial of a non-negative integer n, denoted by n!, is the product of all positive integers less than or equal to n
     /// For example: 5! = 5 * 4! = 5 * 4 * 3 * 2 * 1
     /// </summary>
-    public double FindFactorialOfAPositiveNumber(int number)
+    public BigInteger FindFactorialOfAPositiveNumber(int number, bool muteConsoleOutput)
     {
+        // Since this method is sometimes utilized by other solutions, I've modified it, to accept a boolean variable that will mute the Console output, when all we need is simply the boolean output of the method.
+        TextWriter tw = Console.Out;
+        if (muteConsoleOutput)
+            Console.SetOut(TextWriter.Null);
+
         // If a number isn't provided to the method or is invalid, we pick a random, positive integer number.
         Console.WriteLine("Picking a random number between 1 and 10");
         number = number <= 0 ? Random.Shared.Next(1, 10) : number;
         Console.WriteLine($"Finding the factorial value of {number}");
 
-        double factorialValue = number;         // Starting value of our factorial will be equal to the provided input integer.
+        BigInteger factorialValue = number;         // Starting value of our factorial will be equal to the provided input integer.
         for (int i = number - 1; i >= 1; i--)   // Iterate from the starting input integer value, all the way down to 1.
             factorialValue *= i;                // Multiply our compounding factorial value variable by the loop iterator.
 
         Console.WriteLine($"Factorial value of input number is equal to {factorialValue}");
+        Console.SetOut(tw);                     // 'Unmute' the Console window output.
         return factorialValue;
     }
 
