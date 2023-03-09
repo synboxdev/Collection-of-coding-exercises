@@ -45,7 +45,7 @@ public class NumbersServiceTests
     [Fact]
     public void FindFactorialOfAPositiveNumber_FindFactorialOfAPositiveNumberWithValidParameter_ReturnsValidAnswer()
     {
-        Assert.Equal(120, numbersService.FindFactorialOfAPositiveNumber(5));
+        Assert.Equal(120, numbersService.FindFactorialOfAPositiveNumber(5, true));
     }
 
     [Fact]

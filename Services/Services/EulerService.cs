@@ -810,8 +810,8 @@ public class EulerService : IEulerService
         //      40!/(20!)^2
         numberOfPossibleRoutes =
             Math.Floor          // I've utilized Math Floor to round the number, because doing calculation with big numbers seem to have left small decimal places.
-            (_numbersService.FindFactorialOfAPositiveNumber(40) /
-             Math.Pow(_numbersService.FindFactorialOfAPositiveNumber(20), 2));
+            ((double)_numbersService.FindFactorialOfAPositiveNumber(40, true) /
+             Math.Pow((double)_numbersService.FindFactorialOfAPositiveNumber(20, true), 2));
 
         Console.WriteLine($"Number of possible routes to reach the finish is equal to {numberOfPossibleRoutes}");
         return numberOfPossibleRoutes;
@@ -1045,5 +1045,29 @@ public class EulerService : IEulerService
         // Display the results to the console window.
         Console.WriteLine($"During the twentieth century (1 Jan 1901 to 31 Dec 2000) a total of {numberOfSundays} sundays have fell exactly on the first day of the month!");
         return numberOfSundays;
+    }
+
+    /// <summary>
+    /// Problem #20
+    /// Find the sum of the digits in the number 100!
+    /// Read more here: https://projecteuler.net/problem=20
+    /// </summary>
+    public int FactorialDigitSum()
+    {
+        // We will be re-utilizing a solution from 'Numbers' category - to calculate a factorial of a given number.
+        Console.WriteLine($"We will be calculating the sum of the digits in the number 100!");
+
+        // Get factorial value of number 100
+        var factorialValue = _numbersService.FindFactorialOfAPositiveNumber(100, true);
+
+        // Convert our number, into an array of individual digits.
+        // Also we utilize fixed-point format specifier for our ToString function, to get the 'full' number, without exponent or decimal values.
+        int[] arrayOfDigits = factorialValue.ToString("F0").ToCharArray().Select(digit => Convert.ToInt32(Char.GetNumericValue(digit))).ToArray();
+
+        // Calculate the sum of individual digits.
+        int sumOfDigits = arrayOfDigits.Aggregate((a, b) => a + b);
+
+        Console.WriteLine($"Total sum of the digits of the factorial 100! is equal to {sumOfDigits}");
+        return sumOfDigits;
     }
 }
