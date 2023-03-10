@@ -1070,4 +1070,46 @@ public class EulerService : IEulerService
         Console.WriteLine($"Total sum of the digits of the factorial 100! is equal to {sumOfDigits}");
         return sumOfDigits;
     }
+
+    /// <summary>
+    /// Problem #21
+    /// Evaluate the sum of all the amicable numbers under 10000
+    /// Read more here: https://projecteuler.net/problem=21
+    /// </summary>
+    public int AmicableNumbers()
+    {
+        Console.WriteLine($"We will calculate the sum of all the amicable numbers under 10000");
+
+        // Initialize a variable to hold the total sum of all amicable numbers.
+        int totalSum = 0;
+
+        // Top-most loop starts at 1, iterates up to 10000.
+        for (int i = 1; i < 10000; i++)
+        {
+            // Initialize a variable to hold the sum of divisors of the original number - which is our iterator i
+            int sumOfDivisorsOfFirst = 0;
+
+            // Iterate from 1 up to our current (original) number, and if it divides out of j without any remainder - add its value to the sum of divisors.
+            for (int j = 1; j < i; j++)
+                sumOfDivisorsOfFirst += i % j == 0 ? j : 0;
+
+            // Now, initialize a variable that will hold the sum of divisors of our second element. Since amicable number must form a pair with another number.
+            int sumOfDivisorsOfSecond = 0;
+
+            // Iterate from 1 up to the sum of divisors of the original number
+            // And if a the sum of the divisors of the original number, divides without remainder out of iterator k - we add its value to the sum of divisors of the second number.
+            for (int k = 1; k < sumOfDivisorsOfFirst; k++)
+                sumOfDivisorsOfSecond += sumOfDivisorsOfFirst % k == 0 ? k : 0;
+
+            // If the current (original) number is:
+            // 1. NOT equal to the sum of its divisors (for example, number 1 would have sum of divisors which is also equal to 1)
+            // 2. And its equal to its paired number's sum of divisors
+            // We add its value to the total sum. Its paired number (if its higher) will be add at a later time during its own iteration.
+            totalSum += i != sumOfDivisorsOfFirst && sumOfDivisorsOfSecond == i ? i : 0;
+        }
+
+        // Display results to the console window
+        Console.WriteLine($"Total sum of all amicable numbers under 10000 is equal to {totalSum}");
+        return totalSum;
+    }
 }
