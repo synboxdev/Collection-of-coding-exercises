@@ -146,4 +146,10 @@ public class EulerServiceTests
     {
         Assert.Equal(648, eulerService.FactorialDigitSum());
     }
+
+    [Fact]
+    public void AmicableNumbers_AmicableNumbers_ReturnsValidResult()
+    {
+        Assert.Equal(31626, eulerService.AmicableNumbers());
+    }
 }
