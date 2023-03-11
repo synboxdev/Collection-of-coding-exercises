@@ -152,4 +152,10 @@ public class EulerServiceTests
     {
         Assert.Equal(31626, eulerService.AmicableNumbers());
     }
+
+    [Fact]
+    public void NamesScores_ANamesScores_ReturnsValidResult()
+    {
+        Assert.Equal(871198282, eulerService.NamesScores());
+    }
 }

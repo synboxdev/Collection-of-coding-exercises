@@ -24,4 +24,5 @@ public interface IEulerService
     public int MaximumPathSumI();
     public int CountingSundays();
     public int AmicableNumbers();
+    public int NamesScores();
 }

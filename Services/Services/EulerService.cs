@@ -1112,4 +1112,54 @@ public class EulerService : IEulerService
         Console.WriteLine($"Total sum of all amicable numbers under 10000 is equal to {totalSum}");
         return totalSum;
     }
+
+    /// <summary>
+    /// Problem #22
+    /// Calculate total of all the name scores in the file (Based on exercises rules)
+    /// Read more here: https://projecteuler.net/problem=22
+    /// </summary>
+    public int NamesScores()
+    {
+        Console.WriteLine($"We will be calculating the total of all the name scores in the file (Based on exercises rules)");
+
+        // Define a variable that is path to the text file with all names
+        var namesFilePath = $@"{Directory.GetParent(Directory.GetCurrentDirectory())?.Parent?.Parent?.Parent?.FullName}\Data\TextFiles\ProjectEuler\Problem22.txt";
+        // Read all text from text file, remove quotation marks, and split by commas into an array of names. We immediately sort it alphabetically.
+        string[] allNames = File.ReadAllText(namesFilePath).Replace("\"", "").Split(',').OrderBy(a => a).ToArray();
+        // Also - define a character array with an English alphabet, which we will reference to get the position of any given character.
+        string alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+        // Also, we will utilize two dictionaries:
+        // Both will store names, sorted alphabetically as their KEYS, however:
+        //      First will simply store names' position as its VALUE.
+        //      Second dictionary will store each names' alphabetical value as its VALUE. (It will be calculated for each word)
+        var alphabeticalPosition = new Dictionary<string, int>();
+        var alphabeticalValue = new Dictionary<string, int>();
+
+        // Since our 'All names' variable is an already alphabetically sorted array, we can simply iterate over it, and add entries to both dictionary with proper VALUES.
+        for (int i = 0; i < allNames.Length; i++)
+        {
+            // Add current word as the KEY, and its position plus one, as the VALUE to the Positions dictionary.
+            alphabeticalPosition.Add(allNames[i], i + 1);
+
+            // Initialize a variable to hold the alphabetic value of a given word.
+            var valueOfWord = 0;
+            // Iterate over the word's length, and calculate its alphabetic value - we do this by summing the value of each individual characters' index in the alphabet plus one
+            for (int j = 0; j < allNames[i].Length; j++)
+                valueOfWord += alphabet.IndexOf(allNames[i][j]) + 1;
+
+            // Add current words as the KEY, and its alphabetic value as the VALUE to the 'Values' dictionary.
+            alphabeticalValue.Add(allNames[i], valueOfWord);
+        }
+
+        // Initialize a variable to hold the total name scores' value.
+        var totalNameScores = 0;
+        // Iterate over either of the dictionaries, since they are both same length, and sum the product of multiplication of VALUES of same indexed element from both dictionaries.
+        for (int i = 0; i < alphabeticalPosition.Count; i++)
+            totalNameScores += alphabeticalPosition.ElementAt(i).Value * alphabeticalValue.ElementAt(i).Value;
+
+        // Display the results to the console window
+        Console.WriteLine($"Total value of all names is equal to {totalNameScores}");
+        return totalNameScores;
+    }
 }
