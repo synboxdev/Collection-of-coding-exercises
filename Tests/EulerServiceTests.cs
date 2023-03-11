@@ -154,7 +154,7 @@ public class EulerServiceTests
     }
 
     [Fact]
-    public void NamesScores_ANamesScores_ReturnsValidResult()
+    public void NamesScores_NamesScores_ReturnsValidResult()
     {
         Assert.Equal(871198282, eulerService.NamesScores());
     }
